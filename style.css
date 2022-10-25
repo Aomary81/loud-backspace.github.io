@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Roboto&display=swap');
+* {
+    font-family: Roboto, Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+body {
+    background: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+#funny {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 250px;
+}
+h1, h2, p {
+    color: white;
+    margin: 10px 0;
+    animation: fadeInUp 1s;
+    animation-delay: 0.2s;
+}
+p {
+    font-size: 2rem;
+}
+h1, h2 {
+    font-size: 4rem;
+}
+@keyframes fadeInUp {
+    from {opacity: 0; margin-left: 200px;}
+    to {opacity: 1; margin: 10px 0;}
+}
