@@ -3,22 +3,12 @@ import { StyleSheet, Dimensions } from 'react-native';
 
 //Menu bar content space
 const topBarHeight = 50;
-const contentSpaceHeight = Dimensions.get('window').height - topBarHeight;
+const contentSpaceHeight = (Dimensions.get('window').height - topBarHeight);
 
+const colorPrimary = '#ffffff';
+const colorSecondary = '#33ddff';
+const colorTertiary = '000000';
 
-/*
-function contentSpaceWidth(){
-	
-	const screenWidth = useWindowDimensions().width;
-	
-	if(screenWidth > 800){
-		return (screenWidth - landscapeMenuBar);
-	}
-	else{
-		return ('80%');
-	}
-	
-}*/
 
 
 const PageLayouts = StyleSheet.create({
@@ -35,7 +25,7 @@ const PageLayouts = StyleSheet.create({
 		flexDirection: 'row',
 		width: '100%',
 		height: topBarHeight,
-		backgroundColor: '#33ddff',
+		backgroundColor: colorSecondary,
 	},
 	
 	contentSpace: {
@@ -46,7 +36,7 @@ const PageLayouts = StyleSheet.create({
 		//content alignment
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#dddddd',
+		backgroundColor: colorPrimary,
 	},
 	
 	contentColumn: {
@@ -58,7 +48,7 @@ const PageLayouts = StyleSheet.create({
 		//content alignment
 		alignItems: 'flex-start',
 		justifyContent: 'flex-start',
-		backgroundColor: '#ffffff',
+		backgroundColor: colorPrimary,
 		
 	},
 	
@@ -67,11 +57,53 @@ const PageLayouts = StyleSheet.create({
 		flexDirection: 'column',
 		//width: landscapeMenuBar,
 		height: '100%',
-		backgroundColor: '#33ddff',
+		backgroundColor: colorSecondary,
 		alignItems: 'flex-start',
 		justifyContent: 'flex-start',
 		
 	},
+	
+	//main content items go in content column as content page/tab
+	mainContentSpace: {
+		
+		flexDirection: 'column',
+		width: '100%',
+		height: '100%',
+		alignItems: 'flex-start',
+		justifyContent: 'flex-start',
+		backgroundColor: colorPrimary,
+		
+		
+	},
+	
+	mainContentItem: {
+		flexDirection: 'column',
+		width: '100%',
+		alignItems: 'flex-start',
+		justifyContent: 'flex-start',
+		backgroundColor: colorPrimary,
+	},
+	
+	userIconTitle: {
+		flexDirection: 'row',
+		width: '100%',
+		height: 50,
+		alignItems: 'flex-start',
+		justifyContent: 'flex-start',
+	},
+	
+	userIconTitleTextStack: {
+		flexDirection: 'column',
+		width: '100%',
+		height: '100%',
+		alignItems: 'flex-start',
+		justifyContent: 'flex-start'
+	},
+	
+	userIconSmall: {
+		width: 50,
+		height: 50,
+	}
 	
 });
 
