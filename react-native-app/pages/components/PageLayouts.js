@@ -88,7 +88,7 @@ const PageLayouts = StyleSheet.create({
 		flexDirection: 'row',
 		width: '100%',
 		height: 50,
-		alignItems: 'flex-start',
+		alignItems: 'center',
 		justifyContent: 'flex-start',
 	},
 	
