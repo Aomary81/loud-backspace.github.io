@@ -10,7 +10,7 @@ export default function RoommateCardTitle(props){
 			{//*
 			<Image
 				style={PageLayouts.userIconSmall}
-				source={require(""+props.img)}
+				source={{uri: ""+props.img}}
 			/>
 			//*/
 			}
