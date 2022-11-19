@@ -14,7 +14,7 @@ function ChatScreen() {
   const styles = StyleSheet.create({
     container:{
       flex: 1,
-      backgroundColor: '#ecba82',
+      backgroundColor: 'rgb(217, 217, 217)',
       alignItems: 'center',
       justifyContent: 'center'
     }
