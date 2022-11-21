@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { View, Text, StyleSheet, Button} from 'react-native';
 import { AuthContext } from '../../context';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native';
 import React from "react";
 
 function LoginScreen() {
@@ -26,15 +26,15 @@ function LoginScreen() {
       justifyContent: 'center'
     },
     text:{
-      fontSize: '3rem',
-      marginBottom: '20px',
+      fontSize: 30,
+      marginBottom: 20,
     },
     button:{
-      fontSize: '2rem',
-      marginBottom: '20px',
+      fontSize: 20,
+      marginBottom: 20,
       backgroundColor: 'deepskyblue',
       color: 'white',
-      padding: '15px',
-      borderRadius: '12px'
+      padding: 15,
+      borderRadius: 12
     }
   });
