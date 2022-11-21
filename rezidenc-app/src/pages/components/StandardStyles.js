@@ -7,8 +7,8 @@ const StandardStyles = StyleSheet.create({
 	container: {
 		
 		//flexbox stuff
-		padding: 10;
-		borderRadius: 15px;
+		padding: 10,
+		borderRadius: 15
 		
 	}
 	
