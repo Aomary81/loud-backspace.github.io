@@ -1,5 +1,5 @@
 ## Team Loud Backspace's Senior Project
-# Project Rezidenc
-#### A solution for shared housing problems
+![Rezidenc Logo](/react-native-app/assets/final-logo--rezidenc.png)
+ A solution for shared housing problems
 
 - Stuff goes here
