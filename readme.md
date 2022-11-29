@@ -40,7 +40,7 @@ List of the different libraries that we've touched
 
 ## Project Timeline
 
-Stick a screenshot of the jira timeline here
+![Rezidenc Roadmap](/readme_assets/rezidenc--roadmap.png)
 
 ## Development process
 
