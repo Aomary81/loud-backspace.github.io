@@ -9,7 +9,7 @@
 #### Web
 ![Web Design Goals](/readme_assets/rezidenc-web--demo.gif)
 #### Android
-![Web Design Goals](/readme_assets/rezidenc-mobile--demo.gif =200x434)
+![Web Design Goals](/readme_assets/rezidenc-mobile--demo.gif | width=200 height=434)
 
 ## Project areas
 
@@ -99,7 +99,7 @@ List of the different libraries that we've touched
 #### Current Design Goals For Web
 ![Web Design Goals](/readme_assets/Loudbackspace--prototypeweb.gif)
 #### Current Design Goals For Mobile
-![Web Design Goals](/readme_assets/Loudbackspace--Prototype.gif =251x507)
+![Web Design Goals](/readme_assets/Loudbackspace--Prototype.gif | width=251 height=507)
 
 ### Proposed User Flow
 
