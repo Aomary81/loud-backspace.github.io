@@ -99,7 +99,7 @@ List of the different libraries that we've touched
 #### Current Design Goals For Web
 ![Web Design Goals](/readme_assets/Loudbackspace--prototypeweb.gif)
 #### Current Design Goals For Mobile
-![Web Design Goals](/readme_assets/Loudbackspace--Prototype.gif)
+![Web Design Goals](/readme_assets/Loudbackspace--Prototype.gif =251x507)
 
 ### Proposed User Flow
 
