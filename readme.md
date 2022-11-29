@@ -9,7 +9,7 @@
 #### Web
 ![Web Design Goals](/readme_assets/rezidenc-web--demo.gif)
 #### Android
-![Web Design Goals](/readme_assets/rezidenc-mobile--demo.gif)
+![Web Design Goals](/readme_assets/rezidenc-mobile--demo.gif =200x434)
 
 ## Project areas
 
