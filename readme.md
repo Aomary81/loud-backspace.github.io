@@ -1,40 +1,60 @@
 # Synopsis
-![Rezidenc Logo](/react-native-app/assets/final-logo--rezidenc.png)
+![Rezidenc Logo](/readme_assets/rezidenc-logo-dark.png)
 #### A Team Loud Backspace Project
 
 -Project background goes here
 
 ## Supported Platforms
 
-#### Web
-![Web Design Goals](/readme_assets/rezidenc-web--demo.gif)
-#### Android
-![Web Design Goals](/readme_assets/rezidenc-mobile--demo.gif)  
+### Web
 
-## Project areas
+<details>
+  <summary>Click for a demo!</summary>
+  <br>
+  
+  ![Web Design Goals](/readme_assets/rezidenc-web--demo.gif)
+  
+</details>
+
+### Android
+
+<details>
+  <summary>Click for a demo!</summary>
+  <br>
+  
+  ![Web Design Goals](/readme_assets/rezidenc-mobile--demo.gif)  
+  
+</details>
+
+
+## Project Structure
 
 1. React Native App
 2. Express App Backend
-3. MongoDB database
+3. MongoDB Database
+4. Node Server Environment
 
-# Developer Instructions & Deployment
+## Development Environment Setup & Deployment
 
-## Project Dependencies 
+## Project Dependencies
 
-
-
-## Dev Server Launch Sequence 
-- Stuff goes here
+## Dev Server Launch Sequence
 
 ## Powered By
 
-Probably stick a picture of a collage of the different technologies used here
+![MongoDB](/readme_assets/mongodb.png)<br />
+![ExpressJS](/readme_assets/expressjs.png)<br />
+![React Native](/readme_assets/reactnative.png)<br />
+![NodeJS](/readme_assets/nodejs.png)<br />
+![Figma](/readme_assets/figma.png)<br />
+![Jira](/readme_assets/jira.jpg)<br />
+![Lucid Chart](/readme_assets/lucidchart.png)<br />
 
 ## Libraries Used
 
 List of the different libraries that we've touched
 
-# Project Development
+## Project Development
 
 ## Project TODO
 
@@ -80,7 +100,7 @@ List of the different libraries that we've touched
 - [ ] Integrate roommate finder UI with roommate filter API
 - [ ] Final deployment
 
-#### Low Priority Tasks
+## Low Priority Tasks
 - [ ] Setup UI Layout for Chat
 - [ ] Setup Chat API
 - [ ] Integrate chat UI with chat API
@@ -93,30 +113,28 @@ List of the different libraries that we've touched
 
 ![Rezidenc Roadmap](/readme_assets/rezidenc--roadmap.png)
 
-## Development process
+## Development Process
 
-### Project Design Goals
-#### Current Design Goals For Web
+## Project Design Goals
+### Current Design Goals For Web
 ![Web Design Goals](/readme_assets/Loudbackspace--prototypeweb.gif)
-#### Current Design Goals For Mobile
+### Current Design Goals For Mobile
 ![Web Design Goals](/readme_assets/Loudbackspace--Prototype.gif)
 
 ### Proposed User Flow
-
 ![User Flow](/readme_assets/LoudBackspace--UserFlow--JohnKieren.png)
 
 ### Project Entity Diagram
 
-
-
 ### Testing
-
-
 
 ### Developer Instructions (Contributing)
 
-
-
-## Contributors
-
-
+## Authors & Contributors
+- Aaron O'Mary
+- John Kieren
+- Kenneth Munk
+- Peter Abah
+- Andriy Storozhuk
+- Sahil Ram Jadhav
+- Ryan Farruggia - ![Website](http://rjfar.com) - ![Email](rjfarruggia@csus.edu)
