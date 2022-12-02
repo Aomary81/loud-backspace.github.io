@@ -1,5 +1,5 @@
 # Synopsis
-![Rezidenc Logo](/readme_assets/rezidenc-logo-dark.png)
+![Rezidenc Logo](/readme_assets/logos/rezidenc-logo-dark.png)
 #### A Team Loud Backspace Project
 
 Living with roommates can be a headache, especially when coordinating things like reminders, calendars, documents, communications with the property owner/manager/operator and each other. Derek Steege seeks to address these issues by packaging a master solution to all these problems into a single app that makes living arrangements with others easier. To test the demand and desire for his idea, Derek Steege accepted help from Team Loud Backspace to build out a working prototype for such an app.
@@ -12,7 +12,7 @@ Living with roommates can be a headache, especially when coordinating things lik
   <summary>Click for a demo!</summary>
   <br>
   
-  ![Web Design Goals](/readme_assets/rezidenc-web--demo.gif)
+  ![Web Demo GIF](/readme_assets/loudbackspaceweb.gif)
   
 </details>
 
@@ -22,7 +22,7 @@ Living with roommates can be a headache, especially when coordinating things lik
   <summary>Click for a demo!</summary>
   <br>
   
-  ![Web Design Goals](/readme_assets/rezidenc-mobile--demo.gif)  
+  ![Mobile Demo GIF](/readme_assets/loudbackspacemobile.gif)
   
 </details>
 
@@ -41,17 +41,33 @@ Living with roommates can be a headache, especially when coordinating things lik
 ## Dev Server Launch Sequence
 
 ## Powered By
-<img src="/readme_assets/mongodb.png" width="200" height="60">
-<img src="/readme_assets/expressjs.png" width="200" height="60">
-<img src="/readme_assets/reactnative.png" width="200" height="35">
-<img src="/readme_assets/nodejs.png" width="200" height="130">
-<img src="/readme_assets/jira.png" width="200" height="60">
-<img src="/readme_assets/figma.png" width="200" height="60">
-<img src="/readme_assets/lucidchart.png" width="200" height="30">
+<img align="left" src="/readme_assets/icons/mongodbicon.png" width="50" height="50" />
+<img align="left" src="/readme_assets/icons/expressjsicon.png" width="50" height="50" />
+<img align="left" src="/readme_assets/icons/reacticon.png" width="50" height="50" />
+<img align="left" src="/readme_assets/icons/nodejsicon.png" width="50" height="50" />
+<img align="left" src="/readme_assets/icons/jiraicon.png" width="50" height="50" />
+<img align="left" src="/readme_assets/icons/figmaicon.png" width="50" height="50" />
+<img align="left" src="/readme_assets/icons/lucidcharticon.png" width="50" height="50" />
+<br />
+<br />
+<br />
+
+<details>
+  <summary>View As A List</summary>
+  <br>
+  <ul>
+    <li>MongoDB</li>
+    <li>ExpressJS</li>
+    <li>React Native</li>
+    <li>NodeJS</li>
+    <li>Jira</li>
+    <li>Figma</li>
+    <li>Lucid Chart</li>
+  </ul>
+  
+</details>
 
 ## Libraries Used
-
-List of the different libraries that we've touched
 
 ## Project Development
 
@@ -107,21 +123,27 @@ List of the different libraries that we've touched
 - [ ] Roommate finder roommate application API setup
 - [ ] Integrate roommate application API with roommate application UI
 
-
 ## Project Timeline
 
-![Rezidenc Roadmap](/readme_assets/rezidenc--roadmap.png)
+<details>
+  <summary>Click to View</summary>
+  <br>
+  
+  ![Rezidenc Roadmap](/readme_assets/rezidenc--roadmap.png)
+  
+</details>
 
 ## Development Process
 
-## Project Design Goals
-### Current Design Goals For Web
-![Web Design Goals](/readme_assets/Loudbackspace--prototypeweb.gif)
-### Current Design Goals For Mobile
-![Web Design Goals](/readme_assets/Loudbackspace--Prototype.gif)
-
 ### Proposed User Flow
-![User Flow](/readme_assets/LoudBackspace--UserFlow--JohnKieren.png)
+<details>
+  <summary>Click to View</summary>
+  <br>
+  
+  ![User Flow](/readme_assets/LoudBackspace--UserFlow--JohnKieren.png)
+  
+</details>
+
 
 ### Project Entity Diagram
 
