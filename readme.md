@@ -34,11 +34,11 @@ Living with roommates can be a headache, especially when coordinating things lik
 3. MongoDB Database
 4. Node Server Environment
 
-## Development Environment Setup & Deployment
+## Environment Setup & Deployment
 
 ## Project Dependencies
 
-## Dev Server Launch Sequence
+## Development Server Launch Sequence
 
 ## Powered By
 <img align="left" src="/readme_assets/icons/mongodbicon.png" width="50" height="50" />
