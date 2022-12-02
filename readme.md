@@ -2,7 +2,7 @@
 ![Rezidenc Logo](/readme_assets/rezidenc-logo-dark.png)
 #### A Team Loud Backspace Project
 
--Project background goes here
+Living with roommates can be a headache, especially when coordinating things like reminders, calendars, documents, communications with the property owner/manager/operator and each other. Derek Steege seeks to address these issues by packaging a master solution to all these problems into a single app that makes living arrangements with others easier. To test the demand and desire for his idea, Derek Steege accepted help from Team Loud Backspace to build out a working prototype for such an app.
 
 ## Supported Platforms
 
@@ -41,14 +41,13 @@
 ## Dev Server Launch Sequence
 
 ## Powered By
-
-![MongoDB](/readme_assets/mongodb.png)<br />
-![ExpressJS](/readme_assets/expressjs.png)<br />
-![React Native](/readme_assets/reactnative.png)<br />
-![NodeJS](/readme_assets/nodejs.png)<br />
-![Figma](/readme_assets/figma.png)<br />
-![Jira](/readme_assets/jira.jpg)<br />
-![Lucid Chart](/readme_assets/lucidchart.png)<br />
+<img src="/readme_assets/mongodb.png" width="200" height="60">
+<img src="/readme_assets/expressjs.png" width="200" height="60">
+<img src="/readme_assets/reactnative.png" width="200" height="35">
+<img src="/readme_assets/nodejs.png" width="200" height="130">
+<img src="/readme_assets/jira.png" width="200" height="60">
+<img src="/readme_assets/figma.png" width="200" height="60">
+<img src="/readme_assets/lucidchart.png" width="200" height="30">
 
 ## Libraries Used
 
@@ -128,7 +127,7 @@ List of the different libraries that we've touched
 
 ### Testing
 
-### Developer Instructions (Contributing)
+### Pull Requests & Contribution Guidelines
 
 ## Authors & Contributors
 - Aaron O'Mary
