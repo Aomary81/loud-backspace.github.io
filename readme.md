@@ -1,5 +1,7 @@
 # Synopsis
+
 ![Rezidenc Logo](/readme_assets/logos/rezidenc-logo-dark.png)
+
 #### A Team Loud Backspace Project
 
 Living with roommates can be a headache, especially when coordinating things like reminders, calendars, documents, communications with the property owner/manager/operator and each other. Derek Steege seeks to address these issues by packaging a master solution to all these problems into a single app that makes living arrangements with others easier. To test the demand and desire for his idea, Derek Steege accepted help from Team Loud Backspace to build out a working prototype for such an app.
@@ -26,7 +28,6 @@ Living with roommates can be a headache, especially when coordinating things lik
   
 </details>
 
-
 ## Project Structure
 
 1. React Native App
@@ -37,6 +38,7 @@ Living with roommates can be a headache, especially when coordinating things lik
 # Environment Setup & Deployment
 
 ## Project Dependencies
+
 ```
   "dependencies": {
     "@expo/webpack-config": "^0.17.0",
@@ -64,18 +66,23 @@ Living with roommates can be a headache, especially when coordinating things lik
 ```
 
 ## Development Server Launch Sequence
+
 Install Node.js and run the following commands:
+
 ```
 npm install expo expo-cli react-native
 npx expo install react-dom react-native-web @expi/webpack-config
 ```
+
 Refer to the package.json to install the appropriate dependencies
 Then run the command
+
 ```
 npx expo start --web
 ```
 
 ## Powered By
+
 <img align="left" src="/readme_assets/icons/mongodbicon.png" width="50" height="50" />
 <img align="left" src="/readme_assets/icons/expressjsicon.png" width="50" height="50" />
 <img align="left" src="/readme_assets/icons/reacticon.png" width="50" height="50" />
@@ -116,7 +123,7 @@ npx expo start --web
 - [x] Create a datamodel for houses
 - [x] Fix small visuals of presentation day
 - [ ] \(WIP)Setup the basic layout for the reminders page
-- [X] \(QA)Pre-presentation QA
+- [x] \(QA)Pre-presentation QA
 - [ ] Create or import common content components based off of designs
 - [ ] Create or import a template for content pages
 - [ ] Revise and Review the mockups
@@ -149,6 +156,7 @@ npx expo start --web
 - [ ] Final deployment
 
 ## Low Priority Tasks
+
 - [ ] Setup UI Layout for Chat
 - [ ] Setup Chat API
 - [ ] Integrate chat UI with chat API
@@ -169,6 +177,7 @@ npx expo start --web
 ## Development Process
 
 ### Proposed User Flow
+
 <details>
   <summary>Click to View</summary>
   <br>
@@ -177,18 +186,27 @@ npx expo start --web
   
 </details>
 
-
 ### Project Entity Diagram
 
+<details>
+  <summary>Click to View</summary>
+  <br>
+  
+  ![ERD](/readme_assets/Rezidenc_ERD.png)
+  
+</details>
+
 ### Testing
-All testing was done as functional testing during development at this time.  More to come.
+
+All testing was done as functional testing during development at this time. More to come.
 
 <!--
 ### Pull Requests & Contribution Guidelines
 -->
 
 ## Authors & Contributors
-- Aaron O'Mary
+
+- Aaron O'Mary - [Email](mailto:aomary@csus.edu)
 - John Kieren - [Email](mailto:jkieren@csus.edu)
 - Kenneth Munk - [Website](https://www.kenmunk.com) - [Email](mailto:contact.me@kenmunk.com)
 - Peter Abah
