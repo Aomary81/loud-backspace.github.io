@@ -190,8 +190,8 @@ All testing was done as functional testing during development at this time.  Mor
 ## Authors & Contributors
 - Aaron O'Mary
 - John Kieren
-- Kenneth Munk - ![Website](https://www.kenmunk.com) - ![Email](contact.me@kenmunk.com)
+- Kenneth Munk - [Website](https://www.kenmunk.com) - [Email](contact.me@kenmunk.com)
 - Peter Abah
 - Andriy Storozhuk
 - Sahil Ram Jadhav
-- Ryan Farruggia - ![Website](http://rjfar.com) - ![Email](rjfarruggia@csus.edu)
+- Ryan Farruggia - [Website](http://rjfar.com) - [Email](rjfarruggia@csus.edu)
