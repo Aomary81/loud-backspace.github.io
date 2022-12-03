@@ -34,11 +34,46 @@ Living with roommates can be a headache, especially when coordinating things lik
 3. MongoDB Database
 4. Node Server Environment
 
-## Environment Setup & Deployment
+# Environment Setup & Deployment
 
 ## Project Dependencies
+```
+  "dependencies": {
+    "@expo/webpack-config": "^0.17.0",
+    "@react-native-masked-view/masked-view": "0.2.7",
+    "@react-navigation/bottom-tabs": "^6.4.0",
+    "@react-navigation/drawer": "^6.5.0",
+    "@react-navigation/native": "^6.0.13",
+    "@react-navigation/native-stack": "^6.9.1",
+    "expo": "~46.0.16",
+    "expo-status-bar": "~1.4.0",
+    "react": "18.0.0",
+    "react-dom": "18.0.0",
+    "react-native": "0.69.6",
+    "react-native-paper": "^5.0.0-rc.9",
+    "react-native-reanimated": "^2.9.1",
+    "react-native-vector-icons": "^9.2.0",
+    "react-native-web": "~0.18.7",
+    "react-navigation": "^4.4.4",
+    "yarn": "^1.22.19"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "babel-plugin-module-resolver": "^4.1.0"
+  },
+```
 
 ## Development Server Launch Sequence
+Install Node.js and run the following commands:
+```
+npm install expo expo-cli react-native
+npx expo install react-dom react-native-web @expi/webpack-config
+```
+Refer to the package.json to install the appropriate dependencies
+Then run the command
+```
+npx expo start --web
+```
 
 ## Powered By
 <img align="left" src="/readme_assets/icons/mongodbicon.png" width="50" height="50" />
@@ -66,8 +101,6 @@ Living with roommates can be a headache, especially when coordinating things lik
   </ul>
   
 </details>
-
-## Libraries Used
 
 ## Project Development
 
@@ -148,13 +181,16 @@ Living with roommates can be a headache, especially when coordinating things lik
 ### Project Entity Diagram
 
 ### Testing
+All testing was done as functional testing during development at this time.  More to come.
 
+<!--
 ### Pull Requests & Contribution Guidelines
+-->
 
 ## Authors & Contributors
 - Aaron O'Mary
 - John Kieren
-- Kenneth Munk
+- Kenneth Munk - ![Website](https://www.kenmunk.com) - ![Email](contact.me@kenmunk.com)
 - Peter Abah
 - Andriy Storozhuk
 - Sahil Ram Jadhav
