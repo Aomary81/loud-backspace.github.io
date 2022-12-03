@@ -209,7 +209,7 @@ All testing was done as functional testing during development at this time. More
 - Aaron O'Mary - [Email](mailto:aomary@csus.edu)
 - John Kieren - [Email](mailto:jkieren@csus.edu)
 - Kenneth Munk - [Website](https://www.kenmunk.com) - [Email](mailto:contact.me@kenmunk.com)
-- Peter Abah
-- Andriy Storozhuk
-- Sahil Ram Jadhav
+- Peter Abah - [Email](mailto:peterabah@csus.edu)
+- Andriy Storozhuk - [Email](mailto:astorozhuk@csus.edu)
+- Sahil Ram Jadhav - [Email](mailto:sahilramjadhav@csus.edu)
 - Ryan Farruggia - [Website](http://rjfar.com) - [Email](mailto:rjfarruggia@csus.edu)
