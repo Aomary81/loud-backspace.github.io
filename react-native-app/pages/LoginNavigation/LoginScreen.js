@@ -13,6 +13,7 @@ function LoginScreen() {
         <TouchableOpacity onPress={() => signIn()}>
           <Text style={styles.button}>Click Here</Text>
         </TouchableOpacity>
+        <Text>I made it big bc i cant aim -ryan</Text>
       </View>
     );
   }
@@ -21,20 +22,20 @@ function LoginScreen() {
   const styles = StyleSheet.create({
     container:{
       flex: 1,
-      backgroundColor: 'rgb(217, 217, 217)',
+      backgroundColor: '#ffffff',
       alignItems: 'center',
       justifyContent: 'center'
     },
     text:{
       fontSize: 30,
-      marginBottom: 20,
+      marginBottom: 20
     },
     button:{
-      fontSize: 20,
+      fontSize: 50,
       marginBottom: 20,
       backgroundColor: 'deepskyblue',
       color: 'white',
       padding: 15,
-      borderRadius: 12
+      borderRadius: 10
     }
   });

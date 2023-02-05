@@ -6,16 +6,21 @@ import PageLayouts from '@PageLayouts';
 export default function RoommateCardTitle(props){
 	
 	return(
-		<View style={PageLayouts.userIconTitle}>
-			{//*
+		<View style={{
+			flexDirection: 'row',
+			width: '98%',
+			alignItems: 'center',
+			justifyContent: 'flex-start',
+			padding: 10
+			}}>
+			{
 			<Image
-				style={PageLayouts.userIconSmall}
+				style={{height: 55, width: 55, borderRadius: 50, padding: 10}}
 				source={{uri: ""+props.img}}
 			/>
-			//*/
 			}
-			<View style={PageLayouts.userIconTitleTextStack}>
-				<Title>
+			<View style={{marginLeft: 10}}>
+				<Title style={{fontWeight: 'bold', fontSize: 21, margin: 0}}>
 				{props.name}
 				</Title>
 				<Text>

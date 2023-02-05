@@ -25,7 +25,7 @@ let name = 'Temporary Name'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ecba82',
+    backgroundColor: '#ffffff',
     alignItems: 'center',
   },
   profile:{

@@ -14,7 +14,7 @@ function CalendarScreen() {
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    backgroundColor: 'rgb(217, 217, 217)',
+    backgroundColor: '#ffffff',
     alignItems: 'center',
     justifyContent: 'center'
   }
