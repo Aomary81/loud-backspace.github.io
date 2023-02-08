@@ -6,8 +6,8 @@ const topBarHeight = 50;
 const contentSpaceHeight = (Dimensions.get('window').height - topBarHeight);
 
 const colorPrimary = '#ffffff';
-const colorSecondary = '#33ddff';
-const colorTertiary = '000000';
+const colorSecondary = '#ffffff';
+const colorTertiary = '#000000';
 
 
 
@@ -16,7 +16,6 @@ const PageLayouts = StyleSheet.create({
 	baseview: {
 		flex: 1,
 		flexDirection: 'column',
-		
 		//content alignment
 		alignItems: 'center',
 	},
@@ -53,27 +52,22 @@ const PageLayouts = StyleSheet.create({
 	},
 	
 	menuBar: {
-		
 		flexDirection: 'column',
 		//width: landscapeMenuBar,
 		height: '100%',
 		backgroundColor: colorSecondary,
 		alignItems: 'flex-start',
 		justifyContent: 'flex-start',
-		
 	},
 	
 	//main content items go in content column as content page/tab
 	mainContentSpace: {
-		
 		flexDirection: 'column',
 		width: '100%',
 		height: '100%',
 		alignItems: 'flex-start',
 		justifyContent: 'flex-start',
 		backgroundColor: colorPrimary,
-		
-		
 	},
 	
 	mainContentItem: {
@@ -81,13 +75,12 @@ const PageLayouts = StyleSheet.create({
 		width: '100%',
 		alignItems: 'flex-start',
 		justifyContent: 'flex-start',
-		backgroundColor: colorPrimary,
+		backgroundColor: colorPrimary
 	},
 	
 	userIconTitle: {
 		flexDirection: 'row',
-		width: '100%',
-		height: 50,
+		width: '98%',
 		alignItems: 'center',
 		justifyContent: 'flex-start',
 	},
@@ -103,8 +96,46 @@ const PageLayouts = StyleSheet.create({
 	userIconSmall: {
 		width: 50,
 		height: 50,
+		borderRadius: '50%'
+	},
+
+	container: {
+		display: 'flex',
+		marginLeft: 15,
+		marginRight: 15,
+		padding: 25
+	},
+
+	pageTitle: {
+		fontSize: 30,
+		fontWeight: 'bold'
+	},
+
+	pageDescription: {
+		fontSize: 18,
+		fontweight: '450',
+		textAlign: 'center',
+		paddingTop: 5,
+		paddingBottom: 5
+	},
+
+	pageContainer: {
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: 'white'
+	},
+
+	descriptionContainer: {
+		flexDirection: 'column',
+		width: '100%',
+		alignItems: 'center',
+		justifyContent: 'center',
+		textAlign: 'center',
+		backgroundColor: 'white',
+		paddingTop: 10,
+		paddingBottom: 10
 	}
-	
+
 });
 
 export default PageLayouts;

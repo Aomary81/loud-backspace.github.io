@@ -205,15 +205,21 @@ import CalendarNavigation from './pages/CalendarNavigation/CalendarNavigation';
 import RemindersNavigation from './pages/RemindersNavigation/RemindersNavigation';
 import LoginNavigation from './pages/LoginNavigation/LoginNavigation';
 
+import { View, Text, StyleSheet } from 'react-native';
+import { useWindowDimensions } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+
 const isWeb = Platform.OS === 'web';
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
-
 export default function App() {
   const [isLoggedIn, setLoginState] = React.useState(false);
+  const dimensions = useWindowDimensions();
+  const homeIcon = {
 
+  }
   const authContext = React.useMemo(() =>{
     return {
       signIn: () => {
@@ -230,10 +236,10 @@ export default function App() {
             <Tab.Navigator
               screenOptions={{
                 headerShown: false,
-                tabBarActiveTintColor: '#35827c',
-                tabBarInactiveTintColor: 'gray',
+                tabBarActiveTintColor: 'dodgerblue',
+                tabBarInactiveTintColor: '#888',
                 tabBarStyle: {
-                  backgroundColor: 'lightgray',
+                  backgroundColor: 'white',
                 }
               }}
             >
@@ -304,23 +310,85 @@ export default function App() {
               />
             </Tab.Navigator>
             ) : (
-            <Drawer.Navigator
-              screenOptions={{
-                headerStyle: {
-                  backgroundColor: 'lightgray'
-                },
-                drawerStyle: {
-                  backgroundColor: 'lightgray'
-                },
-                drawerActiveTintColor: '#35827c',
-                drawerInactiveTintColor: 'grey',
-              }}
+            <Drawer.Navigator 
+				screenOptions = {{
+					headerStyle: {
+						backgroundColor: 'white'
+					},
+					drawerStyle: {
+						backgroundColor: 'white',
+					},
+					drawerLabelStyle: {
+						fontSize: 30,
+						fontWeight: 'bold',
+						textAlign: 'left',
+						marginLeft: 0
+					},
+					drawerItemStyle: {
+						
+					},
+					drawerType: dimensions.width >= 768 ? 'permanent' : 'front',
+					drawerActiveTintColor: '#28303F',
+					drawerActiveBackgroundColor: '#AED1FF',
+					drawerInactiveTintColor: '#444',
+					drawerInactiveBackgroundColor: 'transparent'
+				}}
             >
-              <Drawer.Screen name="Dashboard" component={DashBoardNavigation} />
-              <Drawer.Screen name="Finder" component={FinderNavigation} />
-              <Drawer.Screen name="Chat" component={ChatNavigation} />
-              <Drawer.Screen name="Calendar" component={CalendarNavigation} />
-              <Drawer.Screen name="Reminders" component={RemindersNavigation} />
+              <Drawer.Screen 
+					name="Dashboard" 
+					component={DashBoardNavigation} 
+					options = {{
+						drawerIcon: ({focused, size}) => (
+						<Ionicons
+							name="md-home-outline"
+							size={25}
+							color={focused ? '#333' : '#555'}
+						/>
+				),}} />
+				<Drawer.Screen 
+					name="Finder" 
+					component={FinderNavigation} 
+					options = {{
+						drawerIcon: ({focused, size}) => (
+						<Ionicons
+							name="md-search-outline"
+							size={25}
+							color={focused ? '#333' : '#555'}
+						/>
+				),}} />
+				<Drawer.Screen 
+					name="Chat" 
+					component={ChatNavigation} 
+					options = {{
+						drawerIcon: ({focused, size}) => (
+						<Ionicons
+							name="md-chatbubbles-outline"
+							size={25}
+							color={focused ? '#333' : '#555'}
+						/>
+				),}} />
+				<Drawer.Screen 
+					name="Calendar" 
+					component={CalendarNavigation} 
+					options = {{
+						drawerIcon: ({focused, size}) => (
+						<Ionicons
+							name="md-calendar-outline"
+							size={25}
+							color={focused ? '#333' : '#555'}
+						/>
+				),}} />
+				<Drawer.Screen 
+					name="Reminders" 
+					component={RemindersNavigation} 
+					options = {{
+						drawerIcon: ({focused, size}) => (
+						<Ionicons
+							name="md-notifications-outline"
+							size={25}
+							color={focused ? '#333' : '#888'}
+						/>
+				),}} />
             </Drawer.Navigator>
             )
         ) : (

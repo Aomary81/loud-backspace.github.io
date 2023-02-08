@@ -6,26 +6,18 @@ import PageLayouts from '@PageLayouts';
 import RoommateCardTitle from './RoommateCardTitle';
 
 export default function RoommateCard(){
-	
 	return(
-	
-		<View style={ PageLayouts.mainContentItem}>
-			<Card style={{width: '100%', height: 100}}>
-				{
-				//*
-				<RoommateCardTitle 
-				img="https://picsum.photos/200"
-				name="Placeholder Roommate Name"
-				city="Someplace, California"/>
-				//*/
-				}
-				<Card.Content >
-					<Text>(User Tags Go Here)</Text>
+		<View style={PageLayouts.pageContainer}>
+			<Card style={{width: '95%', marginTop: 5, marginBottom: 5}}>
+				<RoommateCardTitle
+					img="https://picsum.photos/200"
+					name="Joe Shmoe"
+					city="Los Angeles, CA 75856"
+				/>
+				<Card.Content style={{textAlign: 'center', paddingTop: 8}}>
+					<Text style={{fontWeight: 'bold'}}>--- User Preferences Here ---</Text>
 				</Card.Content>
 			</Card>
 		</View>
-		
 	);
-	
 }
-

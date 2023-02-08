@@ -14,7 +14,7 @@ function DashBoardScreen() {
   const styles = StyleSheet.create({
     container:{
       flex: 1,
-      backgroundColor: 'rgb(217, 217, 217)',
+      backgroundColor: 'white',
       alignItems: 'center',
       justifyContent: 'center'
     }
