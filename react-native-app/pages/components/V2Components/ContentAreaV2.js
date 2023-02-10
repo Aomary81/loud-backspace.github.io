@@ -15,13 +15,13 @@ export default function ContentArea(props){
 			(
 				{
 					flex: 1,
-					flexDirection: 'Column',
-					justifyContent: 'center',
-					alignItems: 'center',
+					flexDirection: 'row',
+					justifyContent: 'flex-start',
+					alignItems: 'flex-start',
+					flexWrap: 'wrap',
 					alignSelf: 'stretch',
 					justifySelf: 'stretch',
-					overflow: 'hidden',
-					width: '100%'
+					overflow: 'hidden'
 				}, 
 				props.style
 			)
