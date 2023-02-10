@@ -21,7 +21,6 @@ export default function ContentArea(props){
 					alignSelf: 'stretch',
 					justifySelf: 'stretch',
 					overflow: 'hidden',
-					//backgroundColor: 'blue',
 					width: '100%'
 				}, 
 				props.style
