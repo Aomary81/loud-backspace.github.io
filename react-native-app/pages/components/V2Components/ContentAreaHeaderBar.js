@@ -19,7 +19,6 @@ export default function ContentAreaHeaderBar(props){
 					alignItems: 'center',
 					alignSelf: 'stretch',
 					overflow: 'hidden',
-					backgroundColor: 'yellow',
 					width: '100%',
 					height: 60
 				}, 
