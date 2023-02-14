@@ -188,28 +188,29 @@ export default function App() {
 	);
 }
 */
-import { NavigationContainer} from '@react-navigation/native';
-import { createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Platform } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { Platform } from "react-native";
 import React from "react";
 
-import { AuthContext} from './context';
+import { AuthContext } from "./context";
 
-import DashBoardNavigation from './pages/DashBoardNavigation/DashBoardNavigation';
-import FinderNavigation from './pages/FinderNavigation/FinderNavigation';
-import ChatNavigation from './pages/ChatNavigation/ChatNavigation';
-import CalendarNavigation from './pages/CalendarNavigation/CalendarNavigation';
-import RemindersNavigation from './pages/RemindersNavigation/RemindersNavigation';
-import LoginNavigation from './pages/LoginNavigation/LoginNavigation';
+import DashBoardNavigation from "./pages/DashBoardNavigation/DashBoardNavigation";
+import FinderNavigation from "./pages/FinderNavigation/FinderNavigation";
+import ChatNavigation from "./pages/ChatNavigation/ChatNavigation";
+import CalendarNavigation from "./pages/CalendarNavigation/CalendarNavigation";
+import RemindersNavigation from "./pages/RemindersNavigation/RemindersNavigation";
+import LoginNavigation from "./pages/LoginNavigation/LoginNavigation";
+import AccountNavigation from "./pages/AccountNavigation/AccountNavigation";
 
-import { View, Text, StyleSheet } from 'react-native';
-import { useWindowDimensions } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { View, Text, StyleSheet } from "react-native";
+import { useWindowDimensions } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
-const isWeb = Platform.OS === 'web';
+const isWeb = Platform.OS === "web";
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -217,16 +218,14 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   const [isLoggedIn, setLoginState] = React.useState(false);
   const dimensions = useWindowDimensions();
-  const homeIcon = {
-
-  }
-  const authContext = React.useMemo(() =>{
+  const homeIcon = {};
+  const authContext = React.useMemo(() => {
     return {
       signIn: () => {
         setLoginState(true);
-      }
-    }
-  },[])
+      },
+    };
+  }, []);
 
   return (
     <AuthContext.Provider value={authContext}>
@@ -236,172 +235,196 @@ export default function App() {
             <Tab.Navigator
               screenOptions={{
                 headerShown: false,
-                tabBarActiveTintColor: 'dodgerblue',
-                tabBarInactiveTintColor: '#888',
+                tabBarActiveTintColor: "dodgerblue",
+                tabBarInactiveTintColor: "#888",
                 tabBarStyle: {
-                  backgroundColor: 'white',
-                }
+                  backgroundColor: "white",
+                },
               }}
             >
-              <Tab.Screen name="Dashboard" component={DashBoardNavigation} 
+              <Tab.Screen
+                name="Dashboard"
+                component={DashBoardNavigation}
                 options={{
-                  tabBarIcon: ({focused,color,size })=>(
-                    <Ionicons 
-                      name={focused
-                        ? 'home'
-                        : 'home-outline'} 
-                      size={size} 
-                      color={color} 
-                    />
-                  )
-                }}
-              />
-              <Tab.Screen name="Finder" component={FinderNavigation} 
-                options={{
-                  tabBarIcon: ({focused,color,size })=>(
-                    <Ionicons 
-                      name={focused 
-                        ? 'search' 
-                        : 'search-outline'} 
-                      size={size} 
+                  tabBarIcon: ({ focused, color, size }) => (
+                    <Ionicons
+                      name={focused ? "home" : "home-outline"}
+                      size={size}
                       color={color}
                     />
-                  )
+                  ),
                 }}
               />
-              <Tab.Screen name="Chat" component={ChatNavigation} 
+              <Tab.Screen
+                name="Finder"
+                component={FinderNavigation}
                 options={{
-                  tabBarIcon: ({focused,color,size })=>(
-                    <Ionicons 
-                      name={focused 
-                        ? 'chatbubble-ellipses' 
-                        : 'chatbubble-ellipses-outline'} 
-                      size={size} 
-                      color={color} 
+                  tabBarIcon: ({ focused, color, size }) => (
+                    <Ionicons
+                      name={focused ? "search" : "search-outline"}
+                      size={size}
+                      color={color}
                     />
-                  )
+                  ),
                 }}
               />
-              <Tab.Screen name="Calendar" component={CalendarNavigation} 
+              <Tab.Screen
+                name="Chat"
+                component={ChatNavigation}
                 options={{
-                  tabBarIcon: ({focused,color,size })=>(
-                    <Ionicons 
-                      name={focused 
-                        ? 'calendar' 
-                        : 'calendar-outline'} 
-                      size={size} 
-                      color={color} 
+                  tabBarIcon: ({ focused, color, size }) => (
+                    <Ionicons
+                      name={
+                        focused
+                          ? "chatbubble-ellipses"
+                          : "chatbubble-ellipses-outline"
+                      }
+                      size={size}
+                      color={color}
                     />
-                  )
+                  ),
                 }}
               />
-              <Tab.Screen name="Reminders" component={RemindersNavigation} 
+              <Tab.Screen
+                name="Calendar"
+                component={CalendarNavigation}
                 options={{
-                  tabBarIcon: ({focused,color,size })=>(
-                    <Ionicons 
-                      name={focused 
-                        ? 'checkbox' 
-                        : 'checkbox-outline'} 
-                      size={size} 
-                      color={color} 
+                  tabBarIcon: ({ focused, color, size }) => (
+                    <Ionicons
+                      name={focused ? "calendar" : "calendar-outline"}
+                      size={size}
+                      color={color}
                     />
-                  )
+                  ),
+                }}
+              />
+              <Tab.Screen
+                name="Reminders"
+                component={RemindersNavigation}
+                options={{
+                  tabBarIcon: ({ focused, color, size }) => (
+                    <Ionicons
+                      name={focused ? "checkbox" : "checkbox-outline"}
+                      size={size}
+                      color={color}
+                    />
+                  ),
                 }}
               />
             </Tab.Navigator>
-            ) : (
-            <Drawer.Navigator 
-				screenOptions = {{
-					headerStyle: {
-						backgroundColor: 'white'
-					},
-					drawerStyle: {
-						backgroundColor: 'white',
-					},
-					drawerLabelStyle: {
-						fontSize: 30,
-						fontWeight: 'bold',
-						textAlign: 'left',
-						marginLeft: 0
-					},
-					drawerItemStyle: {
-						
-					},
-					drawerType: dimensions.width >= 768 ? 'permanent' : 'front',
-					drawerActiveTintColor: '#28303F',
-					drawerActiveBackgroundColor: '#AED1FF',
-					drawerInactiveTintColor: '#444',
-					drawerInactiveBackgroundColor: 'transparent'
-				}}
+          ) : (
+            <Drawer.Navigator
+              screenOptions={{
+                headerStyle: {
+                  backgroundColor: "white",
+                },
+                drawerStyle: {
+                  backgroundColor: "white",
+                },
+                drawerLabelStyle: {
+                  fontSize: 30,
+                  fontWeight: "bold",
+                  textAlign: "left",
+                  marginLeft: 0,
+                },
+                drawerItemStyle: {},
+                drawerType: dimensions.width >= 768 ? "permanent" : "front",
+                drawerActiveTintColor: "#28303F",
+                drawerActiveBackgroundColor: "#AED1FF",
+                drawerInactiveTintColor: "#444",
+                drawerInactiveBackgroundColor: "transparent",
+              }}
             >
-              <Drawer.Screen 
-					name="Dashboard" 
-					component={DashBoardNavigation} 
-					options = {{
-						drawerIcon: ({focused, size}) => (
-						<Ionicons
-							name="md-home-outline"
-							size={25}
-							color={focused ? '#333' : '#555'}
-						/>
-				),}} />
-				<Drawer.Screen 
-					name="Finder" 
-					component={FinderNavigation} 
-					options = {{
-						drawerIcon: ({focused, size}) => (
-						<Ionicons
-							name="md-search-outline"
-							size={25}
-							color={focused ? '#333' : '#555'}
-						/>
-				),}} />
-				<Drawer.Screen 
-					name="Chat" 
-					component={ChatNavigation} 
-					options = {{
-						drawerIcon: ({focused, size}) => (
-						<Ionicons
-							name="md-chatbubbles-outline"
-							size={25}
-							color={focused ? '#333' : '#555'}
-						/>
-				),}} />
-				<Drawer.Screen 
-					name="Calendar" 
-					component={CalendarNavigation} 
-					options = {{
-						drawerIcon: ({focused, size}) => (
-						<Ionicons
-							name="md-calendar-outline"
-							size={25}
-							color={focused ? '#333' : '#555'}
-						/>
-				),}} />
-				<Drawer.Screen 
-					name="Reminders" 
-					component={RemindersNavigation} 
-					options = {{
-						drawerIcon: ({focused, size}) => (
-						<Ionicons
-							name="md-notifications-outline"
-							size={25}
-							color={focused ? '#333' : '#888'}
-						/>
-				),}} />
+              <Drawer.Screen
+                name="Dashboard"
+                component={DashBoardNavigation}
+                options={{
+                  drawerIcon: ({ focused, size }) => (
+                    <Ionicons
+                      name="md-home-outline"
+                      size={25}
+                      color={focused ? "#333" : "#555"}
+                    />
+                  ),
+                }}
+              />
+              <Drawer.Screen
+                name="Finder"
+                component={FinderNavigation}
+                options={{
+                  drawerIcon: ({ focused, size }) => (
+                    <Ionicons
+                      name="md-search-outline"
+                      size={25}
+                      color={focused ? "#333" : "#555"}
+                    />
+                  ),
+                }}
+              />
+              <Drawer.Screen
+                name="Chat"
+                component={ChatNavigation}
+                options={{
+                  drawerIcon: ({ focused, size }) => (
+                    <Ionicons
+                      name="md-chatbubbles-outline"
+                      size={25}
+                      color={focused ? "#333" : "#555"}
+                    />
+                  ),
+                }}
+              />
+              <Drawer.Screen
+                name="Calendar"
+                component={CalendarNavigation}
+                options={{
+                  drawerIcon: ({ focused, size }) => (
+                    <Ionicons
+                      name="md-calendar-outline"
+                      size={25}
+                      color={focused ? "#333" : "#555"}
+                    />
+                  ),
+                }}
+              />
+              <Drawer.Screen
+                name="Reminders"
+                component={RemindersNavigation}
+                options={{
+                  drawerIcon: ({ focused, size }) => (
+                    <Ionicons
+                      name="md-notifications-outline"
+                      size={25}
+                      color={focused ? "#333" : "#888"}
+                    />
+                  ),
+                }}
+              />
+              <Drawer.Screen
+                name="Account"
+                component={AccountNavigation}
+                options={{
+                  drawerIcon: ({ focused, size }) => (
+                    <Ionicons
+                      name="md-person-outline"
+                      size={25}
+                      color={focused ? "#333" : "#888"}
+                    />
+                  ),
+                }}
+              />
             </Drawer.Navigator>
-            )
+          )
         ) : (
           <Stack.Navigator
             screenOptions={{
-              headerShown: false
+              headerShown: false,
             }}
           >
             <Stack.Screen name="Login" component={LoginNavigation} />
           </Stack.Navigator>
-        )
-        }
+        )}
       </NavigationContainer>
     </AuthContext.Provider>
-  )
+  );
 }
