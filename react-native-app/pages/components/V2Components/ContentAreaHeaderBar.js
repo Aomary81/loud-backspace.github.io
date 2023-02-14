@@ -14,7 +14,7 @@ export default function ContentAreaHeaderBar(props){
 			Object.assign
 			(
 				{
-					flexDirection: 'Row',
+					flexDirection: 'row',
 					justifyContent: 'space-between',
 					alignItems: 'center',
 					alignSelf: 'stretch',
