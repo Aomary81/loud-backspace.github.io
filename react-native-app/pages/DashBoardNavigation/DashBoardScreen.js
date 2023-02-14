@@ -56,12 +56,3 @@ function DashBoardScreen() {
       justifyContent: 'center'
     }
   });
-  
-  <AppButton
-  title = "Click Here"
-  onPress 
-  buttonColor ='red'
-  titleColor ='white'
-  buttonStyle 
-  textStyle 
-  />
