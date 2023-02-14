@@ -4,6 +4,7 @@ import { View, Text, StyleSheet} from 'react-native';
 import ContentArea from '../components/V2Components/ContentAreaV2';
 import ContentAreaHeaderBar from '../components/V2Components/ContentAreaHeaderBar';
 import IconedTitle from '../components/V2Components/IconedTitle';
+import AppButton from '../components/V2Components/AppButton';
 
 function DashBoardScreen() {
     return (
@@ -55,3 +56,12 @@ function DashBoardScreen() {
       justifyContent: 'center'
     }
   });
+  
+  <AppButton
+  title = "Click Here"
+  onPress 
+  buttonColor ='red'
+  titleColor ='white'
+  buttonStyle 
+  textStyle 
+  />
