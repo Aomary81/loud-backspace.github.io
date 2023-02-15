@@ -54,8 +54,7 @@ const InputField = (
                         aspectRatio: 1,
                         justifyContent: 'center', 
                         alignItems: 'center',
-                        marginLeft: '2%',
-                        backgroundColor: 'green'
+                        marginLeft: '1%'
                     }
                 }
                 onPress={onStartPress}
@@ -91,8 +90,7 @@ const InputField = (
                         aspectRatio: 1,
                         justifyContent: 'center', 
                         alignItems: 'center',
-                        marginRight: '2%',
-                        backgroundColor: 'green'
+                        marginRight: '%'
                     }
                 }
                 onPress={onEndPress}
