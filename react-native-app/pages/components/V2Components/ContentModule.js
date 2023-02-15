@@ -18,7 +18,7 @@ export default function ContentModule(props){
 					width: props.width,
                     height: props.height,
                     backgroundColor: '#E1E1E1',
-                    margin: 10,
+                    margin: 1,
                     borderRadius: 10,
 				}, 
 				props.style
