@@ -1,7 +1,57 @@
-import React, { useState } from "react";
-import { View, TextInput, Button, Text, StyleSheet } from "react-native";
+import React, { useState, useContext } from "react";
+import { View, TextInput, Button, Text, StyleSheet, Platform } from "react-native";
+import * as SecureStore from 'expo-secure-store';
 
-const AccountInformation = () => {
+import { AuthContext } from '../../context';
+
+const isWeb = Platform.OS === "web";
+
+const AccountCreation = () => {
+  const { signIn, setToken } = useContext(AuthContext).authContext;
+  const { myIp } = useContext(AuthContext).ip;
+
+  const handleSignup = () => {
+    alert('sending')
+    fetch('http://'+myIp+':3000/auth/signup', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      password: password,
+      address: address,
+      city: city,
+      state: state,
+      zip_code: zipCode,
+      isMobile: isWeb ? false : true
+    }),
+      https: false // Set the https option to true
+    })
+      .then(response => response.json())
+      .then(data => data.token ? setUserState(data.token) : null)
+      .catch(error => {
+        console.error(error);
+    });
+  };
+
+  const setUserState = (token) => {
+    if(!isWeb){
+      save('userToken', token)
+      setToken(token);
+      signIn(true);
+    }else{
+      signIn(true);
+    }
+  };
+
+  async function save(key, value) {
+    await SecureStore.setItemAsync(key, value);
+  }
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -21,11 +71,29 @@ const AccountInformation = () => {
   const [originalstate, setOriginalState] = useState("");
   const [originalzipCode, setOriginalZipCode] = useState("");
 
-  const saveAccountInformation = async () => {
+  const saveAccountInformation = () => {
     if (!email.includes("@")) {
       setError("Email is invalid");
       return;
     }
+    if(firstName == null || firstName == ''){
+      setError('Must have first name')
+      return;
+    }
+    if(lastName == null || lastName == ''){
+      setError('Must have last name')
+      return;
+    }
+    if(email == null || email == ''){
+      setError('Must have email')
+      return;
+    }
+    if(password == null || password == ''){
+      setError('Must have password')
+      return;
+    }
+    handleSignup();
+  }
 
     // Add more validation checks
 
@@ -112,9 +180,8 @@ const AccountInformation = () => {
         </View>
       </View>
     );
-  };
-};
-export default AccountInformation;
+}
+export default AccountCreation;
 
 const styles = StyleSheet.create({
   container: {
