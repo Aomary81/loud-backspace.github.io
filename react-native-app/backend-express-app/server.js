@@ -10,7 +10,10 @@ const ip = '10.0.0.186'
 require('dotenv').config();
 
 // Route imports
+
+//Imports userRoutes from ./routes/users.js
 const usersRouter = require('./routes/users');
+//Imports authRouter from ./routes/auth.js
 const authRouter = require('./routes/auth');
 
 const app = express ();

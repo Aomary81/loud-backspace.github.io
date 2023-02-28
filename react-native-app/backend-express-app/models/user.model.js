@@ -18,6 +18,7 @@ const User = mongoose.model('User', userSchema);
 module.exports = User;
 */
 
+//what level will the password hash be?
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
@@ -38,6 +39,11 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  //Adding the email hash to make it easier to restrict edits to user data
+  email_hash: {
+	type: String,
+	required: true
+  }
   address: {
     type: String
   },
@@ -49,6 +55,9 @@ const userSchema = new mongoose.Schema({
   },
   zip_code: {
     type: String
+  },
+  desc: {
+	type: String
   }
 });
 
