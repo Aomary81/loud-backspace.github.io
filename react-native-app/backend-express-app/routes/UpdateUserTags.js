@@ -6,7 +6,7 @@ const UpdateTags = () => {
     const { tags } = req.body;
 
     try {
-      const updatedUser = await Todo.findOneAndUpdate({ email }, { tags });
+      const updatedUser = await User.findOneAndUpdate({ email }, { tags });
 
       res.json(updatedUser);
     } catch (error) {
