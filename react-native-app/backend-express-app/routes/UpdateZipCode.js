@@ -6,7 +6,7 @@ const UpdateZipCode = () => {
     const { zipCode } = req.body;
 
     try {
-      const updatedUser = await Todo.findOneAndUpdate({ email }, { zipCode });
+      const updatedUser = await User.findOneAndUpdate({ email }, { zipCode });
 
       res.json(updatedUser);
     } catch (error) {
