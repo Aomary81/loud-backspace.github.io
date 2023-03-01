@@ -39,11 +39,6 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  //Adding the email hash to make it easier to restrict edits to user data
-  email_hash: {
-	type: String,
-	required: true
-  }
   address: {
     type: String
   },

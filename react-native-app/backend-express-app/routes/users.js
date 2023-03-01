@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const MongoClient = require(require('mongodb').MongoClient;
+//const MongoClient = require('mongodb').MongoClient;
 let User = require('../models/user.model');
 
 router.route('/').get((req, res) => {
@@ -17,10 +17,10 @@ router.route('/add').post((req, res) => {
         .catch(err => res.status(400).json('Error: '+ err));
 });
 
-router.route('/edit/:emailHash/:passwordHash/desc').post((req,res) => {
+router.route('/edit/desc').post((req,res) => {
 	const emailHash = req.params.emailHash;
 	const passwordHash = req.params.passwordHash;
-	
+	/*
 	MongoClient.connect(url, function(err,db){
 		
 		if(err)throw err;
@@ -38,6 +38,7 @@ router.route('/edit/:emailHash/:passwordHash/desc').post((req,res) => {
 		});
 		
 	});
+	*/
 });
 
 module.exports = router;
