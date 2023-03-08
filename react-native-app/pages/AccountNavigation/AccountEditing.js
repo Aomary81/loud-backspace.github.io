@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { View, TextInput, Button, Text, StyleSheet } from "react-native";
 
+import { useContext } from 'react';
+import { AuthContext } from '../../context';
+
+
 const AccountInformation = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -23,6 +27,11 @@ const AccountInformation = () => {
   const [originalzipCode, setOriginalZipCode] = useState("");
   const [originalListing, setOriginalListing] = useState("");
 
+  const { myIp } = useContext(AuthContext).ip;
+  const { token } = useContext(AuthContext);
+
+  const [success, setSuccess] = useState(false);
+
   const saveAccountInformation = async () => {
     if (!email.includes("@")) {
       setError("Email is invalid");
@@ -32,26 +41,25 @@ const AccountInformation = () => {
     // Add more validation checks
 
     try {
-      const response = await fetch("http://localhost:3000/accounts", {
-        method: "POST",
+      const response = await fetch(`http://${myIp}:3000/update/user`, {
+        method: "PATCH",
+        credentials: 'include',
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          firstName,
-          lastName,
-          email,
-          password,
-          address,
-          city,
-          state,
-          zipCode,
-          listing,
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          token: token
         }),
       });
       const result = await response.json();
-      console.log(result);
+      if (response.status == 200) {
+        setSuccess(true);
+      }
     } catch (error) {
+
       setError(error.message);
     }
   };
@@ -68,7 +76,16 @@ const AccountInformation = () => {
     setZipCode(originalzipCode);
     setListing(originalListing);
   };
-
+  if (success) {
+    return (
+      <View style={styles.container}>
+        <Text style={{color: 'limegreen'}}>
+          Your changes were saved successfully!
+        </Text>
+        <Button onPress={() => setSuccess(false)}  title="OK"/>
+      </View>
+    );
+  };
   return (
     <View style={styles.container}>
       <TextInput
@@ -90,42 +107,6 @@ const AccountInformation = () => {
         onChangeText={setEmail}
         style={styles.TextInput}
         placeholder="Email"
-      />
-      <View style={{ height: 10 }} />
-      <TextInput
-        value={password}
-        onChangeText={setPassword}
-        style={styles.TextInput}
-        placeholder="Password"
-        secureTextEntry
-      />
-      <View style={{ height: 10 }} />
-      <TextInput
-        value={address}
-        onChangeText={setAddress}
-        style={styles.TextInput}
-        placeholder="Address"
-      />
-      <View style={{ height: 10 }} />
-      <TextInput
-        value={city}
-        onChangeText={setCity}
-        style={styles.TextInput}
-        placeholder="City"
-      />
-      <View style={{ height: 10 }} />
-      <TextInput
-        value={state}
-        onChangeText={setState}
-        style={styles.TextInput}
-        placeholder="State"
-      />
-      <View style={{ height: 10 }} />
-      <TextInput
-        value={zipCode}
-        onChangeText={setZipCode}
-        style={styles.TextInput}
-        placeholder="ZipCode"
       />
       <View style={{ height: 10 }} />
       {error && <Text>{error}</Text>}

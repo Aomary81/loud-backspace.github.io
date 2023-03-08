@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const https = require('https');
 const fs = require('fs');
-const ip = '10.113.151.220'
+const ip = '10.0.0.186'
 
 require('dotenv').config();
 
@@ -15,6 +15,8 @@ require('dotenv').config();
 const usersRouter = require('./routes/users');
 //Imports authRouter from ./routes/auth.js
 const authRouter = require('./routes/auth');
+
+const updateRouter = require('./routes/updateUser')
 
 const app = express ();
 const port = process.env.PORT || 3000;
@@ -46,6 +48,7 @@ connection.once('open', () => {
 //Routes
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
+app.use('/update', updateRouter);
 
 app.listen (port, () => {
     console. log (`Server is running on port: ${port}`);
