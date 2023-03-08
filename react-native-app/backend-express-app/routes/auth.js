@@ -9,6 +9,7 @@ const saltRounds = 10;
 // Login Route
 router.post('/login', async (req, res) => {
   const { email, password, isMobile } = req.body;
+  console.log(password);
 
   if (!email || !password) {
     return res.status(400).json({ message: 'User not found' });
@@ -22,6 +23,7 @@ router.post('/login', async (req, res) => {
   }
 
   // Check if password is correct
+  console.log(user.password_hash);
   if (!bcrypt.compareSync(password, user.password_hash)) {
     return res.status(400).json({ message: 'Incorrect password' });
   }
