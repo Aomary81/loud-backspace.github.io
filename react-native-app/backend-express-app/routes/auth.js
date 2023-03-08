@@ -123,4 +123,6 @@ router.post('/logout', (req, res) => {
   res.json({ message: 'Logout successful' });
 });
 
+router.patch('/')
+
 module.exports = router;
