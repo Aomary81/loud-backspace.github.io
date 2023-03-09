@@ -193,9 +193,14 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { Platform, useWindowDimensions, SafeAreaView, Text } from "react-native";
+import {
+  Platform,
+  useWindowDimensions,
+  SafeAreaView,
+  Text,
+} from "react-native";
 import { useContext, useEffect, useState, useMemo } from "react";
-import * as SecureStore from 'expo-secure-store';
+import * as SecureStore from "expo-secure-store";
 
 import { AuthContext } from "./context";
 
@@ -219,9 +224,9 @@ export default function App() {
   const [token, setUserToken] = useState(null);
   const ip = useMemo(() => {
     return {
-      myIp: '10.0.0.186'
+      myIp: "192.168.0.41",
     };
-  }, [])
+  }, []);
   const authContext = useMemo(() => {
     return {
       signIn: (loggedIn) => {
@@ -229,35 +234,35 @@ export default function App() {
       },
       setToken: (token) => {
         setUserToken(token);
-      }
+      },
     };
   }, []);
 
   async function retrieveUserSession() {
-    let result = await SecureStore.getItemAsync('userToken');
+    let result = await SecureStore.getItemAsync("userToken");
     if (result) {
-      await fetch('http://'+ip.myIp+':3000/auth/isLoggedIn', {
-      method: 'POST',
-      credentials: "include",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        token: result
-      }),
-      https: false, // Set the https option to true
-    })
-      .then(response => response.json())
-      .then(data => valid = data.isLoggedIn)
-      .catch(error => {
-        console.error(error);
-    });
-    if(valid){
-      setUserToken(result)
-      setLoginState(true);
-    } else {
-      deleteToken('userToken');
-    }
+      await fetch("http://" + ip.myIp + ":3000/auth/isLoggedIn", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token: result,
+        }),
+        https: false, // Set the https option to true
+      })
+        .then((response) => response.json())
+        .then((data) => (valid = data.isLoggedIn))
+        .catch((error) => {
+          console.error(error);
+        });
+      if (valid) {
+        setUserToken(result);
+        setLoginState(true);
+      } else {
+        deleteToken("userToken");
+      }
     }
     setLoginChecked(true);
   }
@@ -267,25 +272,25 @@ export default function App() {
   }
 
   async function retrieveUserWebSession() {
-    console.log('retriving session');
-    await fetch('http://'+ip.myIp+':3000/auth/isLoggedIn', {
-      method: 'POST',
+    console.log("retriving session");
+    await fetch("http://" + ip.myIp + ":3000/auth/isLoggedIn", {
+      method: "POST",
       credentials: "include",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       https: false, // Set the https option to true
     })
-      .then(response => response.json())
-      .then(data => setLoginState(data.isLoggedIn))
-      .catch(error => {
+      .then((response) => response.json())
+      .then((data) => setLoginState(data.isLoggedIn))
+      .catch((error) => {
         console.error(error);
-    });
+      });
     setLoginChecked(true);
   }
 
   useEffect(() => {
-    if(!isWeb){
+    if (!isWeb) {
       retrieveUserSession();
     } else {
       retrieveUserWebSession();
@@ -295,16 +300,18 @@ export default function App() {
   const dimensions = useWindowDimensions();
   const homeIcon = {};
 
-  if(!loginChecked){
-    return(
-      <SafeAreaView style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+  if (!loginChecked) {
+    return (
+      <SafeAreaView
+        style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+      >
         <Text>Loading...</Text>
       </SafeAreaView>
     );
   }
 
   return (
-    <AuthContext.Provider value={{authContext, token, ip}}>
+    <AuthContext.Provider value={{ authContext, token, ip }}>
       <NavigationContainer>
         {isLoggedIn ? (
           !isWeb ? (

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { View, TextInput, Button, Text, StyleSheet } from "react-native";
 
-import { useContext } from 'react';
-import { AuthContext } from '../../context';
-
+import { useContext } from "react";
+import { AuthContext } from "../../context";
 
 const AccountInformation = () => {
   const [firstName, setFirstName] = useState("");
@@ -41,9 +40,9 @@ const AccountInformation = () => {
     // Add more validation checks
 
     try {
-      const response = await fetch(`http://${myIp}:3000/update/user`, {
+      const response = await fetch("http://" + myIp + ":3000/update/user", {
         method: "PATCH",
-        credentials: 'include',
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -51,7 +50,7 @@ const AccountInformation = () => {
           first_name: firstName,
           last_name: lastName,
           email: email,
-          token: token
+          token: token,
         }),
       });
       const result = await response.json();
@@ -59,7 +58,6 @@ const AccountInformation = () => {
         setSuccess(true);
       }
     } catch (error) {
-
       setError(error.message);
     }
   };
@@ -79,13 +77,13 @@ const AccountInformation = () => {
   if (success) {
     return (
       <View style={styles.container}>
-        <Text style={{color: 'limegreen'}}>
+        <Text style={{ color: "limegreen" }}>
           Your changes were saved successfully!
         </Text>
-        <Button onPress={() => setSuccess(false)}  title="OK"/>
+        <Button onPress={() => setSuccess(false)} title="OK" />
       </View>
     );
-  };
+  }
   return (
     <View style={styles.container}>
       <TextInput
