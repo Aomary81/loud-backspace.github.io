@@ -11,7 +11,6 @@ const AccountCreation = () => {
   const { myIp } = useContext(AuthContext).ip;
 
   const handleSignup = () => {
-    alert('sending')
     fetch('http://'+myIp+':3000/auth/signup', {
       method: 'POST',
       credentials: 'include',
