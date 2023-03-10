@@ -63,4 +63,20 @@ router.post("/add", async (req, res) => {
   }
 });
 
+router.post("/search", async (req, res) => {
+  const { zip_code, page_num } = req.body;
+  const pageNum = parseInt(page_num)||1;
+  const pageSize = 30;
+  const skip = (pageNum-1)*pageSize;
+
+  const listing = await Listing.find({zip_code: zip_code})
+  .skip(skip)
+  .limit(pageSize);
+  if(!listing){
+    return res.status(400).json({message:"Listing not found"})
+  }
+  
+  return res.status(200).json({listing:listing});
+  
+});
 module.exports = router;
