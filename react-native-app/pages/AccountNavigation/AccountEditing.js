@@ -3,6 +3,8 @@ import { View, TextInput, Button, Text, StyleSheet } from "react-native";
 
 import { useContext } from "react";
 import { AuthContext } from "../../context";
+import InputField from '../components/V2Components/InputField'
+import { TouchableOpacity } from 'react-native';
 
 const AccountInformation = () => {
   const [firstName, setFirstName] = useState("");
@@ -86,36 +88,57 @@ const AccountInformation = () => {
   }
   return (
     <View style={styles.container}>
-      <TextInput
+
+      {/* Personal Details Container */}
+      <View style={{flexDirection: 'column'}}>
+      <Text style={styles.header}>Personal Details</Text>
+      <InputField
         value={firstName}
         onChangeText={setFirstName}
-        style={styles.TextInput}
         placeholder="First Name"
       />
-      <View style={{ height: 10 }} />
-      <TextInput
+      <InputField
         value={lastName}
         onChangeText={setLastName}
-        style={styles.TextInput}
         placeholder="Last Name"
       />
-      <View style={{ height: 10 }} />
-      <TextInput
+      <InputField
         value={email}
         onChangeText={setEmail}
-        style={styles.TextInput}
         placeholder="Email"
       />
-      <View style={{ height: 10 }} />
+      <InputField
+        style={{backgroundColor: '#e5e5e5'}}
+        value={undefined}
+        onChangeText={undefined}
+        placeholder="ZIP Code"
+      />
+      <InputField
+        value={undefined}
+        onChangeText={undefined}
+        placeholder="Date of Birth"
+      />
+      </View>
+
+      {/* Login Credentials Container */}
+      <View style={{flexDirection: 'column'}}>
+      <Text style={styles.headerMuted}>Change Password</Text>
+      <InputField
+        style={styles.inputMuted}
+        value={undefined}
+        onChangeText={undefined}
+        placeholder="Password (disabled)"
+      />
+      <InputField
+        style={styles.inputMuted}
+        value={undefined}
+        onChangeText={undefined}
+        placeholder="Confirm Password (disabled)"
+      />
+      <TouchableOpacity style={styles.button} onPress={saveAccountInformation}>
+        <Text style={{color: '#fff', fontSize: 15, fontWeight: '600'}}>Submit</Text>
+      </TouchableOpacity>
       {error && <Text>{error}</Text>}
-      <View
-        style={{
-          flexDirection: "row",
-        }}
-      >
-        <Button title="Clear" onPress={clearInputs} />
-        <View style={{ height: 40, width: 40 }} />
-        <Button onPress={saveAccountInformation} title="Save" />
       </View>
     </View>
   );
@@ -130,11 +153,37 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  TextInput: {
-    backgroundColor: "white",
-    paddingLeft: 5,
-    height: 40,
-    width: 200,
-    borderWidth: 1,
+  button: {
+    height: 35,
+    width: '100%',
+    backgroundColor: 'dodgerblue',
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 15
   },
+  header: {
+    fontSize: 30,
+    color: '#333',
+    fontWeight: '600',
+    marginBottom: 10
+  },
+  headerMuted: {
+    fontSize: 30,
+    color: '#999',
+    fontWeight: '600',
+    marginBottom: 10
+  },
+  text: {
+    color: '#ffffff',
+    fontWeight: '600'
+  },
+  textMuted: {
+    color: '#f9f9f9'
+  },
+  inputMuted: {
+    backgroundColor: '#f5f5f5'
+  }
 });

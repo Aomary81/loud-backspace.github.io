@@ -53,29 +53,34 @@ function LoginScreen({navigation}) {
 
   return (
       <View style={styles.container}>
-        <StatusBar style="auto" />
-        <InputField
-          style={styles.input}
-          placeholder={'email'}
-          value={email}
-          onChangeText={setEmail}
-        />
-        <InputField
-          style={styles.input}
-          placeholder={'password'}
-          value={password}
-          onChangeText={setPassword}
-        />
-        <TouchableOpacity style={styles.button}
-          onPress={handleLogin}
-        >
-          <Text>Sign In</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}
-          onPress={() => navigation.navigate('AccountCreation')}
-        >
-          <Text>Create Account</Text>
-        </TouchableOpacity>
+        <View style={styles.card}>
+          <Text style={styles.header}>Sign In</Text>
+          <StatusBar style="auto" />
+          <InputField
+            style={styles.input}
+            placeholder={'Email'}
+            value={email}
+            onChangeText={setEmail}
+          />
+          <InputField
+            style={styles.input}
+            placeholder={'Password'}
+            value={password}
+            onChangeText={setPassword}
+          />
+          <View style={{display: 'flex', flexDirection: 'column', marginTop: 5, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+            <TouchableOpacity style={styles.button}
+              onPress={handleLogin}
+            >
+              <Text style={styles.text}>Sign In</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('AccountCreation')}
+            >
+              <Text style={{color: '#222', fontSize: 15, marginTop: 5, fontWeight: '600'}}>Create Account</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     );
   }
@@ -89,17 +94,37 @@ function LoginScreen({navigation}) {
       justifyContent: 'center'
     },
     input:{
-      height: 30,
+      height: 50,
       width: 300,
       marginBottom: 10
     },
     button: {
-      height: 20,
-      width: 120,
+      height: 35,
+      width: '100%',
       backgroundColor: 'dodgerblue',
-      borderRadius: 5,
+      borderRadius: 50,
       justifyContent: 'center',
       alignItems: 'center',
-      marginBottom: 5
+      marginBottom: 5,
+      paddingVertical: 10,
+      paddingHorizontal: 15
+    },
+    text: {
+      color: '#ffffff',
+      fontWeight: '600'
+    },
+    header: {
+      fontSize: 30,
+      color: '#111111',
+      fontWeight: '600',
+      marginBottom: 15
+    },
+    card: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#f3f3f3',
+      borderRadius: 8,
+      paddingVertical: 25,
+      paddingHorizontal: 35
     }
   });
