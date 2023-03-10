@@ -37,11 +37,14 @@ const InputField = (
                     {
                         flexDirection: 'row',
                         alignItems: 'center',
-                        backgroundColor: '#F3F3F3',
-                        borderRadius: !rounded ? 10 : 50,
-                        borderColor: isFocused ? 'grey' : '#F3F3F3',
+                        backgroundColor: '#e9e9e9',
+                        borderRadius: !rounded ? 8 : 50,
+                        borderColor: isFocused ? 'dodgerblue' : 'transparent',
                         borderWidth: 2,
-                        paddingHorizontal: 1
+                        paddingVertical: 15,
+                        height: 50,
+                        width: 300,
+                        marginBottom: 10
                     }, 
                     style
                 )
@@ -49,12 +52,9 @@ const InputField = (
             {startButton && <TouchableOpacity
                 style={
                     { 
-                        height: '80%', 
-                        width: undefined, 
                         aspectRatio: 1,
-                        justifyContent: 'center', 
+                        justifyContent: 'center',
                         alignItems: 'center',
-                        marginLeft: '1%'
                     }
                 }
                 onPress={onStartPress}
@@ -64,14 +64,14 @@ const InputField = (
             <TextInput
                 style={
                     {
-                        height: '90%', 
-                        width: '100%',
                         flexGrow: 1,
                         flexShrink: 1,
                         marginLeft: '2%',
                         marginRight: '2%',
                         outlineStyle: 'none',
-                        fontSize: fontSize
+                        fontSize: 20,
+                        paddingHorizontal: 10,
+                        paddingVertical: 20
                     }
                 }
                 value={value}
