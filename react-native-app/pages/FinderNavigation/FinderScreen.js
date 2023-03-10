@@ -77,11 +77,15 @@ export default function FinderScreen({ navigation }) {
     		  placeholder = 'Search By Zipcode'
     		  value = {zipCode}
     		  onChangeText = {getZipCode}
+          onSubmitEditing = {SearchListings}
     		/>
       
-   		  <Button 
-          onPress={SearchListings} title = "Button"
-        />
+      <TouchableOpacity
+          style={styles.button}
+          onPress={SearchListings}
+        >
+          <Text>Search</Text>
+        </TouchableOpacity>{" "}
       <View>
         <TouchableOpacity
           style={styles.button}
