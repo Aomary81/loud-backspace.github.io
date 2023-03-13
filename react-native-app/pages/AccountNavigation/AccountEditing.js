@@ -3,8 +3,8 @@ import { View, TextInput, Button, Text, StyleSheet } from "react-native";
 
 import { useContext } from "react";
 import { AuthContext } from "../../context";
-import InputField from '../components/V2Components/InputField'
-import { TouchableOpacity } from 'react-native';
+import InputField from "../components/V2Components/InputField";
+import { TouchableOpacity } from "react-native";
 
 const AccountInformation = () => {
   const [firstName, setFirstName] = useState("");
@@ -17,16 +17,6 @@ const AccountInformation = () => {
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [listing, setListing] = useState("");
-  const [originalfirstName, setOriginalFirstName] = useState("");
-  const [originallastName, setOriginalLastName] = useState("");
-  const [originalemail, setOriginalEmail] = useState("");
-  const [originalpassword, setOriginalPassword] = useState("");
-  const [originalerror, setOriginalError] = useState(null);
-  const [originaladdress, setOriginalAddress] = useState("");
-  const [originalcity, setOriginalCity] = useState("");
-  const [originalstate, setOriginalState] = useState("");
-  const [originalzipCode, setOriginalZipCode] = useState("");
-  const [originalListing, setOriginalListing] = useState("");
 
   const { myIp } = useContext(AuthContext).ip;
   const { token } = useContext(AuthContext);
@@ -65,16 +55,16 @@ const AccountInformation = () => {
   };
 
   const clearInputs = () => {
-    setFirstName(originalfirstName);
-    setLastName(originallastName);
-    setEmail(originalemail);
-    setPassword(originalpassword);
-    setError(originalerror);
-    setAddress(originaladdress);
-    setCity(originalcity);
-    setState(originalstate);
-    setZipCode(originalzipCode);
-    setListing(originalListing);
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setPassword("");
+    setError("");
+    setAddress("");
+    setCity("");
+    setState("");
+    setZipCode("");
+    setListing("");
   };
   if (success) {
     return (
@@ -88,57 +78,57 @@ const AccountInformation = () => {
   }
   return (
     <View style={styles.container}>
-
       {/* Personal Details Container */}
-      <View style={{flexDirection: 'column'}}>
-      <Text style={styles.header}>Personal Details</Text>
-      <InputField
-        value={firstName}
-        onChangeText={setFirstName}
-        placeholder="First Name"
-      />
-      <InputField
-        value={lastName}
-        onChangeText={setLastName}
-        placeholder="Last Name"
-      />
-      <InputField
-        value={email}
-        onChangeText={setEmail}
-        placeholder="Email"
-      />
-      <InputField
-        style={{backgroundColor: '#e5e5e5'}}
-        value={undefined}
-        onChangeText={undefined}
-        placeholder="ZIP Code"
-      />
-      <InputField
-        value={undefined}
-        onChangeText={undefined}
-        placeholder="Date of Birth"
-      />
+      <View style={{ flexDirection: "column" }}>
+        <Text style={styles.header}>Personal Details</Text>
+        <InputField
+          value={firstName}
+          onChangeText={setFirstName}
+          placeholder="First Name"
+        />
+        <InputField
+          value={lastName}
+          onChangeText={setLastName}
+          placeholder="Last Name"
+        />
+        <InputField value={email} onChangeText={setEmail} placeholder="Email" />
+        <InputField
+          style={{ backgroundColor: "#e5e5e5" }}
+          value={undefined}
+          onChangeText={undefined}
+          placeholder="ZIP Code"
+        />
+        <InputField
+          value={undefined}
+          onChangeText={undefined}
+          placeholder="Date of Birth"
+        />
       </View>
 
       {/* Login Credentials Container */}
-      <View style={{flexDirection: 'column'}}>
-      <Text style={styles.headerMuted}>Change Password</Text>
-      <InputField
-        style={styles.inputMuted}
-        value={undefined}
-        onChangeText={undefined}
-        placeholder="Password (disabled)"
-      />
-      <InputField
-        style={styles.inputMuted}
-        value={undefined}
-        onChangeText={undefined}
-        placeholder="Confirm Password (disabled)"
-      />
-      <TouchableOpacity style={styles.button} onPress={saveAccountInformation}>
-        <Text style={{color: '#fff', fontSize: 15, fontWeight: '600'}}>Submit</Text>
-      </TouchableOpacity>
-      {error && <Text>{error}</Text>}
+      <View style={{ flexDirection: "column" }}>
+        <Text style={styles.headerMuted}>Change Password</Text>
+        <InputField
+          style={styles.inputMuted}
+          value={undefined}
+          onChangeText={undefined}
+          placeholder="Password (disabled)"
+        />
+        <InputField
+          style={styles.inputMuted}
+          value={undefined}
+          onChangeText={undefined}
+          placeholder="Confirm Password (disabled)"
+        />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={saveAccountInformation}
+        >
+          <Text style={{ color: "#fff", fontSize: 15, fontWeight: "600" }}>
+            Submit
+          </Text>
+        </TouchableOpacity>
+        {error && <Text>{error}</Text>}
       </View>
     </View>
   );
@@ -155,35 +145,35 @@ const styles = StyleSheet.create({
   },
   button: {
     height: 35,
-    width: '100%',
-    backgroundColor: 'dodgerblue',
+    width: "100%",
+    backgroundColor: "dodgerblue",
     borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 5,
     paddingVertical: 10,
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
   },
   header: {
     fontSize: 30,
-    color: '#333',
-    fontWeight: '600',
-    marginBottom: 10
+    color: "#333",
+    fontWeight: "600",
+    marginBottom: 10,
   },
   headerMuted: {
     fontSize: 30,
-    color: '#999',
-    fontWeight: '600',
-    marginBottom: 10
+    color: "#999",
+    fontWeight: "600",
+    marginBottom: 10,
   },
   text: {
-    color: '#ffffff',
-    fontWeight: '600'
+    color: "#ffffff",
+    fontWeight: "600",
   },
   textMuted: {
-    color: '#f9f9f9'
+    color: "#f9f9f9",
   },
   inputMuted: {
-    backgroundColor: '#f5f5f5'
-  }
+    backgroundColor: "#f5f5f5",
+  },
 });

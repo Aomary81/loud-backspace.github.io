@@ -65,18 +65,58 @@ router.post("/add", async (req, res) => {
 
 router.post("/search", async (req, res) => {
   const { zip_code, page_num } = req.body;
-  const pageNum = parseInt(page_num)||1;
+  const pageNum = parseInt(page_num) || 1;
   const pageSize = 30;
-  const skip = (pageNum-1)*pageSize;
+  const skip = (pageNum - 1) * pageSize;
 
-  const listing = await Listing.find({zip_code: zip_code})
-  .skip(skip)
-  .limit(pageSize);
-  if(!listing){
-    return res.status(400).json({message:"Listing not found"})
+  const listing = await Listing.find({ zip_code: zip_code })
+    .skip(skip)
+    .limit(pageSize);
+  if (!listing) {
+    return res.status(400).json({ message: "Listing not found" });
   }
-  
-  return res.status(200).json({listing:listing});
-  
+
+  return res.status(200).json({ listing: listing });
+});
+
+router.post("/edit", (req, res) => {
+  const token = req.cookies.token || req.body.token;
+  // Check if user is logged in
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  try {
+    // Verify the token and extract the user ID
+    const decodedToken = jwt.verify(token, "thisIsSecret");
+    const userId = decodedToken.userId;
+    const filter = userId;
+    const update = ({
+      street_number,
+      street_name,
+      apartment_number,
+      city,
+      state,
+      zip_code,
+      rent,
+      tags,
+      bio,
+    } = req.body);
+    // Check if user already exists
+    Listing.updateOne({ filter }, update, function (err, result) {
+      if (err) {
+        console.log("Error:", err);
+        return;
+      }
+      if (result.acknowledged) {
+        return res.status(200).json({ message: "OK" });
+      } else {
+        return res.status(400).json({ message: "Failed" });
+      }
+    });
+  } catch (error) {
+    // If the token is invalid or has expired, return a 401 Unauthorized response
+    return res.status(401).json({ message: "Unauthorized" });
+  }
 });
 module.exports = router;

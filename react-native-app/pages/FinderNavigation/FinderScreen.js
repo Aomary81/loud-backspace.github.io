@@ -7,16 +7,23 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import { Avatar, Button, Card, Title, Paragraph, TextInput } from "react-native-paper";
+import {
+  Avatar,
+  Button,
+  Card,
+  Title,
+  Paragraph,
+  TextInput,
+} from "react-native-paper";
 import PageLayouts from "@PageLayouts";
 import RoommateCard from "../components/RoommateFinderComponents/RoommateCard";
 import RoommateFinderUserBriefing from "../components/RoommateFinderComponents/RoommateFinderUserBriefing";
 import { SafeAreaView } from "react-navigation";
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext } from "react";
 import InputField from "../components/V2Components/InputField";
 import { AuthContext } from "../../context";
 import Listing from "../../backend-express-app/models/listing.model";
-import {ContentModule} from "../components/V2Components/ContentModule"
+import { ContentModule } from "../components/V2Components/ContentModule";
 
 const Data = [
   { id: "1" },
@@ -31,15 +38,12 @@ const Data = [
   { id: "10" },
 ];
 
-
 export default function FinderScreen({ navigation }) {
-
   const { myIp } = useContext(AuthContext).ip;
-  const [zipCode, getZipCode] = useState('');
-  const [pageNum, getPageNum] = useState('1');
+  const [zipCode, getZipCode] = useState("");
+  const [pageNum, getPageNum] = useState("1");
   const [data, setData] = useState([]);
-  const SearchListings = async () =>{
-
+  const SearchListings = async () => {
     try {
       const response = await fetch("http://" + myIp + ":3000/listings/search", {
         method: "POST",
@@ -47,7 +51,7 @@ export default function FinderScreen({ navigation }) {
         headers: {
           "Content-Type": "application/json",
         },
-  
+
         body: JSON.stringify({
           page_num: pageNum,
           zip_code: zipCode,
@@ -57,35 +61,30 @@ export default function FinderScreen({ navigation }) {
       });
       const result = await response.json();
       if (response.status == 200) {
-        console.log(result.listing)
-        setData(result.listing)
+        console.log(result.listing);
+        setData(result.listing);
       }
     } catch (error) {
       console.log(error.message);
     }
-  }
+  };
 
-    const handlePress = (item) => {
-      console.log(`Clicked item ${item._id}`);
-    };
+  const handlePress = (item) => {
+    console.log(`Clicked item ${item._id}`);
+  };
 
   return (
     <SafeAreaView>
-
-        <TextInput
-          style={styles.TextInput}
-    		  placeholder = 'Search By Zipcode'
-    		  value = {zipCode}
-    		  onChangeText = {getZipCode}
-          onSubmitEditing = {SearchListings}
-    		/>
-      
-      <TouchableOpacity
-          style={styles.button}
-          onPress={SearchListings}
-        >
-          <Text>Search</Text>
-        </TouchableOpacity>{" "}
+      <TextInput
+        style={styles.TextInput}
+        placeholder="Search By Zipcode"
+        value={zipCode}
+        onChangeText={getZipCode}
+        onSubmitEditing={SearchListings}
+      />
+      <TouchableOpacity style={styles.button} onPress={SearchListings}>
+        <Text>Search</Text>
+      </TouchableOpacity>{" "}
       <View>
         <TouchableOpacity
           style={styles.button}
@@ -94,26 +93,31 @@ export default function FinderScreen({ navigation }) {
           <Text>Create Listing</Text>
         </TouchableOpacity>{" "}
       </View>
-
-        <RoommateFinderUserBriefing />
-
-        <View style={styles.Box}>
-          {data.map(item => (
+      <View>
         <TouchableOpacity
-          style={styles.ContentModule}
-          key={item._id}
-          onPress={() => handlePress(item)}
+          style={styles.button}
+          onPress={() => navigation.navigate("ListingEdit")}
         >
-          <Text style={styles.text}>{`${item.city}, ${item.zip_code}`}</Text>
-          <Text style={styles.text}>{item.street_name}</Text>
-          <Text style={styles.text}>{item.rent}</Text>
-        </TouchableOpacity>
-           ))}
-        </View>
-
+          <Text>Edit Listing</Text>
+        </TouchableOpacity>{" "}
+      </View>
+      <RoommateFinderUserBriefing />
+      <View style={styles.Box}>
+        {data.map((item) => (
+          <TouchableOpacity
+            style={styles.ContentModule}
+            key={item._id}
+            onPress={() => handlePress(item)}
+          >
+            <Text style={styles.text}>{`${item.city}, ${item.zip_code}`}</Text>
+            <Text style={styles.text}>{item.street_name}</Text>
+            <Text style={styles.text}>{item.rent}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -147,11 +151,11 @@ const styles = StyleSheet.create({
     alignItems: "right",
   },
   ContentModule: {
-    alignItems: 'center',
-    justifyContent: 'center',
-		width: 200,
+    alignItems: "center",
+    justifyContent: "center",
+    width: 200,
     height: 100,
-    backgroundColor: '#E1E1E1',
+    backgroundColor: "#E1E1E1",
     margin: 1,
     borderRadius: 10,
   },
@@ -159,5 +163,5 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
-  }
+  },
 });
