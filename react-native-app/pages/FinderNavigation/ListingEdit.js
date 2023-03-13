@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { AuthContext } from "../../context";
 
-const ListingCreation = ({ navigation }) => {
+const ListingEdit = ({ navigation }) => {
   const { myIp } = useContext(AuthContext).ip;
   const { token } = useContext(AuthContext);
   const [streetNumber, setStreetNumber] = useState("");
@@ -25,7 +25,7 @@ const ListingCreation = ({ navigation }) => {
 
   const SubmitListing = async () => {
     try {
-      const response = await fetch("http://" + myIp + ":3000/listings/add", {
+      const response = await fetch("http://" + myIp + ":3000/listings/edit", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -145,7 +145,7 @@ const ListingCreation = ({ navigation }) => {
   );
 };
 
-export default ListingCreation;
+export default ListingEdit;
 
 const styles = StyleSheet.create({
   container: {
