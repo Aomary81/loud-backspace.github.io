@@ -1,0 +1,1 @@
+mongosh "mongodb+srv://userdata.iayj7ez.mongodb.net/app" --apiVersion 1 --username residencapp
