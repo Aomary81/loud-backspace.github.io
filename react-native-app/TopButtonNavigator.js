@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View , Image, useWindowDimensions, Appearance} from 'react-native';
+import { Text, View , Image, useWindowDimensions, Appearance } from 'react-native';
 import {
   useNavigationBuilder,
   TabRouter,
@@ -7,6 +7,7 @@ import {
   createNavigatorFactory
 } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import theme from './styles/theme.style'
 
 function TopButtonNavigator({
   initialRouteName,
@@ -24,9 +25,11 @@ const { state, navigation, descriptors, NavigationContent } =
 
   const {height, width, aspectRatio} = useWindowDimensions();
   const colorScheme = Appearance.getColorScheme();
-  const logoPath = colorScheme === 'dark' ? 'logo_dark.png' : 'logo_light.png';
-  const backgroundColor = colorScheme === 'dark' ? '#222' : 'white';
-  console.log(width);
+  const logo = colorScheme === 'dark' ?
+  require('./assets/logo/logo_dark.png') :
+  require('./assets/logo/logo_light.png');
+  const backgroundColor = theme.BACKGROUND_COLOR;
+  
   return (
     <NavigationContent>
       <View style={{
@@ -44,7 +47,7 @@ const { state, navigation, descriptors, NavigationContent } =
           }}>
           <Image
             style={{height: '80%', aspectRatio: 6800/1308, resizeMode: 'stretch'}}
-            source={require(`./assets/logo/${logoPath}`)}
+            source={logo}
           />
         </View>
         <View style={[{
@@ -81,7 +84,7 @@ const { state, navigation, descriptors, NavigationContent } =
                 alignItems: 'center',
                 justifyContent: 'space-around',
                 left: descriptors[route.key].options.end ?
-                  ((width > 1010) ? (width*0.79)-804 : 0) :
+                  ((width > 1030) ? (width*0.79)-816 : 0) :
                   0,
                 backgroundColor: state.index == i ?
                  descriptors[route.key].options.onColor :
@@ -93,7 +96,7 @@ const { state, navigation, descriptors, NavigationContent } =
               }, descriptors[route.key].options.buttonStyles]}
             >
               {descriptors[route.key].options.buttonIcon({focused: state.index == i})}
-              {width > 1010 && <Text style={{
+              {width > 1030 && <Text style={{
                 fontWeight: 'bold',
                 fontSize: 16,
                 paddingLeft: 4

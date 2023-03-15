@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { TextInput, TouchableOpacity} from 'react-native';
+import theme from '../../../styles/theme.style'
 
 /**
 The Input area is just a multi-line input area currently there are no buttons or anything but may be 
@@ -15,7 +16,8 @@ const InputArea = (
         placeholder,
         onChangeText, 
         keyboardType,
-        fontSize
+        fontSize,
+        borderColor
 
     }) => {
     const [isFocused, setIsFocused] = useState(false);
@@ -28,9 +30,9 @@ const InputArea = (
                     {
                         flexDirection: 'row',
                         alignItems: 'center',
-                        backgroundColor: '#F3F3F3',
+                        backgroundColor: theme.INPUT_COLOR,
                         borderRadius: 10,
-                        borderColor: isFocused ? 'grey' : '#F3F3F3',
+                        borderColor: borderColor || (isFocused ? 'dodgerblue' : 'transparent'),
                         borderWidth: 2,
                         paddingHorizontal: 3,
                     }, 
@@ -44,8 +46,8 @@ const InputArea = (
                         width: '100%',
                         flexGrow: 1,
                         flexShrink: 1,
-                        marginLeft: '2%',
-                        marginRight: '2%',
+                        marginLeft: '1%',
+                        marginRight: '1%',
                         outlineStyle: 'none',
                         fontSize: fontSize
                     }

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { TextInput, TouchableOpacity} from 'react-native';
+import theme from '../../../styles/theme.style'
 
 /**
 This is the InputField component it comes in two main styles rounded and only slightly rounded.
@@ -22,12 +23,20 @@ const InputField = (
         endButton, 
         onStartPress,
         onEndPress,
+        startDisabled,
+        endDisabled,
         rounded,
         keyboardType,
-        fontSize
+        onFocus,
+        borderColor,
+        secureTextEntry,
+        onSubmitEditing
 
     }) => {
     const [isFocused, setIsFocused] = useState(false);
+    const handleFocus = () => {
+        onFocus ? onFocus() : null;
+    }
     return (
         <TouchableOpacity 
             activeOpacity={1}
@@ -37,24 +46,25 @@ const InputField = (
                     {
                         flexDirection: 'row',
                         alignItems: 'center',
-                        backgroundColor: '#e9e9e9',
+                        backgroundColor: theme.INPUT_COLOR,
                         borderRadius: !rounded ? 8 : 50,
-                        borderColor: isFocused ? 'dodgerblue' : 'transparent',
+                        borderColor: borderColor || (isFocused ? 'dodgerblue' : 'transparent'),
                         borderWidth: 2,
-                        paddingVertical: 15,
-                        height: 50,
-                        width: 300,
                         marginBottom: 10
                     }, 
                     style
                 )
             }>
             {startButton && <TouchableOpacity
+                activeOpacity={startDisabled ? 1 : 0.5}
                 style={
                     { 
+                        height: '80%', 
+                        width: undefined, 
                         aspectRatio: 1,
-                        justifyContent: 'center',
+                        justifyContent: 'center', 
                         alignItems: 'center',
+                        marginLeft: style.height*0.4
                     }
                 }
                 onPress={onStartPress}
@@ -64,25 +74,29 @@ const InputField = (
             <TextInput
                 style={
                     {
-                        flexGrow: 1,
                         flexShrink: 1,
+                        flexGrow: 1,
+                        width: '80%',
                         marginLeft: '2%',
                         marginRight: '2%',
                         outlineStyle: 'none',
-                        fontSize: 20,
-                        paddingHorizontal: 10,
-                        paddingVertical: 20
+                        fontSize: style.fontSize || 20,
+                        paddingHorizontal: style.height*0.25,
+                        color: 'black'
                     }
                 }
                 value={value}
                 onChangeText={onChangeText}
                 placeholder={placeholder}
                 placeholderTextColor={'grey'}
-                onFocus={() => setIsFocused(true)}
+                onFocus={() => { setIsFocused(true), handleFocus()}}
                 onBlur={() => setIsFocused(false)}
                 keyboardType={keyboardType}
+                secureTextEntry={secureTextEntry}
+                onSubmitEditing={onSubmitEditing}
             />
             {endButton && <TouchableOpacity
+                disabled={endDisabled ? 0.7 : 1}
                 style={
                     { 
                         height: '80%', 
@@ -90,7 +104,7 @@ const InputField = (
                         aspectRatio: 1,
                         justifyContent: 'center', 
                         alignItems: 'center',
-                        marginRight: '%'
+                        marginRight: style.height*0.4
                     }
                 }
                 onPress={onEndPress}
