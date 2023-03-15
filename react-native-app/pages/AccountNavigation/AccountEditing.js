@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, Text, StyleSheet } from "react-native";
+import { View, Button, Text, StyleSheet, SafeAreaView, StatusBar } from "react-native";
+import theme from '../../styles/theme.style'
 
 import { useContext } from "react";
 import { AuthContext } from "../../context";
@@ -47,10 +48,14 @@ const AccountInformation = () => {
       });
       const result = await response.json();
       if (response.status == 200) {
+        setError('');
         setSuccess(true);
+      } else {
+        setError('Validation Failed!')
       }
     } catch (error) {
-      setError(error.message);
+      setError('An error has occured!');
+      console.log(error);
     }
   };
 
@@ -68,80 +73,102 @@ const AccountInformation = () => {
   };
   if (success) {
     return (
-      <View style={styles.container}>
-        <Text style={{ color: "limegreen" }}>
-          Your changes were saved successfully!
-        </Text>
-        <Button onPress={() => setSuccess(false)} title="OK" />
-      </View>
+      <SafeAreaView style={styles.background}>
+        <StatusBar/>
+        <View style={styles.container}>
+          <Text style={{ color: "limegreen" }}>
+            Your changes were saved successfully!
+          </Text>
+          <Button onPress={() => setSuccess(false)} title="OK" />
+        </View>
+      </SafeAreaView>
     );
   }
   return (
-    <View style={styles.container}>
-      {/* Personal Details Container */}
-      <View style={{ flexDirection: "column" }}>
-        <Text style={styles.header}>Personal Details</Text>
-        <InputField
-          value={firstName}
-          onChangeText={setFirstName}
-          placeholder="First Name"
-        />
-        <InputField
-          value={lastName}
-          onChangeText={setLastName}
-          placeholder="Last Name"
-        />
-        <InputField value={email} onChangeText={setEmail} placeholder="Email" />
-        <InputField
-          style={{ backgroundColor: "#e5e5e5" }}
-          value={undefined}
-          onChangeText={undefined}
-          placeholder="ZIP Code"
-        />
-        <InputField
-          value={undefined}
-          onChangeText={undefined}
-          placeholder="Date of Birth"
-        />
-      </View>
+    <SafeAreaView style={styles.background}>
+      <View style={styles.container}>
+        {/* Personal Details Container */}
+        <View style={{ flexDirection: "column" }}>
+          <Text style={styles.header}>Personal Details</Text>
+          <InputField
+            style={styles.input}
+            value={firstName}
+            onChangeText={setFirstName}
+            placeholder="First Name"
+          />
+          <InputField
+            style={styles.input}
+            value={lastName}
+            onChangeText={setLastName}
+            placeholder="Last Name"
+          />
+          <InputField
+            style={styles.input}
+            value={email}
+            onChangeText={setEmail}
+            placeholder="Email" />
+          <InputField
+            style={styles.input}
+            value={undefined}
+            onChangeText={undefined}
+            placeholder="ZIP Code"
+          />
+          <InputField
+            style={styles.input}
+            value={undefined}
+            onChangeText={undefined}
+            placeholder="Date of Birth"
+          />
+        </View>
 
-      {/* Login Credentials Container */}
-      <View style={{ flexDirection: "column" }}>
-        <Text style={styles.headerMuted}>Change Password</Text>
-        <InputField
-          style={styles.inputMuted}
-          value={undefined}
-          onChangeText={undefined}
-          placeholder="Password (disabled)"
-        />
-        <InputField
-          style={styles.inputMuted}
-          value={undefined}
-          onChangeText={undefined}
-          placeholder="Confirm Password (disabled)"
-        />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={saveAccountInformation}
-        >
-          <Text style={{ color: "#fff", fontSize: 15, fontWeight: "600" }}>
-            Submit
-          </Text>
-        </TouchableOpacity>
-        {error && <Text>{error}</Text>}
+        {/* Login Credentials Container */}
+        <View style={{ flexDirection: "column" }}>
+          <Text style={styles.headerMuted}>Change Password</Text>
+          <InputField
+            style={styles.inputMuted}
+            value={undefined}
+            onChangeText={undefined}
+            placeholder="Password (disabled)"
+          />
+          <InputField
+            style={styles.inputMuted}
+            value={undefined}
+            onChangeText={undefined}
+            placeholder="Confirm Password (disabled)"
+          />
+          <TouchableOpacity
+            style={styles.button}
+            onPress={saveAccountInformation}
+          >
+            <Text style={{ color: "#fff", fontSize: 15, fontWeight: "600" }}>
+              Submit
+            </Text>
+          </TouchableOpacity>
+          {error && <Text>{error}</Text>}
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
 export default AccountInformation;
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
-    backgroundColor: "#ffffff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: theme.BACKGROUND_COLOR,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  container:{
+    flex: 1,
+    width: '100%',
+    backgroundColor: theme.CONTAINER_COLOR,
+    borderRadius: 10,
+    borderWidth: 5,
+    borderColor: theme.CONTAINER_COLOR,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   button: {
     height: 35,
@@ -153,6 +180,10 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     paddingVertical: 10,
     paddingHorizontal: 15,
+  },
+  input: {
+    height: 50,
+    width: 300
   },
   header: {
     fontSize: 30,
@@ -175,5 +206,7 @@ const styles = StyleSheet.create({
   },
   inputMuted: {
     backgroundColor: "#f5f5f5",
+    height: 50,
+    width: 300
   },
 });

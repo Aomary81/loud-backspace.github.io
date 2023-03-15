@@ -1,25 +1,5 @@
-/*
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-
-const userSchema = new Schema({
-    Username: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
-        minlength: 3
-    },
-}, {
-    timestamps: true,
-});
-
-const User = mongoose.model('User', userSchema);
-module.exports = User;
-*/
-
-//what level will the password hash be?
-const mongoose = require('mongoose');
+const Listing = require('./listing.model');
 
 const userSchema = new mongoose.Schema({
   first_name: {
@@ -39,21 +19,15 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  address: {
-    type: String
-  },
-  city: {
-    type: String
-  },
-  state: {
-    type: String
-  },
-  zip_code: {
-    type: String
-  },
-  desc: {
-	type: String
-  }
+  address: String,
+  city: String,
+  state: String,
+  zip_code: String,
+  desc: String,
+  my_listings: [{
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: Listing
+  }],
 });
 
 module.exports = mongoose.model('User', userSchema);

@@ -1,27 +1,29 @@
 import React, { useState, useContext } from "react";
 import {
   View,
-  TextInput,
   Button,
-  Text,
   StyleSheet,
-  Platform,
-  TouchableOpacity,
+  SafeAreaView,
+  StatusBar
 } from "react-native";
 import { AuthContext } from "../../context";
+import theme from '../../styles/theme.style'
+import InputField from '../components/V2Components/InputField'
+import InputArea from '../components/V2Components/InputArea'
 
-const ListingEdit = ({ navigation }) => {
+const ListingEdit = ({ route, navigation }) => {
+  const { listing } = route.params;
   const { myIp } = useContext(AuthContext).ip;
   const { token } = useContext(AuthContext);
-  const [streetNumber, setStreetNumber] = useState("");
-  const [streetName, setStreetName] = useState("");
-  const [apartmentNumber, setApartmentNumber] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [zipCode, setZipCode] = useState("");
-  const [rent, setRent] = useState("");
-  const [tags, setTags] = useState("");
-  const [bio, setBio] = useState("");
+  const [streetNumber, setStreetNumber] = useState(listing.street_number);
+  const [streetName, setStreetName] = useState(listing.street_name);
+  const [apartmentNumber, setApartmentNumber] = useState(listing.apartment_number);
+  const [city, setCity] = useState(listing.city);
+  const [state, setState] = useState(listing.state);
+  const [zipCode, setZipCode] = useState(listing.zip_code);
+  const [rent, setRent] = useState(listing.rent);
+  const [tags, setTags] = useState(listing.tags);
+  const [bio, setBio] = useState(listing.bio);
 
   const SubmitListing = async () => {
     try {
@@ -43,11 +45,14 @@ const ListingEdit = ({ navigation }) => {
           tags: tags,
           bio: bio,
           token: token,
+          listing_id: listing._id
         }),
         https: false, // Set the https option to true
       });
       const result = await response.json();
       if (response.status == 200) {
+        navigation.replace('My Listings');
+        console.log(result);
       }
     } catch (error) {
       console.log(error.message);
@@ -67,99 +72,106 @@ const ListingEdit = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        placeholder="Street Number"
-        value={streetNumber}
-        onChangeText={setStreetNumber}
-        style={styles.TextInput}
-      />
-      <TextInput
-        placeholder="Street Name"
-        value={streetName}
-        onChangeText={setStreetName}
-        style={styles.TextInput}
-      />
-      <TextInput
-        placeholder="Apartment Number"
-        value={apartmentNumber}
-        onChangeText={setApartmentNumber}
-        style={styles.TextInput}
-      />
-      <TextInput
-        placeholder="City"
-        value={city}
-        onChangeText={setCity}
-        style={styles.TextInput}
-      />
-      <TextInput
-        placeholder="State"
-        value={state}
-        onChangeText={setState}
-        style={styles.TextInput}
-      />
-      <TextInput
-        placeholder="Zip Code"
-        value={zipCode}
-        onChangeText={setZipCode}
-        style={styles.TextInput}
-      />
-      <TextInput
-        placeholder="Rent"
-        value={rent}
-        onChangeText={setRent}
-        style={styles.TextInput}
-      />
-      <TextInput
-        placeholder="Tags (comma-separated)"
-        value={tags}
-        onChangeText={setTags}
-        style={styles.TextInput}
-      />
-      <TextInput
-        multiline={true}
-        numberOfLines={10}
-        placeholder="Bio"
-        value={bio}
-        onChangeText={setBio}
-        style={{
-          backgroundColor: "white",
-          paddingLeft: 5,
-          height: 120,
-          width: 600,
-          borderWidth: 1,
-          paddingTop: 0,
-        }}
-      />
-      <View style={{ height: 10 }} />
-      <View
-        style={{
-          flexDirection: "row",
-        }}
-      >
-        <Button title="Clear" onPress={clearInputs} />
-        <View style={{ height: 40, width: 40 }} />
-        <Button onPress={SubmitListing} title="Submit" />
+    <SafeAreaView style={styles.background}>
+      <StatusBar/>
+      <View style={styles.container}>
+        <InputField
+          placeholder="Street Number"
+          value={streetNumber}
+          onChangeText={setStreetNumber}
+          style={styles.TextInput}
+        />
+        <InputField
+          placeholder="Street Name"
+          value={streetName}
+          onChangeText={setStreetName}
+          style={styles.TextInput}
+        />
+        <InputField
+          placeholder="Apartment Number"
+          value={apartmentNumber}
+          onChangeText={setApartmentNumber}
+          style={styles.TextInput}
+        />
+        <InputField
+          placeholder="City"
+          value={city}
+          onChangeText={setCity}
+          style={styles.TextInput}
+        />
+        <InputField
+          placeholder="State"
+          value={state}
+          onChangeText={setState}
+          style={styles.TextInput}
+        />
+        <InputField
+          placeholder="Zip Code"
+          value={zipCode}
+          onChangeText={setZipCode}
+          style={styles.TextInput}
+        />
+        <InputField
+          placeholder="Rent"
+          value={rent}
+          onChangeText={setRent}
+          style={styles.TextInput}
+        />
+        <InputField
+          placeholder="Tags (comma-separated)"
+          value={tags}
+          onChangeText={setTags}
+          style={styles.TextInput}
+        />
+        <InputArea
+          multiline={true}
+          numberOfLines={10}
+          placeholder="Bio"
+          value={bio}
+          onChangeText={setBio}
+          style={{
+            height: 120,
+            width: 600,
+          }}
+        />
+        <View style={{ height: 10 }} />
+        <View
+          style={{
+            flexDirection: "row",
+          }}
+        >
+          <Button title="Clear" onPress={clearInputs} />
+          <View style={{ height: 40, width: 40 }} />
+          <Button onPress={SubmitListing} title="Submit" />
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
 export default ListingEdit;
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
-    backgroundColor: "#ffffff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: theme.BACKGROUND_COLOR,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  container:{
+    flex: 1,
+    width: '100%',
+    backgroundColor: theme.CONTAINER_COLOR,
+    borderRadius: 10,
+    borderWidth: 5,
+    borderColor: theme.CONTAINER_COLOR,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   TextInput: {
-    backgroundColor: "white",
-    paddingLeft: 5,
     height: 40,
-    width: 200,
-    borderWidth: 1,
+    width: 220,
     marginBottom: 10,
+    fontSize: 15
   },
 });

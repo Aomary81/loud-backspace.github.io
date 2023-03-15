@@ -1,13 +1,14 @@
 import React, { useState, useContext } from "react";
 import {
   View,
-  TextInput,
   Button,
   Text,
   StyleSheet,
   Platform,
 } from "react-native";
 import * as SecureStore from "expo-secure-store";
+import theme from '../../styles/theme.style'
+import InputField from '../components/V2Components/InputField'
 
 import { AuthContext } from "../../context";
 
@@ -108,63 +109,55 @@ const AccountCreation = () => {
 
   return (
     <View style={styles.container}>
-      <TextInput
+      <InputField
         value={firstName}
         onChangeText={setFirstName}
         style={styles.TextInput}
         placeholder="First Name"
       />
-      <View style={{ height: 10 }} />
-      <TextInput
+      <InputField
         value={lastName}
         onChangeText={setLastName}
         style={styles.TextInput}
         placeholder="Last Name"
       />
-      <View style={{ height: 10 }} />
-      <TextInput
+      <InputField
         value={email}
         onChangeText={setEmail}
         style={styles.TextInput}
         placeholder="Email"
       />
-      <View style={{ height: 10 }} />
-      <TextInput
+      <InputField
         value={password}
         onChangeText={setPassword}
         style={styles.TextInput}
         placeholder="Password"
         secureTextEntry
       />
-      <View style={{ height: 10 }} />
-      <TextInput
+      <InputField
         value={address}
         onChangeText={setAddress}
         style={styles.TextInput}
         placeholder="Address"
       />
-      <View style={{ height: 10 }} />
-      <TextInput
+      <InputField
         value={city}
         onChangeText={setCity}
         style={styles.TextInput}
         placeholder="City"
       />
-      <View style={{ height: 10 }} />
-      <TextInput
+      <InputField
         value={state}
         onChangeText={setState}
         style={styles.TextInput}
         placeholder="State"
       />
-      <View style={{ height: 10 }} />
-      <TextInput
+      <InputField
         value={zipCode}
         onChangeText={setZipCode}
         style={styles.TextInput}
         placeholder="ZipCode"
       />
-      <View style={{ height: 10 }} />
       {error && <Text>{error}</Text>}
       <View
         style={{
@@ -183,15 +176,12 @@ export default AccountCreation;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: theme.CONTAINER_COLOR,
     alignItems: "center",
     justifyContent: "center",
   },
   TextInput: {
-    backgroundColor: "white",
-    paddingLeft: 5,
     height: 40,
     width: 200,
-    borderWidth: 1,
   },
 });

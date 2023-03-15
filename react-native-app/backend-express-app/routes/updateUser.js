@@ -21,15 +21,13 @@ router.patch('/user', (req, res) => {
         email
       } = req.body;
       // Check if user already exists
-      User.updateOne({filter}, update, function(err, result) {
+      User.findByIdAndUpdate(filter, update, {runValidators: true}, function(err, result) {
         if (err) {
           console.log('Error:', err);
-          return;
+          return res.status(400).json({ message: err.message })
         }
-        if (result.acknowledged) {
+        if (result) {
             return res.status(200).json({ message: 'OK' });
-        } else {
-            return res.status(400).json({ message: 'Failed' });
         }
       })
       

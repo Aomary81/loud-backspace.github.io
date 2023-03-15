@@ -1,42 +1,16 @@
-import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
   View,
-  useWindowDimensions,
-  FlatList,
   TouchableOpacity,
+  StatusBar,
 } from "react-native";
-import {
-  Avatar,
-  Button,
-  Card,
-  Title,
-  Paragraph,
-  TextInput,
-} from "react-native-paper";
-import PageLayouts from "@PageLayouts";
-import RoommateCard from "../components/RoommateFinderComponents/RoommateCard";
-import RoommateFinderUserBriefing from "../components/RoommateFinderComponents/RoommateFinderUserBriefing";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import { SafeAreaView } from "react-navigation";
 import React, { useState, useContext } from "react";
 import InputField from "../components/V2Components/InputField";
 import { AuthContext } from "../../context";
-import Listing from "../../backend-express-app/models/listing.model";
-import { ContentModule } from "../components/V2Components/ContentModule";
-
-const Data = [
-  { id: "1" },
-  { id: "2" },
-  { id: "3" },
-  { id: "4" },
-  { id: "5" },
-  { id: "6" },
-  { id: "7" },
-  { id: "8" },
-  { id: "9" },
-  { id: "10" },
-];
+import theme from '.././../styles/theme.style'
 
 export default function FinderScreen({ navigation }) {
   const { myIp } = useContext(AuthContext).ip;
@@ -74,61 +48,87 @@ export default function FinderScreen({ navigation }) {
   };
 
   return (
-    <SafeAreaView>
-      <TextInput
-        style={styles.TextInput}
-        placeholder="Search By Zipcode"
-        value={zipCode}
-        onChangeText={getZipCode}
-        onSubmitEditing={SearchListings}
-      />
-      <TouchableOpacity style={styles.button} onPress={SearchListings}>
-        <Text>Search</Text>
-      </TouchableOpacity>{" "}
-      <View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate("ListingCreation")}
-        >
-          <Text>Create Listing</Text>
-        </TouchableOpacity>{" "}
-      </View>
-      <View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate("ListingEdit")}
-        >
-          <Text>Edit Listing</Text>
-        </TouchableOpacity>{" "}
-      </View>
-      <RoommateFinderUserBriefing />
-      <View style={styles.Box}>
-        {data.map((item) => (
+    <SafeAreaView style={styles.background}>
+      <StatusBar style="auto" />
+      <View style={styles.container}>
+        <View style={styles.topBar}>
+          <View>
+            <Text style={styles.title}>Roommate Finder</Text>
+            <Text style={{fontSize: 12, marginLeft: 60}}>Find roomates according to your interests</Text>
+          </View>
+          <InputField
+            style={styles.TextInput}
+            placeholder="Search By Zipcode"
+            value={zipCode}
+            onChangeText={getZipCode}
+            onSubmitEditing={SearchListings}
+            startDisabled={true}
+            rounded
+            startButton={<Ionicons
+              name={"search"}
+              size={25}
+              color={'grey'}
+            />}
+          />
           <TouchableOpacity
-            style={styles.ContentModule}
-            key={item._id}
-            onPress={() => handlePress(item)}
-          >
-            <Text style={styles.text}>{`${item.city}, ${item.zip_code}`}</Text>
-            <Text style={styles.text}>{item.street_name}</Text>
-            <Text style={styles.text}>{item.rent}</Text>
+            style={styles.createListingButton}
+            onPress={() => navigation.navigate("ListingCreation")}>
+            <Text style={{fontWeight: 'bold'}}>Create Listing</Text>
           </TouchableOpacity>
-        ))}
+          <TouchableOpacity
+            style={styles.filterButton}>
+            <Text style={{fontWeight: 'bold'}}>Filter Search Results</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("My Listings")}
+          >
+            <Text>View my listings</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.Box}>
+          {data.map((item) => (
+            <TouchableOpacity
+              style={styles.ContentModule}
+              key={item._id}
+              onPress={() => handlePress(item)}
+            >
+              <Text style={styles.text}>{`${item.city}, ${item.zip_code}`}</Text>
+              <Text style={styles.text}>{item.street_name}</Text>
+              <Text style={styles.text}>{item.rent}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
       </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
-    backgroundColor: "#ffffff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: theme.BACKGROUND_COLOR,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  container:{
+    flex: 1,
+    width: '100%',
+    backgroundColor: theme.CONTAINER_COLOR,
+    borderRadius: 10,
+    borderWidth: 10,
+    borderColor: theme.CONTAINER_COLOR,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  topBar: {
+    flexDirection: 'row',
+    marginTop: 15,
+    alignItems: 'center'
   },
   input: {
-    height: 30,
-    width: 300,
     marginBottom: 10,
   },
   button: {
@@ -141,27 +141,54 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   TextInput: {
-    backgroundColor: "white",
-    paddingLeft: 5,
     height: 40,
-    width: 200,
-    borderWidth: 1,
-    marginBottom: 5,
-    justifyContent: "right",
-    alignItems: "right",
+    width: 220,
+    marginBottom: 0,
+    fontSize: 15,
+    marginLeft: 30
   },
   ContentModule: {
+    flexBasis: '24.1%',
+    marginHorizontal: 4.4,
+    marginVertical: 4.4,
     alignItems: "center",
     justifyContent: "center",
-    width: 200,
     height: 100,
-    backgroundColor: "#E1E1E1",
-    margin: 1,
+    backgroundColor: theme.CONTENT_MODULE_COLOR,
     borderRadius: 10,
   },
   Box: {
     flex: 1,
     flexDirection: "row",
+    alignContent: 'flex-start',
+    alignItems: 'flex-start',
     flexWrap: "wrap",
+    width: '100%',
+    backgroundColor: theme.CONTAINER_COLOR,
+    marginTop: 10
   },
+  title: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginLeft: 60,
+    marginRight: 30
+  },
+  createListingButton: {
+    height: 40,
+    width: 230,
+    backgroundColor: "#92EBFF",
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 20
+  },
+  filterButton: {
+    height: 40,
+    width: 220,
+    backgroundColor: "#D9D9D9",
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 20
+  }
 });

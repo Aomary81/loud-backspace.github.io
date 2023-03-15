@@ -11,21 +11,24 @@ router.post('/login', async (req, res) => {
   const { email, password, isMobile } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({ message: 'User not found' });
+    res.status(400).json({ message: 'User not found' });
+    return;
   }
 
   // Check if user exists
   const user = await User.findOne({ email });
 
   if (!user) {
-    return res.status(400).json({ message: 'User not found' });
+    res.status(401).json({ message: 'User not found' });
+    return;
   }
 
   // Check if password is correct
   if (!bcrypt.compareSync(password, user.password_hash)) {
-    return res.status(400).json({ message: 'Incorrect password' });
+    res.status(401).json({ message: 'Incorrect password' });
+    return;
   }
-  const token = jwt.sign({ userId: user.id }, 'thisIsSecret', { expiresIn: '1h' });
+  const token = jwt.sign({ userId: user.id }, 'thisIsSecret', { expiresIn: '24h' });
   // Start session
   if(!isMobile){
     res.cookie('token', token, {
@@ -36,7 +39,7 @@ router.post('/login', async (req, res) => {
   }
   // Send the token in the response body if the request is coming from a mobile app
   if (isMobile) {
-    res.json({ token });
+    res.status(200).json({ token });
   }
 });
 
@@ -98,9 +101,8 @@ router.post('/signup', async (req, res) => {
   });
 
   await newUser.save();
-  const user = await User.findOne({ email });
   // Start session
-  const token = jwt.sign({ userId: user.id }, 'thisIsSecret', { expiresIn: '1h' });
+  const token = jwt.sign({ userId: newUser.id }, 'thisIsSecret', { expiresIn: '24h' });
   
   if(!isMobile){
     res.cookie('token', token, {

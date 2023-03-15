@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const https = require("https");
 const fs = require("fs");
-const ip = "192.168.0.41";
+const ip = "10.0.0.186";
 
 require("dotenv").config();
 
