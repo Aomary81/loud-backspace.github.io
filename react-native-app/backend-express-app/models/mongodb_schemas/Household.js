@@ -1,18 +1,17 @@
 const mongoose = require('mongoose');
+const User = require('../user.model');
 
 const Household = new mongoose.Schema({
-	
-	houseID: {
-		type: Schema.Types.ObjectID
-	},
 	member: [{
-      type: Schema.Types.ObjectId
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: User
 	}],
 	name: {
 		type: String
 	}
-	
 });
+
+module.exports = mongoose.model('Household', Household);
 
 /*
 //Commands used

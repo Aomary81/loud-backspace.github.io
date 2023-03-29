@@ -1,35 +1,36 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const User = require('../user.model');
+const Household = require('./Household');
 
-const householdCodeSchema = new Schema({
+const householdCodeSchema = new mongoose.Schema({
   invitingMember: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: User,
     required: true,
     description: "the object id of the invitee house"
   },
   houseID: {
-    type: Schema.Types.ObjectId,
-    ref: 'Household',
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: Household,
     required: true,
     description: "the object id of the invitee house"
   },
   acceptedBy: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: User,
     default: null,
     description: "the object id of the added user once accepted"
   },
   addCode: {
-    type: Schema.Types.ObjectId,
+    type: String,
     required: true,
-    default: mongoose.Types.ObjectId,
-    index: { unique: true },
+    unique: true ,
     description: "generated add code"
-  }
+  },
+  expiresAt: { type: Date, required: true, index: { expireAfterSeconds: 0 } }
 });
 
-const HouseholdCode = mongoose.model('HouseholdCode', householdCodeSchema);
+module.exports = mongoose.model('AddCode', householdCodeSchema);
 
 /*
 
