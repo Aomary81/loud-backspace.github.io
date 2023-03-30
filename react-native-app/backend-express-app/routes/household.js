@@ -116,5 +116,30 @@ router.post("/create", async (req, res) => {
       }
   });
 
+  router.post("/get-household", async (req, res) => {
+    const token = req.cookies.token || req.body.token;
+    try {
+      // Verify the token and extract the user ID
+      const decodedToken = jwt.verify(token, "thisIsSecret");
+      const userId = decodedToken.userId;
+  
+      // Check if user exists in the database using the user ID
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+      try {
+        const household = await User.findById(user.id).select('my_household').populate('my_household');
+        return res.status(200).json({household: household.my_household});
+      } catch(error) {
+        console.log(error);
+        return res.status(502).json({ message: 'Database error' });
+      }
+    } catch (error) {
+      // If the token is invalid or has expired, return a 401 Unauthorized response
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+  });
+
   module.exports = router;
   
