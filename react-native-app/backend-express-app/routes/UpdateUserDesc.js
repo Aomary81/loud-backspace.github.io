@@ -1,28 +1,25 @@
-const express = require('express');
+const router = require('express').Router();
 const jwt = require('jsonwebtoken');
-const router = express.Router();
 const User = require('../models/user.model');
 
-router.patch('/user', (req, res) => {
-    const token = req.cookies.token || req.body.token;
-    // Check if user is logged in
-    if (!token) {
-      return res.status(401).json({ message: 'Unauthorized' });
-    }
-  
-    try {
+router.route('/users/desc').post((req,res) => {
+	const token = req.cookies.token || req.body.token;
+	
+	if(!token) {
+		return res.status(401).json({ message: 'Unauthorized' });
+	}
+	
+	try {
       // Verify the token and extract the user ID
       const decodedToken = jwt.verify(token, 'thisIsSecret');
       const userId = decodedToken.userId;
-	  
-	  console.log("Attempting to update data for " + userId);
       const filter = userId;
+	  
+	  // Extracts the 'desc' property from the request body (Chat GPT analysis)
       const update = {
-        first_name,
-        last_name,
-        email,
-		desc
+        desc
       } = req.body;
+	  
       // Check if user already exists
       User.findByIdAndUpdate(filter, update, {runValidators: true}, function(err, result) {
         if (err) {
@@ -39,5 +36,3 @@ router.patch('/user', (req, res) => {
       return res.status(403).json({ message: 'Request error on submission' });
     }
 });
-
-module.exports = router;

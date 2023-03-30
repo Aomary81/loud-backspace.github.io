@@ -8,6 +8,9 @@ const saltRounds = 10;
 
 // Login Route
 router.post('/login', async (req, res) => {
+  
+  console.log("Login attempt detected");
+  
   const { email, password, isMobile } = req.body;
 
   if (!email || !password) {

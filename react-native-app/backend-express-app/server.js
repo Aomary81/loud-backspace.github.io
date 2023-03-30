@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const https = require("https");
 const fs = require("fs");
-const ip = "10.0.0.186";
+const ip = "localhost";
 
 require("dotenv").config();
 
@@ -17,6 +17,9 @@ const usersRouter = require("./routes/users");
 const authRouter = require("./routes/auth");
 
 const updateRouter = require("./routes/updateUser");
+
+const getUserRouter = require("./routes/getUserData");
+
 const listingsRouter = require("./routes/listings");
 const householdRouter = require("./routes/household");
 
@@ -51,6 +54,7 @@ connection.once("open", () => {
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
 app.use("/update", updateRouter);
+app.use("/get", getUserRouter);
 app.use("/listings", listingsRouter);
 app.use("/household", householdRouter);
 
