@@ -14,11 +14,14 @@ router.patch('/user', (req, res) => {
       // Verify the token and extract the user ID
       const decodedToken = jwt.verify(token, 'thisIsSecret');
       const userId = decodedToken.userId;
+	  
+	  console.log("Attempting to update data for " + userId);
       const filter = userId;
       const update = {
         first_name,
         last_name,
-        email
+        email,
+		desc
       } = req.body;
       // Check if user already exists
       User.findByIdAndUpdate(filter, update, {runValidators: true}, function(err, result) {

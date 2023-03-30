@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import { View, Button, Text, StyleSheet, SafeAreaView, StatusBar } from "react-native";
 import theme from '../../styles/theme.style'
 
@@ -18,11 +18,38 @@ const AccountInformation = () => {
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [listing, setListing] = useState("");
+  const [desc, setDescription] = useState("");
 
   const { myIp } = useContext(AuthContext).ip;
   const { token } = useContext(AuthContext);
 
   const [success, setSuccess] = useState(false);
+
+  useEffect(() => { 
+	const userData = fetch("http://" + myIp + ":3000/get/user", {
+		method: "POST",
+		credentials: "include",
+		headers: {
+		  "Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+		  token: token,
+		}),
+	})
+	.then(response => response.json())
+    .then(data => {
+		setFirstName(data.first_name);
+		setLastName(data.last_name);
+		setEmail(data.email);
+		setAddress(data.address);
+		setCity(data.city);
+		setState(data.state);
+		setZipCode(data.zip_code);
+		setDescription(data.desc);
+	});
+	console.log(userData);
+  }, []);
+
 
   const saveAccountInformation = async () => {
     if (!email.includes("@")) {
@@ -44,15 +71,22 @@ const AccountInformation = () => {
           last_name: lastName,
           email: email,
           token: token,
+		  desc: desc,
         }),
       });
+	  
       const result = await response.json();
       if (response.status == 200) {
-        setError('');
+        //setError('');
         setSuccess(true);
       } else {
         setError('Validation Failed!')
       }
+	  
+	  
+	  
+	  //*/
+	  
     } catch (error) {
       setError('An error has occured!');
       console.log(error);
@@ -119,6 +153,12 @@ const AccountInformation = () => {
             onChangeText={undefined}
             placeholder="Date of Birth"
           />
+		  <InputField
+			style = {styles.inputBox}
+			value = {desc}
+			onChangeText={setDescription}
+			placeholder="Type some stuff about yourself here..."
+		  />
         </View>
 
         {/* Login Credentials Container */}
@@ -140,9 +180,11 @@ const AccountInformation = () => {
             style={styles.button}
             onPress={saveAccountInformation}
           >
-            <Text style={{ color: "#fff", fontSize: 15, fontWeight: "600" }}>
-              Submit
-            </Text>
+			<View>
+				<Text style={{ color: "#fff", fontSize: 15, fontWeight: "600" }}>
+				  Submit
+				</Text>
+			</View>
           </TouchableOpacity>
           {error && <Text>{error}</Text>}
         </View>
@@ -183,6 +225,10 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 50,
+    width: 300
+  },
+  inputBox: {
+	flex: 1,
     width: 300
   },
   header: {

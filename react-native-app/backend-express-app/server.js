@@ -17,6 +17,9 @@ const usersRouter = require("./routes/users");
 const authRouter = require("./routes/auth");
 
 const updateRouter = require("./routes/updateUser");
+
+const getUserRouter = require("./routes/getUserData");
+
 const listingsRouter = require("./routes/listings");
 const householdRouter = require("./routes/household");
 
@@ -51,6 +54,7 @@ connection.once("open", () => {
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
 app.use("/update", updateRouter);
+app.use("/get", getUserRouter);
 app.use("/listings", listingsRouter);
 app.use("/household", householdRouter);
 
