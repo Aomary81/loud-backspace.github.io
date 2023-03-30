@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Listing = require('./listing.model');
+const Household = require('./mongodb_schemas/Household');
 
 const userSchema = new mongoose.Schema({
   first_name: {
@@ -28,6 +29,10 @@ const userSchema = new mongoose.Schema({
     type: mongoose.SchemaTypes.ObjectId,
     ref: Listing
   }],
+  my_household: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: Household
+  }
 });
 
 module.exports = mongoose.model('User', userSchema);

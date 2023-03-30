@@ -18,6 +18,7 @@ const authRouter = require("./routes/auth");
 
 const updateRouter = require("./routes/updateUser");
 const listingsRouter = require("./routes/listings");
+const householdRouter = require("./routes/household");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -51,6 +52,7 @@ app.use("/users", usersRouter);
 app.use("/auth", authRouter);
 app.use("/update", updateRouter);
 app.use("/listings", listingsRouter);
+app.use("/household", householdRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
