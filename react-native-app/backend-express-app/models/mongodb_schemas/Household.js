@@ -1,10 +1,15 @@
 const mongoose = require('mongoose');
 const User = require('../user.model');
+const Reminder = require('./reminderSchema');
 
 const Household = new mongoose.Schema({
 	member: [{
       type: mongoose.SchemaTypes.ObjectId,
       ref: User
+	}],
+   reminders: [{
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: Reminder
 	}],
 	name: {
 		type: String
