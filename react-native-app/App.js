@@ -34,7 +34,7 @@ export default function App() {
   const [token, setUserToken] = useState(null);
   const ip = useMemo(() => {
     return {
-      myIp: "localhost",
+      myIp: "10.0.0.148",
     };
   }, []);
   const authContext = useMemo(() => {
@@ -82,7 +82,7 @@ export default function App() {
   }
 
   async function retrieveUserWebSession() {
-    console.log("retriving session");
+    console.log("Retrieving Session");
     await fetch("http://" + ip.myIp + ":3000/auth/isLoggedIn", {
       method: "POST",
       credentials: "include",

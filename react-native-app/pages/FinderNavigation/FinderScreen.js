@@ -11,6 +11,9 @@ import React, { useState, useContext } from "react";
 import InputField from "../components/V2Components/InputField";
 import { AuthContext } from "../../context";
 import theme from '.././../styles/theme.style'
+import IconedTitle from "../components/V2Components/IconedTitle";
+import ContentArea from '../components/V2Components/ContentAreaV2';
+import ContentAreaHeaderBar from '../components/V2Components/ContentAreaHeaderBar';
 
 export default function FinderScreen({ navigation }) {
   const { myIp } = useContext(AuthContext).ip;
@@ -50,13 +53,20 @@ export default function FinderScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.background}>
       <StatusBar style="auto" />
+
+
+
       <View style={styles.container}>
-        <View style={styles.topBar}>
-          <View>
-            <Text style={styles.title}>Roommate Finder</Text>
-            <Text style={{fontSize: 12, marginLeft: 60}}>Find roomates according to your interests</Text>
-          </View>
-          <InputField
+			<ContentArea>
+				<ContentAreaHeaderBar>
+        <IconedTitle 
+						img="https://cdn-icons-png.flaticon.com/512/673/673035.png"
+						title="Roommate Finder"
+						description="Find roommates according to your interests"
+					/>
+				</ContentAreaHeaderBar>
+        <View style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start'}}>
+        <InputField
             style={styles.TextInput}
             placeholder="Search By Zipcode"
             value={zipCode}
@@ -79,8 +89,6 @@ export default function FinderScreen({ navigation }) {
             style={styles.filterButton}>
             <Text style={{fontWeight: 'bold'}}>Filter Search Results</Text>
           </TouchableOpacity>
-        </View>
-        <View>
           <TouchableOpacity
             style={styles.button}
             onPress={() => navigation.navigate("My Listings")}
@@ -88,20 +96,8 @@ export default function FinderScreen({ navigation }) {
             <Text>View my listings</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.Box}>
-          {data.map((item) => (
-            <TouchableOpacity
-              style={styles.ContentModule}
-              key={item._id}
-              onPress={() => handlePress(item)}
-            >
-              <Text style={styles.text}>{`${item.city}, ${item.zip_code}`}</Text>
-              <Text style={styles.text}>{item.street_name}</Text>
-              <Text style={styles.text}>{item.rent}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </View>
+			</ContentArea>
+		</View>
     </SafeAreaView>
   );
 }
@@ -123,11 +119,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  topBar: {
-    flexDirection: 'row',
-    marginTop: 15,
-    alignItems: 'center'
-  },
   input: {
     marginBottom: 10,
   },
@@ -145,7 +136,8 @@ const styles = StyleSheet.create({
     width: 220,
     marginBottom: 0,
     fontSize: 15,
-    marginLeft: 30
+    marginLeft: 30,
+    color: theme.INPUT_TEXT_COLOR
   },
   ContentModule: {
     flexBasis: '24.1%',

@@ -20,7 +20,7 @@ export default function IconedTitle(props){
 	
 	return(
 		<View style={{
-			flex: 1,
+			display: 'flex',
 			flexDirection: 'row',
 			alignItems: 'center',
 			justifyContent: 'flex-start',
@@ -28,15 +28,15 @@ export default function IconedTitle(props){
 			}}>
 			{
 			<Image
-				style={{height: 55, width: 55, borderRadius: 50, padding: 10}}
+				style={{height: 38, width: 38}}
 				source={{uri: ""+props.img}}
 			/>
 			}
-			<View style={{marginLeft: 10}}>
-				<Title style={{fontWeight: 'bold', fontSize: 21, margin: 0}}>
+			<View style={{marginLeft: 15}}>
+				<Title style={{fontWeight: 'bold', fontSize: 21, margin: 0, color: 'white'}}>
 				{props.title}
 				</Title>
-				<Text>
+				<Text style={{color: 'white'}}>
 				{props.description}
 				</Text>
 			</View>
