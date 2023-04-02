@@ -25,7 +25,7 @@ const AccountInformation = () => {
 
   const [success, setSuccess] = useState(false);
 
-  useEffect(() => { 
+  useEffect(() => {
 	const userData = fetch("http://" + myIp + ":3000/get/user", {
 		method: "POST",
 		credentials: "include",
@@ -47,7 +47,7 @@ const AccountInformation = () => {
 		setZipCode(data.zip_code);
 		setDescription(data.desc);
 	});
-	console.log(userData);
+	//console.log(userData);
   }, []);
 
 
@@ -71,7 +71,7 @@ const AccountInformation = () => {
           last_name: lastName,
           email: email,
           token: token,
-		  desc: desc,
+		      desc: desc,
         }),
       });
 	  

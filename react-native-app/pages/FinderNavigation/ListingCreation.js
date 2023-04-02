@@ -75,7 +75,7 @@ const ListingCreation = ({ navigation }) => {
       <SafeAreaView style={styles.background}>
         <StatusBar/>
         <View style={styles.container}>
-          <Text style={{ color: "limegreen" }}>
+          <Text style={{ color: "dodgerblue", paddingBottom: 10 }}>
             Your listing was created successfully!
           </Text>
           <Button onPress={() => {setSucess(false); navigation.goBack()}} title="OK" />
@@ -144,7 +144,7 @@ const ListingCreation = ({ navigation }) => {
           onChangeText={setBio}
           style={{
             height: 120,
-            width: 600,
+            width: 600
           }}
         />
         <View style={{ height: 10 }} />
@@ -185,6 +185,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: 220,
     marginBottom: 10,
-    fontSize: 15
+    fontSize: 15,
+    color: theme.INPUT_TEXT_COLOR
   },
 });
