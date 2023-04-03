@@ -84,7 +84,7 @@ const { state, navigation, descriptors, NavigationContent } =
                 alignItems: 'center',
                 justifyContent: 'space-around',
                 left: descriptors[route.key].options.end ?
-                  ((width > 1030) ? (width*0.79)-816 : 0) :
+                  ((width > 1030) ? (width*0.79)-580 : 0) :
                   0,
                 backgroundColor: state.index == i ?
                  descriptors[route.key].options.onColor :

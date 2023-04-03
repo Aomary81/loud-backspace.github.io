@@ -161,23 +161,7 @@ export default function App() {
                   ),
                 }}
               />
-              <Tab.Screen
-                name="Chat"
-                component={ChatNavigation}
-                options={{
-                  tabBarIcon: ({ focused, color, size }) => (
-                    <Ionicons
-                      name={
-                        focused
-                          ? "chatbubble-ellipses"
-                          : "chatbubble-ellipses-outline"
-                      }
-                      size={size}
-                      color={color}
-                    />
-                  ),
-                }}
-              />
+
               <Tab.Screen
                 name="Calendar"
                 component={CalendarNavigation}
@@ -192,12 +176,12 @@ export default function App() {
                 }}
               />
               <Tab.Screen
-                name="Reminders"
-                component={RemindersNavigation}
+                name="Account"
+                component={AccountNavigation}
                 options={{
                   tabBarIcon: ({ focused, color, size }) => (
                     <Ionicons
-                      name={focused ? "checkbox" : "checkbox-outline"}
+                      name={focused ? "md-person" : "md-person-outline"}
                       size={size}
                       color={color}
                     />
@@ -238,42 +222,12 @@ export default function App() {
                 }}
               />
               <TopButton.Screen
-                name="Chat"
-                component={ChatNavigation}
-                options={{
-                  buttonIcon: ({ focused, size }) => (
-                    <Ionicons
-                      name="md-chatbubbles-outline"
-                      size={25}
-                      color={focused ? "#333" : "#888"}
-                    />
-                  ),
-                  onColor: '#AFD2FF',
-                  offColor: '#DCEAFE'
-                }}
-              />
-              <TopButton.Screen
                 name="Calendar"
                 component={CalendarNavigation}
                 options={{
                   buttonIcon: ({ focused, size }) => (
                     <Ionicons
                       name="md-calendar-outline"
-                      size={25}
-                      color={focused ? "#333" : "#888"}
-                    />
-                  ),
-                  onColor: '#AFD2FF',
-                  offColor: '#DCEAFE'
-                }}
-              />
-              <TopButton.Screen
-                name="Reminders"
-                component={RemindersNavigation}
-                options={{
-                  buttonIcon: ({ focused, size }) => (
-                    <Ionicons
-                      name="md-notifications-outline"
                       size={25}
                       color={focused ? "#333" : "#888"}
                     />

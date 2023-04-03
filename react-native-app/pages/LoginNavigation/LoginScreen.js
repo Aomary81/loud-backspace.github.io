@@ -126,6 +126,7 @@ function LoginScreen({navigation}) {
     input:{
       height: 50,
       width: 300,
+      color: theme.TEXT_COLOR
     },
     button: {
       height: 35,

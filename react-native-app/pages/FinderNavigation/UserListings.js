@@ -36,7 +36,7 @@ export default function UserListings({navigation}){
         getListings();
     },[]);
 
-    if(!myListings[0]){
+    if(!myListings){
         return (
             <SafeAreaView style={styles.container}>
                 <Text>Loading...</Text>
@@ -58,7 +58,7 @@ export default function UserListings({navigation}){
                         <TouchableOpacity
                             style={styles.ContentModule}
                             key={item._id}
-                            onPress={() => navigation.replace("ListingEdit",{listing: item})}
+                            onPress={() => navigation.replace("ListingEdit",{listing: item, prev: 'My Listings'})}
                         >
                             <Text style={styles.text}>{`${item.city}, ${item.zip_code}`}</Text>
                             <Text style={styles.text}>{item.street_name}</Text>

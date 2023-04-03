@@ -73,6 +73,7 @@ router.post('/signup', async (req, res) => {
     city,
     state,
     zip_code,
+    gender,
     isMobile } = req.body;
 
   // Check if user already exists
@@ -100,7 +101,8 @@ router.post('/signup', async (req, res) => {
     address,
     city,
     state,
-    zip_code
+    zip_code,
+    gender
   });
 
   await newUser.save();

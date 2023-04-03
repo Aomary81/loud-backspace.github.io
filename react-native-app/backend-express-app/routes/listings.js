@@ -35,6 +35,9 @@ router.post("/add", async (req, res) => {
     // Return the protected resource to the user
     const { email } = user;
     const newListing = new Listing({
+      first_name: user.first_name,
+      last_name: user.last_name,
+      gender: user.gender,
       email,
       street_number,
       street_name,
@@ -45,6 +48,7 @@ router.post("/add", async (req, res) => {
       rent,
       tags,
       bio,
+      contact: user.email /**To Do update front end to let user input preferred contact info*/
     });
     try{
       await newListing.save();
@@ -68,18 +72,19 @@ router.post("/add", async (req, res) => {
 
 router.post("/search", async (req, res) => {
   const { zip_code, page_num } = req.body;
-  const pageNum = parseInt(page_num) || 1;
+  const pageNum = page_num;
   const pageSize = 16;
   const skip = (pageNum - 1) * pageSize;
 
   const listing = await Listing.find({ zip_code: zip_code })
     .skip(skip)
     .limit(pageSize);
+    const numResults = await Listing.find({ zip_code: zip_code }).count();
   if (!listing) {
     return res.status(400).json({ message: "Listing not found" });
   }
 
-  return res.status(200).json({ listing: listing });
+  return res.status(200).json({ listing: listing, numResults: numResults });
 });
 
 router.post("/edit", (req, res) => {
@@ -92,8 +97,6 @@ router.post("/edit", (req, res) => {
 
   try {
     // Verify the token and extract the user ID
-    const decodedToken = jwt.verify(token, "thisIsSecret");
-    const userId = decodedToken.userId;
     const update = ({
       street_number,
       street_name,

@@ -1,13 +1,15 @@
 import React, { useState, useEffect  } from "react";
-import { View, Button, Text, StyleSheet, SafeAreaView, StatusBar } from "react-native";
+import { View, Button, Text, StyleSheet, SafeAreaView, StatusBar, Platform} from "react-native";
 import theme from '../../styles/theme.style'
 
 import { useContext } from "react";
 import { AuthContext } from "../../context";
 import InputField from "../components/V2Components/InputField";
 import { TouchableOpacity } from "react-native";
+import * as SecureStore from 'expo-secure-store';
 
 const AccountInformation = () => {
+  const { signIn, setToken } = useContext(AuthContext).authContext;
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -24,6 +26,7 @@ const AccountInformation = () => {
   const { token } = useContext(AuthContext);
 
   const [success, setSuccess] = useState(false);
+  const isWeb = Platform.OS === 'web';
 
   useEffect(() => {
 	const userData = fetch("http://" + myIp + ":3000/get/user", {
@@ -50,6 +53,30 @@ const AccountInformation = () => {
 	//console.log(userData);
   }, []);
 
+  const handleLogout = () => {
+		if(!isWeb){
+		  setToken(null);
+		  deleteToken('userToken');
+		  signIn(false);
+		} else {
+		  fetch('http://'+myIp+':3000/auth/logout', {
+		  method: 'POST',
+		  credentials: "include",
+		  headers: {
+			'Content-Type': 'application/json'
+		  },
+		  https: false, // Set the https option to true
+		})
+		  .catch(error => {
+			console.error(error);
+		});
+		  setToken(null);
+		  signIn(false);
+		}
+	  }
+	  async function deleteToken(key) {
+		await SecureStore.deleteItemAsync(key);
+	  }
 
   const saveAccountInformation = async () => {
     if (!email.includes("@")) {
@@ -121,6 +148,21 @@ const AccountInformation = () => {
   return (
     <SafeAreaView style={styles.background}>
       <View style={styles.container}>
+      <TouchableOpacity
+          onPress={handleLogout}
+          style={{
+            backgroundColor: '#fc1c03',
+            borderRadius: 5,
+            height: 20,
+            width: 60,
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'absolute',
+            top: 5,
+            right: 5
+            }}>
+          <Text>Logout</Text>
+        </TouchableOpacity>
         {/* Personal Details Container */}
         <View style={{ flexDirection: "column" }}>
           <Text style={styles.header}>Personal Details</Text>
@@ -143,14 +185,14 @@ const AccountInformation = () => {
             placeholder="Email" />
           <InputField
             style={styles.input}
-            value={undefined}
-            onChangeText={undefined}
+            value={null}
+            onChangeText={null}
             placeholder="ZIP Code"
           />
           <InputField
             style={styles.input}
-            value={undefined}
-            onChangeText={undefined}
+            value={null}
+            onChangeText={null}
             placeholder="Date of Birth"
           />
 		  <InputField
@@ -166,14 +208,14 @@ const AccountInformation = () => {
           <Text style={styles.headerMuted}>Change Password</Text>
           <InputField
             style={styles.inputMuted}
-            value={undefined}
-            onChangeText={undefined}
+            value={null}
+            onChangeText={null}
             placeholder="Password (disabled)"
           />
           <InputField
             style={styles.inputMuted}
-            value={undefined}
-            onChangeText={undefined}
+            value={null}
+            onChangeText={null}
             placeholder="Confirm Password (disabled)"
           />
           <TouchableOpacity

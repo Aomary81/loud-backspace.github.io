@@ -145,6 +145,7 @@ router.post("/create", async (req, res) => {
 			return res.status(200).json({household});
 			
 		});
+
       } catch(error) {
         console.log(error);
         return res.status(502).json({ message: 'Database error' });

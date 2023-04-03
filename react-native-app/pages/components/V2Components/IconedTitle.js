@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, useWindowDimensions, Image } from 'react-native';
 import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
 import PageLayouts from '@PageLayouts';
+import theme from '../../../styles/theme.style';
 
 /**
 
@@ -33,10 +34,10 @@ export default function IconedTitle(props){
 			/>
 			}
 			<View style={{marginLeft: 15}}>
-				<Title style={{fontWeight: 'bold', fontSize: 21, margin: 0, color: 'white'}}>
+				<Title style={{fontWeight: 'bold', fontSize: 21, margin: 0, color: theme.TEXT_COLOR}}>
 				{props.title}
 				</Title>
-				<Text style={{color: 'white'}}>
+				<Text style={{color: theme.TEXT_COLOR}}>
 				{props.description}
 				</Text>
 			</View>
