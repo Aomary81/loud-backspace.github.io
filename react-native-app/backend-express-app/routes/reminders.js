@@ -33,12 +33,12 @@ router.post("/add", async (req, res) => {
         description,
         dueDate,
         userId:user.id,
-        houseHoldId:user.my_household,
+        houseHoldId:user.household,
       });
       try{
         await newReminder.save();
         try {
-          await household.findByIdAndUpdate(user.my_household, {$push: {reminders: newReminder.id}}, {runValidators: true});
+          await household.findByIdAndUpdate(user.household, {$push: {reminders: newReminder.id}}, {runValidators: true});
           return res.status(200).json({ message: "OK" });
         } catch(error){
           await Reminder.findByIdAndDelete(newReminder.id);
@@ -100,7 +100,7 @@ router.post("/add", async (req, res) => {
   
       try {
         // May ned to be reworked, unable to test
-        const reminders = await User.findById(userId).select('my_household').populate('my_household').select('reminders').populate('reminders');
+        const reminders = await User.findById(userId).select('household').populate('household').select('reminders').populate('reminders');
         return res.status(200).json({reminders:reminders.reminders });
         //
       } catch(error){

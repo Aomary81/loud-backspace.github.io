@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
     type: mongoose.SchemaTypes.ObjectId,
     ref: Listing
   }],
-  my_household: {
+  household: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: Household
   }
