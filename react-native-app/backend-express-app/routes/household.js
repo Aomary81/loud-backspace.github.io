@@ -129,8 +129,23 @@ router.post("/create", async (req, res) => {
         return res.status(401).json({ message: "Unauthorized" });
       }
       try {
-        const household = await User.findById(user.id).select('household').populate('household');
-        return res.status(200).json({household: household.household});
+        const household = User.findById(user.id, function (err, data) {
+			if(err){
+				
+				console.log(err);
+				return res.status(502).json({ message: 'Database error' });
+			}
+			
+			const {
+				household
+			} = data;
+			
+			//res.send(safeData);
+			console.log("Household ID = " + household);
+			return res.status(200).json({household});
+			
+		});
+
       } catch(error) {
         console.log(error);
         return res.status(502).json({ message: 'Database error' });

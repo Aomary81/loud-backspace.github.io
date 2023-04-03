@@ -19,6 +19,7 @@
     "express-useragent": "^1.0.15",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.9.1",
+    "nodemon": "^2.0.22",
     "uuid": "^9.0.0"
   }
 }
