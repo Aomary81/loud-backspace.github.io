@@ -1,7 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, StyleSheet, Button, Platform } from 'react-native';
+import { View, Text, StyleSheet, Button, Platform, ScrollView } from 'react-native';
 import { useContext } from 'react';
-import * as SecureStore from 'expo-secure-store';
 import { useState, useEffect } from 'react';
 
 import ContentArea from '../components/V2Components/ContentAreaV2';
@@ -18,13 +17,13 @@ import { jestResetJsReanimatedModule } from 'react-native-reanimated/lib/reanima
 
 const isWeb = Platform.OS === "web";
 
-function DashBoardScreen() {
+function DashBoardScreen({navigation}) {
 	const { token } = useContext(AuthContext);
     const { myIp } = useContext(AuthContext).ip;
     const [myListings, setListings] = useState([]);
 
     useEffect(() => {
-         const getListings = async () => {
+        const getListings = async () => {
             try {
                 const res = await fetch("http://" + myIp + ":3000/listings/my_listings", {
                     method: "POST",
@@ -39,7 +38,7 @@ function DashBoardScreen() {
                 });
                 const data = await res.json();
                 if(res.status == 200){
-                    setListings(data.my_listings);
+                    await setListings(data.my_listings);
                 } else {
                     console.log('Error occured getting listings');
                 }
@@ -49,32 +48,6 @@ function DashBoardScreen() {
         };
         getListings();
     },[]);
-
-	const handleLogout = () => {
-		if(!isWeb){
-		  setToken(null);
-		  deleteToken('userToken');
-		  signIn(false);
-		} else {
-		  fetch('http://'+myIp+':3000/auth/logout', {
-		  method: 'POST',
-		  credentials: "include",
-		  headers: {
-			'Content-Type': 'application/json'
-		  },
-		  https: false, // Set the https option to true
-		})
-		  .catch(error => {
-			console.error(error);
-		});
-		  setToken(null);
-		  signIn(false);
-		}
-	  }
-	  async function deleteToken(key) {
-		await SecureStore.deleteItemAsync(key);
-	  }
-
 
     return (
       <SafeAreaView style={styles.background}>
@@ -91,21 +64,33 @@ function DashBoardScreen() {
 				<View style={{display: 'flex', flexDirection: 'row', padding: 10, width: '100%'}}>
 					<View style={styles.rowItem}>
 						<Title style={styles.title}>Your Listings</Title>
-						<View style={styles.tile}>
-							<View style={styles.Box}>
+						<ScrollView style={styles.tile}>
+							{myListings ? <View style={styles.Box}>
                 		    {myListings.map((item) => (
-                		        <TouchableOpacity
-                		            style={styles.ContentModule}
-                		            key={item._id}
-                		            onPress={() => navigation.replace("ListingEdit",{listing: item})}
-                		        >
-                		            <Text style={styles.text}>{`${item.city}, ${item.zip_code}`}</Text>
-                		            <Text style={styles.text}>{item.street_name}</Text>
-                		            <Text style={styles.text}>{item.rent}</Text>
-                		        </TouchableOpacity>
+								<TouchableOpacity
+								style={styles.ContentModule}
+								key={item._id}
+								onPress={() => navigation.replace("ListingEdit",{listing: item, prev: 'DashBoardScreen'})}
+							  >
+								<View style={{flexDirection: 'row', width: '100%', height: '67%', marginBottom: 4.4,}}>
+								  <View style={styles.images}>
+									<Text>?</Text>
+								  </View>
+								  <View style={{alignItems: 'flex-start'}}>
+									<Text style={[styles.text, {fontWeight: 'bold'}]}>{`${item.city}, ${item.zip_code}`}</Text>
+									<Text style={styles.text}>{item.street_name}</Text>
+									<Text style={styles.text}>{item.rent}</Text>
+								  </View>
+								</View>
+								<Text style={[ styles.text,{fontSize: 12}]}>Last updated</Text>
+							  </TouchableOpacity>
                 		    ))}
-                			</View>
-						</View>
+                			</View> :
+							<View>
+								<Text style={styles.text}>Loading...</Text>
+							</View>
+							}
+						</ScrollView>
 					</View>
 					<View style={styles.rowItem}>
 						<Title style={styles.title}>Your Roommates</Title>
@@ -120,11 +105,6 @@ function DashBoardScreen() {
 
 			</ContentArea>
 		</View>
-		<Button 
-			color={'red'}
-			title='Logout'
-			onPress={handleLogout}
-		/>
       </SafeAreaView>
     );
   }
@@ -141,13 +121,8 @@ function DashBoardScreen() {
 		fontSize: 15
 	},
 	tile: {
-		display: 'flex',
-		flexDirection: 'row',
-		padding: 5,
-		borderRadius: 10,
-		alignItems: 'center',
-		justifyContent: 'center',
-		width: '100%'
+		width: '100%',
+		height: 450
 	},
 	Box: {
         flex: 1,
@@ -185,14 +160,15 @@ function DashBoardScreen() {
         justifyContent: 'center'
       },
       ContentModule: {
-		width: '100%',
-        marginHorizontal: 4.4,
-        marginVertical: 4.4,
-        alignItems: "center",
-        justifyContent: "center",
-        height: 100,
-        backgroundColor: theme.CONTENT_MODULE_COLOR,
-        borderRadius: 10,
+		flexBasis: '95%',
+		marginHorizontal: 4.4,
+    	marginVertical: 4.4,
+    	alignItems: 'flex-start',
+    	justifyContent: 'flex-start',
+    	aspectRatio: 2.3,
+    	backgroundColor: theme.CONTENT_MODULE_COLOR,
+    	borderRadius: 10,
+    	padding: 8.8
       },
     button: {
         height: 20,
@@ -213,4 +189,13 @@ function DashBoardScreen() {
         marginTop: 15,
         alignItems: 'center'
       },
+	  images: {
+		backgroundColor: 'white',
+		height: '100%',
+		aspectRatio: 1,
+		borderRadius: 5,
+		marginRight: 4.4,
+		alignItems: 'center',
+		justifyContent: 'center'
+	  }
   });

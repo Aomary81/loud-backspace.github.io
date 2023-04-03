@@ -15,7 +15,7 @@ export default function ContentAreaHeaderBar(props){
 			(
 				{
 					flexDirection: 'row',
-					justifyContent: 'space-between',
+					justifyContent: 'flex-start',
 					alignItems: 'center',
 					alignSelf: 'stretch',
 					overflow: 'hidden',

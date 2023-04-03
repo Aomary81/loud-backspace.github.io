@@ -34,7 +34,8 @@ const AccountCreation = () => {
         city: city,
         state: state,
         zip_code: zipCode,
-        isMobile: isWeb ? false : true,
+        gender: gender,
+        isMobile: isWeb ? false : true
       }),
       https: false, // Set the https option to true
     })
@@ -68,6 +69,7 @@ const AccountCreation = () => {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
+  const [gender, setGender] = useState('male');
 
   const saveAccountInformation = () => {
     if (!email.includes("@")) {

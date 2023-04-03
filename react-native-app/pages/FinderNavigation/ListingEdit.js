@@ -12,7 +12,7 @@ import InputField from '../components/V2Components/InputField'
 import InputArea from '../components/V2Components/InputArea'
 
 const ListingEdit = ({ route, navigation }) => {
-  const { listing } = route.params;
+  const { listing, prev } = route.params;
   const { myIp } = useContext(AuthContext).ip;
   const { token } = useContext(AuthContext);
   const [streetNumber, setStreetNumber] = useState(listing.street_number);
@@ -51,7 +51,7 @@ const ListingEdit = ({ route, navigation }) => {
       });
       const result = await response.json();
       if (response.status == 200) {
-        navigation.replace('My Listings');
+        navigation.replace(prev);
         console.log(result);
       }
     } catch (error) {

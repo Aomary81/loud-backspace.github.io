@@ -37,6 +37,9 @@ const InputField = (
     const handleFocus = () => {
         onFocus ? onFocus() : null;
     }
+
+    let height = style.height ? style.height : 50;
+
     return (
         <TouchableOpacity 
             activeOpacity={1}
@@ -60,11 +63,10 @@ const InputField = (
                 style={
                     { 
                         height: '80%', 
-                        width: undefined, 
                         aspectRatio: 1,
                         justifyContent: 'center', 
                         alignItems: 'center',
-                        marginLeft: style.height*0.4
+                        marginLeft: height*0.4
                     }
                 }
                 onPress={onStartPress}
@@ -81,8 +83,8 @@ const InputField = (
                         marginRight: '2%',
                         outlineStyle: 'none',
                         fontSize: style.fontSize || 20,
-                        paddingHorizontal: style.height*0.25,
-                        color: 'black'
+                        paddingHorizontal: height*0.25,
+                        color: style.color
                     }
                 }
                 value={value}
@@ -100,11 +102,10 @@ const InputField = (
                 style={
                     { 
                         height: '80%', 
-                        width: undefined, 
                         aspectRatio: 1,
                         justifyContent: 'center', 
                         alignItems: 'center',
-                        marginRight: style.height*0.4
+                        marginRight: height*0.4
                     }
                 }
                 onPress={onEndPress}

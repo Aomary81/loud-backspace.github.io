@@ -30,7 +30,8 @@
     "react-native-vector-icons": "^9.2.0",
     "react-native-web": "~0.18.7",
     "react-navigation": "^4.4.4",
-    "yarn": "^1.22.19"
+    "yarn": "^1.22.19",
+    "expo-blur": "~11.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

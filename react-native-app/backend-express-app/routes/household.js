@@ -29,7 +29,7 @@ router.post("/create", async (req, res) => {
         return res.status(400).json({ message: "Failed" });
       }
       try {
-        await User.findByIdAndUpdate(userId, {$push: {my_household: newHousehold.id}}, {runValidators: true});
+        await User.findByIdAndUpdate(userId, {$push: {household: newHousehold.id}}, {runValidators: true});
         return res.status(200).json({ message: "OK" });
       } catch(error) { 
         // If adding household to user that is creating it fails, delete houshold since its not connected
@@ -64,7 +64,7 @@ router.post("/create", async (req, res) => {
       }
       const newAddCode = new AddCode({
         invitingMember: user.id,
-        houseID: user.my_household,
+        houseID: user.household,
         addCode: addCode,
         expiresAt: expirationDate
       });
@@ -103,7 +103,7 @@ router.post("/create", async (req, res) => {
             return res.status(400).json({ message: "Failed" });
         }
         try {
-            await User.findByIdAndUpdate(userId, {$push: {my_household: code.houseID}}, {runValidators: true});
+            await User.findByIdAndUpdate(userId, {$push: {household: code.houseID}}, {runValidators: true});
             return res.status(200).json({ message: "OK" });
         } catch(error) {
             // If adding household id to user fails remove user from household to avoid issues.
@@ -129,8 +129,8 @@ router.post("/create", async (req, res) => {
         return res.status(401).json({ message: "Unauthorized" });
       }
       try {
-        const household = await User.findById(user.id).select('my_household').populate('my_household');
-        return res.status(200).json({household: household.my_household});
+        const household = await User.findById(user.id).select('household').populate('household');
+        return res.status(200).json({household: household.household});
       } catch(error) {
         console.log(error);
         return res.status(502).json({ message: 'Database error' });

@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import DashBoardScreen from './DashBoardScreen';
+import ListingEdit from '../FinderNavigation/ListingEdit';
 
 
 const Stack = createNativeStackNavigator();
@@ -13,6 +14,7 @@ function DashBoardNavigation() {
         }}
     >
         <Stack.Screen name="DashBoardScreen" component={DashBoardScreen} />
+        <Stack.Screen name="ListingEdit" component={ListingEdit} />
     </Stack.Navigator>
   );
 }

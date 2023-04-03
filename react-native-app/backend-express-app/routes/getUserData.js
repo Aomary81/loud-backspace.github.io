@@ -36,7 +36,7 @@ router.post('/user', (req, res) => {
 				zip_code,
 				desc,
 				my_listings,
-				my_household
+				household
 			} = result;
 			
 			//Only sending the data that is safe
@@ -50,7 +50,7 @@ router.post('/user', (req, res) => {
 				zip_code,
 				desc,
 				my_listings,
-				my_household
+				household
 			};
 				
 			
