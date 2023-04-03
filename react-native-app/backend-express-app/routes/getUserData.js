@@ -188,6 +188,7 @@ router.post('/roommates', (req, res) => {
 				
 				Household.findById(houseFilter, function(houseErr, houseResult) {
 					
+					let roommateList = [];
 					if(houseErr){
 						
 						console.log('House Load Error:', err);
@@ -201,29 +202,14 @@ router.post('/roommates', (req, res) => {
 							console.log("house data "+houseResult);
 							console.log("member list \n"+members);
 							
-							const roommateList = [];
+							User.find({'_id': {$in: members}}).select("first_name last_name email").then(data => {
+								console.log("single command output: " + data);
+								return res.status(200).json(data);
+							}).catch(error => {
+								console.log('Roommates not found:', err);
+								return res.status(404).json({ message: err.message });
+							});;
 							
-							for(const uid of members){
-								User.findById(uid).select("first_name last_name email").exec(function (err,data){
-									if(err){
-										console.log('Roommate not found:', err);
-										return res.status(400).json({ message: err.message });
-									}
-									else{
-										if(data){
-											
-											roommateList.push(data);
-											console.log("roommate: "+data);
-											console.log("roommate list \n"+roommateList);
-										}
-										else{
-											console.log('Roommate not found:', err);
-											return res.status(404).json({ message: err.message });
-										}
-									}
-								});
-							}
-							return res.status(200).json({roommateList});
 						}
 						else{
 							console.log('House Not Found:', houseResult);

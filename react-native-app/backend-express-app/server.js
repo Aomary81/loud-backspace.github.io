@@ -22,6 +22,7 @@ const getUserRouter = require("./routes/getUserData");
 
 const listingsRouter = require("./routes/listings");
 const householdRouter = require("./routes/household");
+const reminderRouter = require("./routes/reminders");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -57,6 +58,7 @@ app.use("/update", updateRouter);
 app.use("/get", getUserRouter);
 app.use("/listings", listingsRouter);
 app.use("/household", householdRouter);
+app.use("/reminders", reminderRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);

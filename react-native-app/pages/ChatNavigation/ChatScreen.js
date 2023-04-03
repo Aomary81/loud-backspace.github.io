@@ -82,6 +82,30 @@ function ChatScreen() {
 			console.log("Successfully loaded test data from "+api_address)
 			console.log(data);
 		});
+		
+		
+		const endpoint4 = "/reminders/my_reminders"
+		const api_address4 = "http://" + myIp + ":3000"+endpoint4
+		console.log("Attempting to get data from " + api_address4);
+		const userData4 = fetch(api_address4, {
+			method: "POST",
+			credentials: "include",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				token: token,
+			}),
+		})
+		.then(response => {
+			console.log(response);
+			return(response.json());
+		})
+		.then(data => {
+			
+			console.log("Successfully loaded test data from "+api_address)
+			console.log(data);
+		});
 	}, []);
 	
 	return (
