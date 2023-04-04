@@ -14,9 +14,9 @@ export default function BlurredPopup(props){
             <View style={styles.content}>
                 <TouchableOpacity style={styles.exitButton} onPress={props.onExitPress}>
                     <Ionicons
-                      name={"close-outline"}
-                      size={30}
-                      color={'black'}
+                        name={"close-outline"}
+                        size={30}
+                        color={'black'}
                     />
                 </TouchableOpacity>
                 {props.children}
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         backgroundColor: theme.BACKGROUND_COLOR+'e0',
-        zIndex: 1,
+        zIndex: 5,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 10
@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
         aspectRatio: 1.5,
         backgroundColor: theme.CONTAINER_COLOR,
         borderRadius: 10,
-        borderWidth: 10,
-        borderColor: theme.CONTAINER_COLOR
+        borderWidth: 1,
+        borderColor: theme.TEXT_COLOR
     },
     exitButton: {
         backgroundColor: theme.CONTAINER_COLOR,

@@ -21,7 +21,7 @@ router.post("/create", async (req, res) => {
       }
       const newHousehold = new Household({
         name,
-        member: [user.id]
+        members: [user.id]
       });
       try {
         await newHousehold.save();
@@ -29,8 +29,12 @@ router.post("/create", async (req, res) => {
         return res.status(400).json({ message: "Failed" });
       }
       try {
-        await User.findByIdAndUpdate(userId, {$push: {household: newHousehold.id}}, {runValidators: true});
-        return res.status(200).json({ message: "OK" });
+        const household = await User.findById(user.id).select('household').populate('household');
+        let memberId = household.household.members;
+        console.log(memberId);
+        const members = await User.find({_id: {$in: memberId}}).select('first_name last_name _id');
+        console.log(members);
+			  return res.status(200).json({household: household.household.name, members: members});
       } catch(error) { 
         // If adding household to user that is creating it fails, delete houshold since its not connected
         // to any user. Have user try again.
@@ -98,16 +102,16 @@ router.post("/create", async (req, res) => {
             return res.status(401).json({ message: "Unauthorized" });
         }
         try {
-            await Household.findByIdAndUpdate(code.houseID, {$push: {member: user.id}}, {runValidators: true});
+            await Household.findByIdAndUpdate(code.houseID, {$push: {members: user.id}}, {runValidators: true});
         } catch(error) {
             return res.status(400).json({ message: "Failed" });
         }
         try {
-            await User.findByIdAndUpdate(userId, {$push: {household: code.houseID}}, {runValidators: true});
+            await User.findByIdAndUpdate(userId, {household: code.houseID}, {runValidators: true});
             return res.status(200).json({ message: "OK" });
         } catch(error) {
             // If adding household id to user fails remove user from household to avoid issues.
-            await Household.findByIdAndUpdate(code.houseID, {$pull: {member: user.id}});
+            await Household.findByIdAndUpdate(code.houseID, {$pull: {members: user.id}});
             return res.status(400).json({ message: "Failed" });
         }
       } catch (error) {
@@ -129,22 +133,12 @@ router.post("/create", async (req, res) => {
         return res.status(401).json({ message: "Unauthorized" });
       }
       try {
-        const household = User.findById(user.id, function (err, data) {
-			if(err){
-				
-				console.log(err);
-				return res.status(502).json({ message: 'Database error' });
-			}
-			
-			const {
-				household
-			} = data;
-			
-			//res.send(safeData);
-			console.log("Household ID = " + household);
-			return res.status(200).json({household});
-			
-		});
+        const household = await User.findById(user.id).select('household').populate('household');
+        let memberId = household.household.members;
+        console.log(memberId);
+        const members = await User.find({_id: {$in: memberId}}).select('first_name last_name _id');
+        console.log(members);
+			  return res.status(200).json({household: household.household.name, members: members});
 
       } catch(error) {
         console.log(error);

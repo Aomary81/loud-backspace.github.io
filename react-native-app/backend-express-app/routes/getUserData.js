@@ -38,7 +38,8 @@ router.post('/user', (req, res) => {
 				zip_code,
 				desc,
 				my_listings,
-				household
+				household,
+				gender
 			} = result;
 			
 			//Only sending the data that is safe
@@ -52,12 +53,9 @@ router.post('/user', (req, res) => {
 				zip_code,
 				desc,
 				my_listings,
-				household
+				household,
+				gender
 			};
-				
-			
-			//res.send(safeData);
-			console.log(safeData);
 			return res.status(200).json(safeData);
         }
 		  
@@ -121,10 +119,6 @@ router.post('/userByID/idInBody', (req, res) => {
 				my_listings,
 				my_household
 			};
-				
-			
-			//res.send(safeData);
-			console.log(safeData);
 			return res.status(200).json(safeData);
         }
 		  

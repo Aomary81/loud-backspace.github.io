@@ -14,13 +14,14 @@ const AccountInformation = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [listing, setListing] = useState("");
   const [desc, setDescription] = useState("");
+  const [gender, setGender] = useState('');
 
   const { myIp } = useContext(AuthContext).ip;
   const { token } = useContext(AuthContext);
@@ -49,6 +50,7 @@ const AccountInformation = () => {
 		setState(data.state);
 		setZipCode(data.zip_code);
 		setDescription(data.desc);
+    setGender('male');
 	});
 	//console.log(userData);
   }, []);
@@ -99,12 +101,13 @@ const AccountInformation = () => {
           email: email,
           token: token,
 		      desc: desc,
+          gender: gender
         }),
       });
 	  
       const result = await response.json();
       if (response.status == 200) {
-        //setError('');
+        setError('');
         setSuccess(true);
       } else {
         setError('Validation Failed!')

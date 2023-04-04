@@ -34,7 +34,7 @@ export default function App() {
   const [token, setUserToken] = useState(null);
   const ip = useMemo(() => {
     return {
-      myIp: "localhost",
+      myIp: "10.0.0.186",
     };
   }, []);
   const authContext = useMemo(() => {
