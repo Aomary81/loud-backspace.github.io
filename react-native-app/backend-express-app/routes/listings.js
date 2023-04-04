@@ -71,20 +71,34 @@ router.post("/add", async (req, res) => {
 });
 
 router.post("/search", async (req, res) => {
-  const { zip_code, page_num } = req.body;
+  const { zip_code, page_num, gender, sort} = req.body;
   const pageNum = page_num;
   const pageSize = 16;
   const skip = (pageNum - 1) * pageSize;
+  
+  if(sort == 0){
+    const listing = await Listing.find({$and: [{zip_code: zip_code },{gender: {$in: gender}}]})
+      .skip(skip)
+      .limit(pageSize);
 
-  const listing = await Listing.find({ zip_code: zip_code })
-    .skip(skip)
-    .limit(pageSize);
-    const numResults = await Listing.find({ zip_code: zip_code }).count();
-  if (!listing) {
-    return res.status(400).json({ message: "Listing not found" });
+    const numResults = await Listing.find({$and: [{zip_code: zip_code },{gender: {$in: gender}}]}).count();
+    if (!listing) {
+      return res.status(400).json({ message: "Listing not found" });
+    }
+    
+    return res.status(200).json({ listing: listing, numResults: numResults });
+  } else {
+    const listing = await Listing.find({$and: [{zip_code: zip_code },{gender: {$in: gender}}]})
+      .sort({rent: sort})
+      .skip(skip)
+      .limit(pageSize);
+    const numResults = await Listing.find({$and: [{zip_code: zip_code },{gender: {$in: gender}}]}).count();
+    if (!listing) {
+      return res.status(400).json({ message: "Listing not found" });
+    }
+    
+    return res.status(200).json({ listing: listing, numResults: numResults });
   }
-
-  return res.status(200).json({ listing: listing, numResults: numResults });
 });
 
 router.post("/edit", (req, res) => {

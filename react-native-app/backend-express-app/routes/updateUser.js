@@ -2,8 +2,9 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/user.model');
+const Listing = require('../models/listing.model');
 
-router.patch('/user', (req, res) => {
+router.patch('/user', async (req, res) => {
     const token = req.cookies.token || req.body.token;
     // Check if user is logged in
     if (!token) {
@@ -15,25 +16,34 @@ router.patch('/user', (req, res) => {
       const decodedToken = jwt.verify(token, 'thisIsSecret');
       const userId = decodedToken.userId;
 	  
-	  console.log("Attempting to update data for " + userId);
-      const filter = userId;
       const update = {
         first_name,
         last_name,
+        gender,
         email,
-		desc
+		    desc
       } = req.body;
       // Check if user already exists
-      User.findByIdAndUpdate(filter, update, {runValidators: true}, function(err, result) {
-        if (err) {
+      try {
+        await User.findByIdAndUpdate(userId, update, {runValidators: true});
+        try {
+          const result = await User.findById(userId).select('my_listings');
+          const listings = result.my_listings;
+          const listingUpdate = {
+            first_name,
+            last_name,
+            gender
+          } = update;
+          await Listing.updateMany({_id: {$in: listings}}, listingUpdate, {runValidators: true});
+        } catch (err) {
           console.log('Error:', err);
           return res.status(400).json({ message: err.message })
         }
-        if (result) {
-            return res.status(200).json({ message: 'OK' });
-        }
-      })
-      
+        return res.status(200).json({ message: 'OK' });
+      } catch (err) {
+        console.log('Error:', err);
+        return res.status(400).json({ message: err.message })
+      }    
     } catch (error) {
       // If the token is invalid or has expired, return a 401 Unauthorized response
       return res.status(403).json({ message: 'Request error on submission' });

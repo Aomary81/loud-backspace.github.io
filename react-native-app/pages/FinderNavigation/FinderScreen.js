@@ -17,7 +17,7 @@ import theme from '.././../styles/theme.style'
 import IconedTitle from "../components/V2Components/IconedTitle";
 import ContentArea from '../components/V2Components/ContentAreaV2';
 import ContentAreaHeaderBar from '../components/V2Components/ContentAreaHeaderBar';
-import BlurredPopup from "../components/V2Components/BlurredPopup";
+import ListingPopup from "../components/V2Components/ListingPopup";
 
 export default function FinderScreen({ navigation }) {
   const isWeb = Platform.OS === "web";
@@ -26,9 +26,105 @@ export default function FinderScreen({ navigation }) {
   const [pageNum, setPageNum] = useState(1);
   const [data, setData] = useState([]);
   const [numResults, setNumResults] = useState(0);
-  const [popupVisible, setPopupVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState();
   const {width} = useWindowDimensions();
+  const [popupVisible, setPopupVisible] = useState(false);
+  const [priceLowHigh, setPriceLowHigh] = useState(false);
+  const [priceHighLow, setPriceHighLow] = useState(false);
+  const [showMale, setShowMale] = useState(true);
+  const [showFemale, setShowFemale] = useState(true);
+  const [showNonBinary, setShowNonBinary] = useState(true);
+  const [includeGender, setIncludeGender] = useState(['male', 'female', 'non-binary']);
+  const [sort, setSort] = useState(0);
+  const [useGenderFilter, setUseGenderFilter] = useState(false);
+  const [fiterVisible, setFilterVisible] = useState(false);
+
+  const togglePriceLowHigh = () => {
+    if(priceLowHigh){
+      setPriceLowHigh(false);
+      setSort(0);
+
+    } else {
+      setPriceLowHigh(true);
+      setPriceHighLow(false);
+      setSort(1);
+    }
+  };
+
+  const togglePriceHighLow = () => {
+    if(priceHighLow){
+      setPriceHighLow(false);
+      setSort(0);
+    } else {
+      setPriceHighLow(true);
+      setPriceLowHigh(false);
+      setSort(-1);
+    }
+  };
+
+  const toggleShowMale = () => {
+    if(showMale){
+      setShowMale(false);
+    } else {
+      setShowMale(true);
+    }
+  };
+
+  const toggleShowFemale = () => {
+    if(showFemale){
+      setShowFemale(false);
+    } else {
+      setShowFemale(true);
+    }
+  };
+
+  const toggleNonBinary = () => {
+    if(showNonBinary){
+      setShowNonBinary(false);
+    } else {
+      setShowNonBinary(true);
+    }
+  };
+
+  const updateGenderFilter = () => {
+    let tempIncludeGender = [];
+    if(showMale){
+      tempIncludeGender.push('male');
+    }
+    if(showFemale){
+      tempIncludeGender.push('female');
+    }
+    if(showNonBinary){
+      tempIncludeGender.push('non-binary');
+    }
+    setIncludeGender(tempIncludeGender);
+  };
+
+  const toggleUseGenderFilter = () => {
+    if(useGenderFilter){
+      setShowMale(true);
+      setShowFemale(true);
+      setShowNonBinary(true);
+      setUseGenderFilter(false);
+    } else {
+      setShowMale(false);
+      setShowFemale(false);
+      setShowNonBinary(false);
+      setUseGenderFilter(true);
+    }
+  };
+
+  const toggleFilterVisible = () => {
+    if(fiterVisible){
+      setFilterVisible(false);
+    } else {
+      setFilterVisible(true);
+    }
+  };
+
+  React.useEffect(() => {
+    updateGenderFilter();
+  }, [showMale,showFemale,showNonBinary,useGenderFilter]);
 
   const SearchListings = async () => {
     try {
@@ -42,6 +138,8 @@ export default function FinderScreen({ navigation }) {
         body: JSON.stringify({
           page_num: pageNum,
           zip_code: zipCode,
+          gender: includeGender,
+          sort: sort
         }),
 
         https: false, // Set the https option to true
@@ -63,7 +161,7 @@ export default function FinderScreen({ navigation }) {
 
   React.useEffect(() => {
     SearchListings();
-  }, [pageNum]);
+  }, [pageNum, sort, includeGender]);
 
   const incrementPage = async () => {
     let temp = pageNum + 1;
@@ -82,6 +180,115 @@ export default function FinderScreen({ navigation }) {
     <SafeAreaView style={styles.background}>
       <StatusBar style="auto" />
       <View style={styles.container}>
+      {fiterVisible && <View
+        style={{
+          position: 'absolute',
+          right: 0,
+          top: 50,
+          width: 215,
+          backgroundColor: '#D9D9D9',
+          zIndex: 1,
+          borderBottomLeftRadius: 10,
+          borderBottomRightRadius: 10,
+          borderTopLeftRadius: shrinkFB ? 10 : 0,
+          borderWidth: 10,
+          borderColor: '#D9D9D9'
+        }}>
+        <View style={{ paddingBottom: 10}}>
+          <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity
+              style={styles.filterCircle}
+              onPress={() => toggleUseGenderFilter()}
+              >
+                {useGenderFilter && <Ionicons
+                name={"checkmark-outline"}
+                size={15}
+                color={'green'}
+              />}
+            </TouchableOpacity>
+            <Text style={styles.filterText}>
+              Gender
+            </Text>
+          </View>
+          {useGenderFilter && <View style={{paddingLeft: 30}}>
+            <View style={{flexDirection: 'row'}}>
+              <TouchableOpacity
+                style={styles.filterCircle}
+                onPress={() => toggleShowMale()}
+                >
+                  {showMale && <Ionicons
+                  name={"checkmark-outline"}
+                  size={15}
+                  color={'green'}
+                />}
+              </TouchableOpacity>
+              <Text style={styles.filterText}>
+                Male
+              </Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <TouchableOpacity
+                style={styles.filterCircle}
+                onPress={() => toggleShowFemale()}
+                >
+                  {showFemale && <Ionicons
+                  name={"checkmark-outline"}
+                  size={15}
+                  color={'green'}
+                />}
+              </TouchableOpacity>
+              <Text style={styles.filterText}>
+                Female
+              </Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <TouchableOpacity
+                style={styles.filterCircle}
+                onPress={() => toggleNonBinary()}
+                >
+                  {showNonBinary && <Ionicons
+                  name={"checkmark-outline"}
+                  size={15}
+                  color={'green'}
+                />}
+              </TouchableOpacity>
+              <Text style={styles.filterText}>
+                Non-Binary
+              </Text>
+            </View>
+          </View>}
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity
+              style={styles.filterCircle}
+              onPress={() => togglePriceLowHigh()}
+              >
+                {priceLowHigh && <Ionicons
+                name={"checkmark-outline"}
+                size={15}
+                color={'green'}
+              />}
+          </TouchableOpacity>
+          <Text style={styles.filterText}>
+            Budget (Low to High)
+          </Text>
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity
+              style={styles.filterCircle}
+              onPress={() => togglePriceHighLow()}
+              >
+                {priceHighLow && <Ionicons
+                name={"checkmark-outline"}
+                size={15}
+                color={'green'}
+              />}
+          </TouchableOpacity>
+          <Text style={styles.filterText}>
+            Budget (High to Low)
+          </Text>
+        </View>
+      </View>}
 			<ContentArea>
 				<ContentAreaHeaderBar style={{justifyContent: 'flex-end'}}>
           <IconedTitle 
@@ -114,7 +321,12 @@ export default function FinderScreen({ navigation }) {
               { !shrinkCLB && <Text style={{fontWeight: 'bold'}}>Create Listing</Text>}
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.filterButton, {width: shrinkFB ? 40 : 215}]}>
+              style={[styles.filterButton, 
+                {width: shrinkFB ? 40 : 215,
+                borderBottomLeftRadius: fiterVisible ? 0 : 10,
+                borderBottomRightRadius: fiterVisible ? 0 : 10
+              }]}
+              onPress={() => toggleFilterVisible()}>
               { !shrinkFB && <Text style={{fontWeight: 'bold'}}>Filter</Text>}
             </TouchableOpacity>
 				  </ContentAreaHeaderBar>
@@ -183,119 +395,10 @@ export default function FinderScreen({ navigation }) {
                 />
               </TouchableOpacity>}
             </View>
-        </View>
+          </View>
 			  </ContentArea>
-		</View>
-    {isWeb && popupVisible && <BlurredPopup onExitPress={() => setPopupVisible(false)}>
-        <View style={{height: '37%', width: '90%',flexDirection: 'row', marginBottom: 4}}>
-          <View style={{width: '40%', height: '100%', flexDirection: 'row'}}>
-            <View style={{flex: 2.062, margin: 2}}>
-              <View style={styles.popupImages}>
-                <Text>?</Text>
-              </View>
-            </View>
-            <View style={{flex: 1, margin: 2}}>
-              <View style={styles.popupImages}>
-                <Text>?</Text>
-              </View>
-              <View style={styles.popupImages}>
-                <Text>?</Text>
-              </View>
-            </View>
-          </View>
-          <View style={{paddingHorizontal: 20}}>
-            <Text style={[styles.text, {fontWeight: 'bold', fontSize: 25, paddingBottom: 2}]}>
-              {`${selectedItem.city}, ${selectedItem.zip_code}`}
-              </Text>
-            <Text style={[styles.text, {fontSize: 16, paddingBottom: 2}]}>{selectedItem.street_name}</Text>
-            <Text style={[styles.text, {fontSize: 16, paddingBottom: 2}]}>{selectedItem.rent}</Text>
-            <View style={{flexGrow: 1, flexDirection: 'row'}}>
-              <View
-                style={{
-                  width: 46, 
-                  height: '100%' 
-                  ,alignItems: 'flex-start', 
-                  justifyContent: 'center'}}>
-                <View 
-                  style={{
-                    backgroundColor: 'green', 
-                    height: 45, 
-                    width: 45, 
-                    borderRadius: 45, 
-                    borderWidth: 2}}/>
-              </View>
-              <View style={{height: '90%', justifyContent: 'flex-end', paddingLeft: 5}}>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={[styles.text, {paddingRight: 4}]}>
-                    {selectedItem.first_name} {selectedItem.last_name}
-                    </Text>
-                  <View>
-                    {(selectedItem.gender === 'male') && 
-                      <Ionicons
-                        name={"male-outline"}
-                        size={16}
-                        color={'blue'}
-                      />}
-                    {(selectedItem.gender === 'female') &&
-                      <Ionicons
-                        name={"female-outline"}
-                        size={16}
-                        color={'pink'}
-                      />}
-                    {(selectedItem.gender === 'non-binary') &&
-                      <Ionicons
-                        name={"male-female-outline"}
-                        size={16}
-                        color={'black'}
-                      />}
-                  </View>
-                </View>
-                <Text style={{color: 'blue', fontSize: 14, paddingBottom: 2}}>
-                  Contact: {selectedItem.contact}
-                </Text>
-              </View>
-            </View>
-          </View>
-        </View>
-        <Text style={[styles.text, {fontSize: 25, paddingLeft: 3}]}>
-          {selectedItem.first_name} prefers roommates who are:
-        </Text>
-        <ScrollView horizontal={true}  showsHorizontalScrollIndicator={false} style={{
-          width: '100%',
-          paddingVertical: 5,
-        }}>
-          <View style={{
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-            height: 40
-          }}>
-            {selectedItem.tags[0].split(',').map((item) => (
-              <View style={{
-                backgroundColor: theme.BACKGROUND_COLOR,
-                height: '100%',
-                borderRadius: 5,
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginHorizontal: 4
-              }}>
-              <Text style={[styles.text,{fontWeight: 'bold', paddingHorizontal: 20}]}>
-                {item}
-              </Text>
-            </View>
-          ))}
-          </View>
-        </ScrollView>
-        <View style={{height: '34%', paddingHorizontal: 5}}>
-          <Text style={{color: theme.TEXT_COLOR}}>
-            {selectedItem.bio}
-          </Text>
-        </View>
-        <Text style={{color: theme.TEXT_COLOR}}>
-          Last updated: {
-            Math.floor((Date.now() - Date.parse(selectedItem.updatedAt)) / (1000*60*60*24))
-          } days ago
-        </Text>
-      </BlurredPopup>}
+		  </View>
+    {popupVisible && <ListingPopup listing={selectedItem} hidePopup={setPopupVisible}/>}
     </SafeAreaView>
   );
 }
@@ -397,5 +500,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     margin: 2
+  },
+  filterText: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    paddingBottom: 5,
+    paddingLeft: 5
+  },
+  filterCircle: {
+    height: 18,
+    width: 18,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });

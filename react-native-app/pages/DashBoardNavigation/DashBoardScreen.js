@@ -14,13 +14,33 @@ import InputField from '../components/V2Components/InputField';
 import { TouchableOpacity } from 'react-native';
 import theme from '../../styles/theme.style'
 import { jestResetJsReanimatedModule } from 'react-native-reanimated/lib/reanimated2/core';
+import ListingPopup from '../components/V2Components/ListingPopup';
 
 const isWeb = Platform.OS === "web";
 
-function DashBoardScreen({navigation}) {
+function DashBoardScreen() {
 	const { token } = useContext(AuthContext);
     const { myIp } = useContext(AuthContext).ip;
     const [myListings, setListings] = useState([]);
+	const [popupVisible, setPopupVisible] = useState(false);
+	const [selectedItem, setSelectedItem] = useState();
+	const [household, setHousehold] = useState();
+	const [createPressed, setCreatePressed] = useState(false);
+	const [householdName, setHouseholdName] = useState('');
+	const [members, setMembers] = useState([]);
+
+	const handleListingPress = (item) => {
+		setSelectedItem(item);
+		setPopupVisible(true);
+	  };
+
+	const toggleCreatePressed = () => {
+		if(createPressed){
+			setCreatePressed(false);
+		} else {
+			setCreatePressed(true);
+		}
+	};
 
     useEffect(() => {
         const getListings = async () => {
@@ -49,6 +69,59 @@ function DashBoardScreen({navigation}) {
         getListings();
     },[]);
 
+	useEffect(() => {
+        const getHousehold = async () => {
+            try {
+                const res = await fetch("http://" + myIp + ":3000/household/get-household", {
+                    method: "POST",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        token: token,
+                    }),
+                    https: false
+                });
+                const data = await res.json();
+                if(res.status == 200){
+                    await setHousehold(data.household);
+					await setMembers(data.members);
+                } else {
+                    console.log('Error occured getting listings');
+                }
+            } catch(error){
+                console.log(error);
+            }
+        };
+        getHousehold();
+    },[]);
+
+	const SubmitHousehold = async () => {
+		try {
+		  const response = await fetch("http://" + myIp + ":3000/household/create", {
+			method: "POST",
+			credentials: "include",
+			headers: {
+			  "Content-Type": "application/json",
+			},
+	
+			body: JSON.stringify({
+			  name: householdName,
+			  token: token,
+			}),
+			https: false, // Set the https option to true
+		  });
+		  const data = await response.json();
+		  if (response.status == 200) {
+			await setHousehold(data.household);
+			await setMembers(data.members);
+		  }
+		} catch (error) {
+		  console.log(error.message);
+		}
+	  };
+
     return (
       <SafeAreaView style={styles.background}>
 		<StatusBar style="auto" />
@@ -70,7 +143,7 @@ function DashBoardScreen({navigation}) {
 								<TouchableOpacity
 								style={styles.ContentModule}
 								key={item._id}
-								onPress={() => navigation.replace("ListingEdit",{listing: item, prev: 'DashBoardScreen'})}
+								onPress={() => handleListingPress(item)}
 							  >
 								<View style={{flexDirection: 'row', width: '100%', height: '67%', marginBottom: 4.4,}}>
 								  <View style={styles.images}>
@@ -82,7 +155,11 @@ function DashBoardScreen({navigation}) {
 									<Text style={styles.text}>{item.rent}</Text>
 								  </View>
 								</View>
-								<Text style={[ styles.text,{fontSize: 12}]}>Last updated</Text>
+								<Text 
+									style={[styles.text,
+									{fontSize: 12,
+									paddingTop: 6
+									}]}>Last updated</Text>
 							  </TouchableOpacity>
                 		    ))}
                 			</View> :
@@ -94,7 +171,56 @@ function DashBoardScreen({navigation}) {
 					</View>
 					<View style={styles.rowItem}>
 						<Title style={styles.title}>Your Roommates</Title>
-						<Text style={styles.text}>Nothing to display.</Text>
+							<ScrollView style={styles.tile}>
+							{household ? <View style={styles.Box}>
+                		    {members.map((item) => (
+								<TouchableOpacity
+									style={styles.ContentModule}
+									key={item._id}
+							  		>
+									<Text>{item.first_name} {item.last_name}</Text>
+									
+							  </TouchableOpacity>
+                		    ))}
+                			</View> :
+							<View style={[styles.tile ,{
+								alignItems: 'center',
+								width: "100%"}]}>
+								<TouchableOpacity
+								style={{
+									backgroundColor: theme.CONTENT_MODULE_COLOR,
+									width: '100%',
+									borderRadius: 10,
+									alignItems: 'center',
+									justifyContent: 'center'}}
+								onPress={() => toggleCreatePressed()}>
+									<Text style={[styles.text,{
+										paddingVertical: 20
+									}]}>
+										Create Household
+									</Text>
+									{createPressed && <View
+									style={{height: 100, alignItems: 'center'}}>
+										<InputField
+        									value={householdName}
+        									onChangeText={setHouseholdName}
+        									style={styles.TextInput}
+        									placeholder="Household name"
+      									/>
+										<TouchableOpacity style={{
+											height: 40,
+											width: 100,
+											backgroundColor: 'dodgerblue',
+											borderRadius: 10,
+											alignItems: 'center',
+											justifyContent: 'center'}}
+											onPress={() => SubmitHousehold()}>
+												<Text style={styles.text}>Create</Text>
+										</TouchableOpacity>
+									</View>}
+								</TouchableOpacity>
+							</View>}
+						</ScrollView>
 					</View>
 					<View style={styles.rowItem}>
 						<Title style={styles.title}>Your Reminders</Title>
@@ -105,6 +231,7 @@ function DashBoardScreen({navigation}) {
 
 			</ContentArea>
 		</View>
+		{popupVisible && <ListingPopup listing={selectedItem} hidePopup={setPopupVisible}/>}
       </SafeAreaView>
     );
   }
@@ -122,7 +249,8 @@ function DashBoardScreen({navigation}) {
 	},
 	tile: {
 		width: '100%',
-		height: 450
+		height: 450,
+		top: 10
 	},
 	Box: {
         flex: 1,
@@ -197,5 +325,10 @@ function DashBoardScreen({navigation}) {
 		marginRight: 4.4,
 		alignItems: 'center',
 		justifyContent: 'center'
-	  }
+	  },
+	  TextInput: {
+		height: 40,
+		width: 200,
+		borderColor: 'black'
+	  },
   });
