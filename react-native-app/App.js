@@ -34,7 +34,7 @@ export default function App() {
   const [token, setUserToken] = useState(null);
   const ip = useMemo(() => {
     return {
-      myIp: "10.0.0.186",
+      myIp: "localhost",
     };
   }, []);
   const authContext = useMemo(() => {
@@ -161,7 +161,26 @@ export default function App() {
                   ),
                 }}
               />
-
+			  
+			  <Tab.Screen
+                name="API Testing"
+                component={ChatNavigation}
+                options={{
+                  tabBarIcon: ({ focused, color, size }) => (
+                    <Ionicons
+                      name={
+                        focused
+                          ? "chatbubble-ellipses"
+                          : "chatbubble-ellipses-outline"
+                      }
+                      size={size}
+                      color={color}
+                    />
+                  ),
+                }}
+              />
+			  
+			  
               <Tab.Screen
                 name="Calendar"
                 component={CalendarNavigation}
@@ -209,6 +228,21 @@ export default function App() {
               <TopButton.Screen
                 name="Roommate Finder"
                 component={FinderNavigation}
+                options={{
+                  buttonIcon: ({ focused, size }) => (
+                    <Ionicons
+                      name="md-search-outline"
+                      size={25}
+                      color={focused ? "#333" : "#888"}
+                    />
+                  ),
+                  onColor: '#AFD2FF',
+                  offColor: '#DCEAFE'
+                }}
+              />
+              <TopButton.Screen
+                name="API Testing"
+                component={ChatNavigation}
                 options={{
                   buttonIcon: ({ focused, size }) => (
                     <Ionicons
