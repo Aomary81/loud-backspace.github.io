@@ -141,7 +141,7 @@ const AccountInformation = () => {
         <StatusBar/>
         <View style={styles.container}>
           <Text style={{ color: "limegreen" }}>
-            Your changes were saved successfully!
+			  {"Your changes were saved successfully!"}
           </Text>
           <Button onPress={() => setSuccess(false)} title="OK" />
         </View>
@@ -164,7 +164,7 @@ const AccountInformation = () => {
             top: 5,
             right: 5
             }}>
-          <Text>Logout</Text>
+          <View><Text>Logout</Text></View>
         </TouchableOpacity>
         {/* Personal Details Container */}
         <View style={{ flexDirection: "column" }}>
@@ -188,16 +188,20 @@ const AccountInformation = () => {
             placeholder="Email" />
           <InputField
             style={styles.input}
-            value={null}
-            onChangeText={null}
+            value={zipCode}
+            onChangeText={zipCode}
             placeholder="ZIP Code"
           />
-          <InputField
-            style={styles.input}
-            value={null}
-            onChangeText={null}
-            placeholder="Date of Birth"
-          />
+		  {
+			  /*
+			  <InputField
+				style={styles.input}
+				value={null}
+				onChangeText={null}
+				placeholder="Date of Birth"
+			  />
+			  //*/
+		  }
 		  <InputField
 			style = {styles.inputBox}
 			value = {desc}
@@ -211,15 +215,15 @@ const AccountInformation = () => {
           <Text style={styles.headerMuted}>Change Password</Text>
           <InputField
             style={styles.inputMuted}
-            value={null}
-            onChangeText={null}
+            value={""}
+            //onChangeText={null}
             placeholder="Password (disabled)"
           />
           <InputField
             style={styles.inputMuted}
-            value={null}
-            onChangeText={null}
-            placeholder="Confirm Password (disabled)"
+            value={""}
+            //onChangeText={null}
+            placeholder={"Confirm Password (disabled)"}
           />
           <TouchableOpacity
             style={styles.button}
