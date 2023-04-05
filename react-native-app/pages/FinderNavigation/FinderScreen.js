@@ -18,6 +18,7 @@ import IconedTitle from "../components/V2Components/IconedTitle";
 import ContentArea from '../components/V2Components/ContentAreaV2';
 import ContentAreaHeaderBar from '../components/V2Components/ContentAreaHeaderBar';
 import ListingPopup from "../components/V2Components/ListingPopup";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function FinderScreen({ navigation }) {
   const isWeb = Platform.OS === "web";
@@ -122,9 +123,11 @@ export default function FinderScreen({ navigation }) {
     }
   };
 
-  React.useEffect(() => {
-    updateGenderFilter();
-  }, [showMale,showFemale,showNonBinary,useGenderFilter]);
+  useFocusEffect(
+    React.useCallback(() => {
+      updateGenderFilter();
+    }, [showMale,showFemale,showNonBinary,useGenderFilter])
+  )
 
   const SearchListings = async () => {
     try {

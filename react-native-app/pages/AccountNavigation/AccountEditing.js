@@ -148,23 +148,24 @@ const AccountInformation = () => {
       </SafeAreaView>
     );
   }
+
   return (
     <SafeAreaView style={styles.background}>
       <View style={styles.container}>
-      <TouchableOpacity
-          onPress={handleLogout}
-          style={{
-            backgroundColor: '#fc1c03',
-            borderRadius: 5,
-            height: 20,
-            width: 60,
-            alignItems: 'center',
-            justifyContent: 'center',
-            position: 'absolute',
-            top: 5,
-            right: 5
-            }}>
-          <View><Text>Logout</Text></View>
+        <TouchableOpacity
+            onPress={handleLogout}
+            style={{
+              backgroundColor: '#fc1c03',
+              borderRadius: 5,
+              height: 20,
+              width: 60,
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'absolute',
+              top: 5,
+              right: 5
+              }}>
+            <View><Text>Logout</Text></View>
         </TouchableOpacity>
         {/* Personal Details Container */}
         <View style={{ flexDirection: "column" }}>
@@ -192,22 +193,22 @@ const AccountInformation = () => {
             onChangeText={zipCode}
             placeholder="ZIP Code"
           />
-		  {
-			  /*
-			  <InputField
-				style={styles.input}
-				value={null}
-				onChangeText={null}
-				placeholder="Date of Birth"
-			  />
-			  //*/
-		  }
-		  <InputField
-			style = {styles.inputBox}
-			value = {desc}
-			onChangeText={setDescription}
-			placeholder="Type some stuff about yourself here..."
-		  />
+          {
+            /*
+            <InputField
+            style={styles.input}
+            value={null}
+            onChangeText={null}
+            placeholder="Date of Birth"
+            />
+            //*/
+          }
+          <InputField
+          style = {styles.inputBox}
+          value = {desc}
+          onChangeText={setDescription}
+          placeholder="Type some stuff about yourself here..."
+          />
         </View>
 
         {/* Login Credentials Container */}
@@ -229,13 +230,13 @@ const AccountInformation = () => {
             style={styles.button}
             onPress={saveAccountInformation}
           >
-			<View>
-				<Text style={{ color: "#fff", fontSize: 15, fontWeight: "600" }}>
-				  Submit
-				</Text>
-			</View>
+            <View>
+              <Text style={{ color: "#fff", fontSize: 15, fontWeight: "600" }}>
+                Submit
+              </Text>
+            </View>
           </TouchableOpacity>
-          {error && <Text>{error}</Text>}
+          <Text>{error}</Text>
         </View>
       </View>
     </SafeAreaView>

@@ -137,7 +137,7 @@ function CalendarScreen({ navigation }) {
             //onMonthChange={(month) => console.log(month)}
           />
         </View>
-        <View style={{ flex: 1, flexDirection: "column", gap: 5 }}>
+        <View style={{ flex: 1, flexDirection: "column", gap: 5}}>
           <InputField
             placeholder={"Date Format: YYYY-MM-DD"}
             value={dueDate}
@@ -172,7 +172,6 @@ function CalendarScreen({ navigation }) {
           </View>
         </View>
         <Modal visible={modalVisible}>
-          {" "}
           <SafeAreaView style={styles.background}>
             <View style={styles.modal}>
               <InputField
@@ -210,7 +209,7 @@ function CalendarScreen({ navigation }) {
                   onPress={() => setModalVisible(false)}
                 />
               </View>
-            </View>{" "}
+            </View>
           </SafeAreaView>
         </Modal>
       </View>
