@@ -6,7 +6,6 @@ import { useState, useEffect } from 'react';
 import ContentArea from '../components/V2Components/ContentAreaV2';
 import ContentAreaHeaderBar from '../components/V2Components/ContentAreaHeaderBar';
 import IconedTitle from '../components/V2Components/IconedTitle';
-import { Title } from 'react-native-paper';
 
 import { AuthContext } from '../../context';
 import { SafeAreaView } from 'react-navigation';
@@ -15,6 +14,7 @@ import { TouchableOpacity } from 'react-native';
 import theme from '../../styles/theme.style'
 import { jestResetJsReanimatedModule } from 'react-native-reanimated/lib/reanimated2/core';
 import ListingPopup from '../components/V2Components/ListingPopup';
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const isWeb = Platform.OS === "web";
 
@@ -28,6 +28,10 @@ function DashBoardScreen() {
 	const [createPressed, setCreatePressed] = useState(false);
 	const [householdName, setHouseholdName] = useState('');
 	const [members, setMembers] = useState([]);
+	const [addCode, setAddCode] = useState('');
+	const [inputAddCode, setInputAddCode] = useState('');
+	const [addSuccess, setAddSuccess] = useState(false);
+	const [addPressed, setAddPressed] = useState(false);
 
 	const handleListingPress = (item) => {
 		setSelectedItem(item);
@@ -39,6 +43,14 @@ function DashBoardScreen() {
 			setCreatePressed(false);
 		} else {
 			setCreatePressed(true);
+		}
+	};
+
+	const toggleAddPressed = () => {
+		if(addPressed){
+			setAddPressed(false);
+		} else {
+			setAddPressed(true);
 		}
 	};
 
@@ -88,14 +100,14 @@ function DashBoardScreen() {
                     await setHousehold(data.household);
 					await setMembers(data.members);
                 } else {
-                    console.log('Error occured getting listings');
+                    console.log('Error occured getting household');
                 }
             } catch(error){
                 console.log(error);
             }
         };
         getHousehold();
-    },[]);
+    },[addSuccess]);
 
 	const SubmitHousehold = async () => {
 		try {
@@ -122,6 +134,53 @@ function DashBoardScreen() {
 		}
 	  };
 
+	  const getAddCode = async () => {
+		try {
+			const response = await fetch("http://" + myIp + ":3000/household/invite", {
+			  method: "POST",
+			  credentials: "include",
+			  headers: {
+				"Content-Type": "application/json",
+			  },
+	  
+			  body: JSON.stringify({
+				token: token,
+			  }),
+			  https: false, // Set the https option to true
+			});
+			const data = await response.json();
+			if (response.status == 200) {
+			  await setAddCode(data.addCode);
+			}
+		  } catch (error) {
+			console.log(error.message);
+		  }
+	  };
+
+	  const joinHousehold = async () => {
+		try {
+			const response = await fetch("http://" + myIp + ":3000/household/add", {
+			  method: "POST",
+			  credentials: "include",
+			  headers: {
+				"Content-Type": "application/json",
+			  },
+	  
+			  body: JSON.stringify({
+				addCode: inputAddCode.replace(/-/g,'').toLowerCase(),
+				token: token,
+			  }),
+			  https: false, // Set the https option to true
+			});
+			const data = await response.json();
+			if (response.status == 200) {
+			  await setAddSuccess(data.success);
+			}
+		  } catch (error) {
+			console.log(error.message);
+		  }
+	  };
+
     return (
       <SafeAreaView style={styles.background}>
 		<StatusBar style="auto" />
@@ -134,9 +193,9 @@ function DashBoardScreen() {
 						description="View recent account activity"
 					/>
 				</ContentAreaHeaderBar>
-				<View style={{display: 'flex', flexDirection: 'row', padding: 10, width: '100%'}}>
+				<View style={{flex: 1, flexDirection: 'row', padding: 5, width: '100%', height: '100%'}}>
 					<View style={styles.rowItem}>
-						<Title style={styles.title}>Your Listings</Title>
+						<Text style={styles.title}>Your Listings</Text>
 						<ScrollView style={styles.tile}>
 							{myListings ? <View style={styles.Box}>
                 		    {myListings.map((item) => (
@@ -159,7 +218,11 @@ function DashBoardScreen() {
 									style={[styles.text,
 									{fontSize: 12,
 									paddingTop: 6
-									}]}>Last updated</Text>
+									}]}>
+										Last updated: {
+            							Math.floor((Date.now() - Date.parse(item.updatedAt)) / (1000*60*60*24))
+          								} days ago
+								</Text>
 							  </TouchableOpacity>
                 		    ))}
                 			</View> :
@@ -170,10 +233,10 @@ function DashBoardScreen() {
 						</ScrollView>
 					</View>
 					<View style={styles.rowItem}>
-						<Title style={styles.title}>Your Roommates</Title>
+						<Text style={styles.title}>Your Roommates</Text>
 							<ScrollView style={styles.tile}>
 							{household ? <View style={styles.Box}>
-                		    {members.map((item) => (
+                		    {members && members.map((item) => (
 								<TouchableOpacity
 									style={styles.ContentModule}
 									key={item._id}
@@ -182,6 +245,39 @@ function DashBoardScreen() {
 									
 							  </TouchableOpacity>
                 		    ))}
+								{!addCode ? <TouchableOpacity
+									onPress={() => getAddCode()}
+									style={[styles.ContentModule,{
+										height: 100,
+										alignItems: 'center',
+										justifyContent: 'center'}]}>
+										<View>
+											<Ionicons
+                        						name={"add-circle-outline"}
+                        						size={25}
+                        						color={theme.TEXT_COLOR}
+                      						/>
+										</View>
+										<Text style={[styles.text,{
+											fontWeight: 'bold'
+											}]}>
+											Invite Members
+										</Text>
+								</TouchableOpacity> :
+								<View
+									style={[styles.ContentModule,{
+										height: 100,
+										alignItems: 'center',
+										justifyContent: 'center'}]}>
+									<Text style={[styles.text,{
+										fontWeight: 'bold'
+										}]}>
+										{addCode.toUpperCase().slice(0,2)}-
+										{addCode.toUpperCase().slice(2,4)}-
+										{addCode.toUpperCase().slice(4,6)}-
+										{addCode.toUpperCase().slice(6,8)}
+									</Text>
+								</View>}
                 			</View> :
 							<View style={[styles.tile ,{
 								alignItems: 'center',
@@ -193,9 +289,10 @@ function DashBoardScreen() {
 									borderRadius: 10,
 									alignItems: 'center',
 									justifyContent: 'center'}}
-								onPress={() => toggleCreatePressed()}>
+									onPress={() => toggleCreatePressed()}>
 									<Text style={[styles.text,{
-										paddingVertical: 20
+										paddingVertical: 20,
+										fontWeight: 'bold'
 									}]}>
 										Create Household
 									</Text>
@@ -219,11 +316,46 @@ function DashBoardScreen() {
 										</TouchableOpacity>
 									</View>}
 								</TouchableOpacity>
+								<TouchableOpacity
+								style={{
+									backgroundColor: theme.CONTENT_MODULE_COLOR,
+									width: '100%',
+									borderRadius: 10,
+									alignItems: 'center',
+									justifyContent: 'center',
+									marginTop: 8.8}}
+									onPress={() => toggleAddPressed()}>
+									<Text style={[styles.text,{
+										paddingVertical: 20,
+										fontWeight: 'bold'
+									}]}>
+										Join household
+									</Text>
+									{addPressed && <View
+									style={{height: 100, alignItems: 'center'}}>
+										<InputField
+        									value={inputAddCode}
+        									onChangeText={setInputAddCode}
+        									style={styles.TextInput}
+        									placeholder="Add code"
+      									/>
+										<TouchableOpacity style={{
+											height: 40,
+											width: 100,
+											backgroundColor: 'dodgerblue',
+											borderRadius: 10,
+											alignItems: 'center',
+											justifyContent: 'center'}}
+											onPress={() => joinHousehold()}>
+												<Text style={styles.text}>Join</Text>
+										</TouchableOpacity>
+									</View>}
+								</TouchableOpacity>
 							</View>}
 						</ScrollView>
 					</View>
 					<View style={styles.rowItem}>
-						<Title style={styles.title}>Your Reminders</Title>
+						<Text style={styles.title}>Your Reminders</Text>
 						<Text style={styles.text}>Nothing to display.</Text>
 					</View>
 				</View>
@@ -241,7 +373,8 @@ function DashBoardScreen() {
 	rowItem: {
 		flexDirection: 'column',
 		flex: 1,
-		alignItems: 'center'
+		alignItems: 'center',
+		height: '98%'
 	},
 	text: {
 		color: theme.TEXT_COLOR,
@@ -277,16 +410,6 @@ function DashBoardScreen() {
 		alignItems: 'center',
 		justifyContent: 'center'
 	  },
-      container:{
-        flex: 1,
-        width: '100%',
-        backgroundColor: theme.CONTAINER_COLOR,
-        borderRadius: 10,
-        borderWidth: 5,
-        borderColor: theme.CONTAINER_COLOR,
-        alignItems: 'center',
-        justifyContent: 'center'
-      },
       ContentModule: {
 		flexBasis: '95%',
 		marginHorizontal: 4.4,
@@ -310,7 +433,8 @@ function DashBoardScreen() {
       title: {
         fontSize: 25,
         fontWeight: 'bold',
-		color: theme.INPUT_TEXT_COLOR
+		color: theme.INPUT_TEXT_COLOR,
+		paddingBottom: 5
       },
       topBar: {
         flexDirection: 'row',

@@ -77,7 +77,7 @@ export default function ListingPopup({listing, hidePopup}){
                       <Ionicons
                         name={"male-female-outline"}
                         size={16}
-                        color={'black'}
+                        color={'green'}
                       />}
                   </View>
                 </View>
