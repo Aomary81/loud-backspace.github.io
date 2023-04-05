@@ -363,7 +363,11 @@ export default function FinderScreen({ navigation }) {
                     <Text style={styles.text}>{item.rent}</Text>
                   </View>
                 </View>
-                <Text style={[ styles.text,{fontSize: 12}]}>Last updated</Text>
+                <Text style={[ styles.text,{fontSize: 12}]}>
+                  Last updated: {
+            			Math.floor((Date.now() - Date.parse(item.updatedAt)) / (1000*60*60*24))
+          				} days ago
+                </Text>
               </TouchableOpacity>
             ))}
           </View>
