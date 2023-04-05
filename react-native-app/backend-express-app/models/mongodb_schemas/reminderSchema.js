@@ -1,42 +1,40 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const reminderSchema = new mongoose.Schema({
-_id: mongoose.Schema.Types.ObjectId,
   title: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   description: {
     type: String,
-    trim: true
+    trim: true,
   },
   dueDate: {
     type: Date,
-    required: true
+    required: true,
   },
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   completed: {
     type: Boolean,
-    default: false
+    default: false,
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
+    ref: "User",
+    required: true,
   },
   houseHoldId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Household',
-    required: true
-  }
+    ref: "Household",
+    required: true,
+  },
 });
 
-
-const Reminder = mongoose.model('Reminder', reminderSchema);
+const Reminder = mongoose.model("Reminder", reminderSchema);
 
 module.exports = Reminder;
 
