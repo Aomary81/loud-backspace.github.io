@@ -158,7 +158,7 @@ function DashBoardScreen() {
         }
       };
       getReminders();
-    }, [])
+    }, [addSuccess])
   );
 
 	const SubmitHousehold = async () => {
@@ -184,32 +184,32 @@ function DashBoardScreen() {
 		} catch (error) {
 		  console.log(error.message);
 		}
-	  };
+	};
 
-	  const getAddCode = async () => {
-		try {
-			const response = await fetch("http://" + myIp + ":3000/household/invite", {
-			  method: "POST",
-			  credentials: "include",
-			  headers: {
-				"Content-Type": "application/json",
-			  },
-	  
-			  body: JSON.stringify({
-				token: token,
-			  }),
-			  https: false, // Set the https option to true
-			});
-			const data = await response.json();
-			if (response.status == 200) {
-			  await setAddCode(data.addCode);
-			}
-		  } catch (error) {
-			console.log(error.message);
-		  }
-	  };
+  const getAddCode = async () => {
+  try {
+    const response = await fetch("http://" + myIp + ":3000/household/invite", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+      "Content-Type": "application/json",
+      },
+  
+      body: JSON.stringify({
+      token: token,
+      }),
+      https: false, // Set the https option to true
+    });
+    const data = await response.json();
+    if (response.status == 200) {
+      await setAddCode(data.addCode);
+    }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
-	  const joinHousehold = async () => {
+	const joinHousehold = async () => {
 		try {
 			const response = await fetch("http://" + myIp + ":3000/household/add", {
 			  method: "POST",
@@ -228,10 +228,10 @@ function DashBoardScreen() {
 			if (response.status == 200) {
 			  await setAddSuccess(data.success);
 			}
-		  } catch (error) {
+		} catch (error) {
 			console.log(error.message);
-		  }
-	  };
+		}
+	};
 
     return (
       <SafeAreaView style={styles.background}>
