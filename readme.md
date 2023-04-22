@@ -116,53 +116,50 @@ npx expo start --web
 - [x] Prototype UI Layout - Base UI
 - [x] Build MVP
 - [x] Create data models for the different project features
-- [ ] \(WIP)Setup the Login Page Essentials
+- [x] Setup the Login Page Essentials
 - [x] Setup a basic navigation system
-- [ ] \(WIP)Setup basic user schemas for mongodb
+- [x] Setup basic user schemas for mongodb
 - [x] Revise Figma Layouts
 - [x] Create a datamodel for houses
 - [x] Fix small visuals of presentation day
-- [ ] \(WIP)Setup the basic layout for the reminders page
-- [x] \(QA)Pre-presentation QA
-- [ ] Create or import common content components based off of designs
-- [ ] Create or import a template for content pages
-- [ ] Revise and Review the mockups
-- [ ] Setup the express server
-- [ ] User Dashboard API
-- [ ] Rework the navigation system so that it is a common navigation system
-- [ ] Decide on backend service choice
-- [ ] User Dashboard UI + API integration
-- [ ] Setup the dashboard page UI for web and mobile
-- [ ] Setup the reminders system UI
-- [ ] Setup the User Profile UI
-- [ ] Setup the API for reminders for creating, editing, and deleting reminders
-- [ ] Setup the API for getting a list of user associated reminders
-- [ ] Setup an API for user reminder notifications
-- [ ] User Feel Quality check
-- [ ] Integrate user reminders list api with user reminder UI
-- [ ] Integrate user reminders CRUD api with reminder CRUD UI
-- [ ] Setup the UI layout for the calendar
-- [ ] Review/Revise the roommate finder UI
-- [ ] Setup the API for populating the calendar
-- [ ] Setup the API for adding roommates to a household
-- [ ] Review codebase for deployment prep
-- [ ] Integrate notifications with reminder frontend
-- [ ] Integrate calendar API with calendar frontend
-- [ ] Setup API for roommate filters
-- [ ] Integrate dashboard UI with existing API for other feature areas with regular refreshes
-- [ ] Integrate household add code api with roommate finder UI
-- [ ] \(QA)Run a test deployment with existing code base pre-final deployment
-- [ ] Integrate roommate finder UI with roommate filter API
+- [x] Setup the basic layout for the reminders page
+- [x] Pre-presentation QA
+- [x] Create or import common content components based off of designs
+- [x] Create or import a template for content pages
+- [x] Revise and Review the mockups
+- [x] Setup the express server
+- [x] User Dashboard API
+- [x] Rework the navigation system so that it is a common navigation system
+- [x] Decide on backend service choice
+- [x] User Dashboard UI + API integration
+- [x] Setup the dashboard page UI for web and mobile
+- [x] Setup the reminders system UI
+- [x] Setup the User Profile UI
+- [x] Setup the API for reminders for creating, editing, and deleting reminders
+- [x] Setup the API for getting a list of user associated reminders
+- [x] Setup an API for user reminder notifications
+- [x] User Feel Quality check
+- [x] Integrate user reminders list api with user reminder UI
+- [x] Integrate user reminders CRUD api with reminder CRUD UI
+- [x] Setup the UI layout for the calendar
+- [x] Review/Revise the roommate finder UI
+- [x] Setup the API for populating the calendar
+- [x] Setup the API for adding roommates to a household
+- [x] Review codebase for deployment prep
+- [x] Integrate notifications with reminder frontend
+- [x] Integrate calendar API with calendar frontend
+- [x] Setup API for roommate filters
+- [x] Integrate dashboard UI with existing API for other feature areas with regular refreshes
+- [x] Integrate household add code api with roommate finder UI
+- [x] Integrate roommate finder UI with roommate filter API
+- [ ] Run a test deployment with existing code base pre-final deployment
 - [ ] Final deployment
 
 ## Low Priority Tasks
 
-- [ ] Setup UI Layout for Chat
-- [ ] Setup Chat API
-- [ ] Integrate chat UI with chat API
-- [ ] Roommate finder roommate application UI layout setup
-- [ ] Roommate finder roommate application API setup
-- [ ] Integrate roommate application API with roommate application UI
+- [x] Roommate finder roommate application UI layout setup
+- [x] Roommate finder roommate application API setup
+- [x] Integrate roommate application API with roommate application UI
 
 ## Project Timeline
 
