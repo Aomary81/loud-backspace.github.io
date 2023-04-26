@@ -122,17 +122,26 @@ router.post("/my_reminders", async (req, res) => {
 
 router.post("/delete", async (req, res) => {
   const token = req.cookies.token || req.body.token;
+  const { reminder_id } = req.body;
+  console.log(reminder_id);
   // Get user token
   if (!token) {
     return res.status(401).json({ message: "Unauthorized" });
   }
-
   try {
-    const decodedToken = jwt.verify(token, "thisIsSecret");
-    const userId = decodedToken.userId;
-  } catch (error) {
-    console.log(error);
-    return res.status(401).json({ message: "Unauthorized" });
+    const deletedReminder = await Reminder.findByIdAndDelete(reminder_id);
+    console.log(deletedReminder);
+    if (!deletedReminder) {
+      return res.status(404).json({ message: "reminder found" });
+    }
+    await household.findByIdAndUpdate(
+      { _id: deletedReminder.houseHoldId },
+      { $pull: { reminders: reminder_id } }
+    );
+  } catch (err) {
+    // If the token is invalid or has expired, return a 401 Unauthorized response
+    console.error(err);
+    return res.status(500).json({ message: "Unauthorized" });
   }
 });
 
