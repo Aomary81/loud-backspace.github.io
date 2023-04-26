@@ -35,7 +35,7 @@ const { state, navigation, descriptors, NavigationContent } =
       <View style={{
         backgroundColor: backgroundColor,
         height: 120,
-        borderBottomWidth: 10,
+        paddingBottom: 10,
         borderBottomColor: backgroundColor
       }}>
         <View style={{width: '79%',
@@ -97,7 +97,7 @@ const { state, navigation, descriptors, NavigationContent } =
             >
               {descriptors[route.key].options.buttonIcon({focused: state.index == i})}
               {width > 1030 && <Text style={{
-                fontWeight: 'bold',
+                fontFamily: 'Inter',
                 fontSize: 16,
                 paddingLeft: 4
                 }}>

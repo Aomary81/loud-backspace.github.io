@@ -7,6 +7,7 @@ import { AuthContext } from "../../context";
 import InputField from "../components/V2Components/InputField";
 import { TouchableOpacity } from "react-native";
 import * as SecureStore from 'expo-secure-store';
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const AccountInformation = () => {
   const { signIn, setToken } = useContext(AuthContext).authContext;
@@ -140,10 +141,16 @@ const AccountInformation = () => {
       <SafeAreaView style={styles.background}>
         <StatusBar/>
         <View style={styles.container}>
-          <Text style={{ color: "limegreen" }}>
-			  {"Your changes were saved successfully!"}
-          </Text>
-          <Button onPress={() => setSuccess(false)} title="OK" />
+          <Text style={{ color: "rgb(30, 144, 255)", fontSize: 20 }}>
+            Your account was updated successfully.
+            </Text>
+            <TouchableOpacity style={[styles.button, {width: 300, marginTop: 15}]} onPress={() => setSuccess(false)} title="OK">
+            <View>
+              <Text style={{ color: "#fff", fontSize: 15, fontFamily: 'Roboto' }}>
+                Return
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     );
@@ -155,21 +162,25 @@ const AccountInformation = () => {
         <TouchableOpacity
             onPress={handleLogout}
             style={{
-              backgroundColor: '#fc1c03',
+              backgroundColor: '#FEDBDB',
               borderRadius: 5,
-              height: 20,
-              width: 60,
+              height: 50,
+              width: 150,
+              padding: 8,
               alignItems: 'center',
               justifyContent: 'center',
               position: 'absolute',
-              top: 5,
-              right: 5
+              top: 8,
+              right: 8
               }}>
-            <View><Text>Logout</Text></View>
+            <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+              <Ionicons name={"log-out-outline"} size={24} color={'#FF4747'} />
+              <Text style={{color: '#28303F', fontSize: 18, fontFamily: 'Roboto', marginLeft: 8 }}>Sign Out</Text>
+            </View>
         </TouchableOpacity>
         {/* Personal Details Container */}
-        <View style={{ flexDirection: "column" }}>
-          <Text style={styles.header}>Personal Details</Text>
+        <View style={{ flexDirection: "column", fontFamily: 'Roboto' }}>
+          <Text style={styles.header}>Account Details</Text>
           <InputField
             style={styles.input}
             value={firstName}
@@ -204,15 +215,23 @@ const AccountInformation = () => {
             //*/
           }
           <InputField
-          style = {styles.inputBox}
-          value = {desc}
-          onChangeText={setDescription}
-          placeholder="Type some stuff about yourself here..."
+            style = {styles.input}
+            value = {desc}
+            onChangeText={setDescription}
+            placeholder="Bio"
           />
+          <TouchableOpacity style={[styles.button, {width: '100%'}]} onPress={saveAccountInformation}>
+            <View>
+              <Text style={{ color: "#fff", fontSize: 15, fontFamily: 'Roboto' }}>
+                Submit
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
 
         {/* Login Credentials Container */}
-        <View style={{ flexDirection: "column" }}>
+        <View style={{ flexDirection: "column"}}>
+          {/*
           <Text style={styles.headerMuted}>Change Password</Text>
           <InputField
             style={styles.inputMuted}
@@ -225,17 +244,7 @@ const AccountInformation = () => {
             value={""}
             //onChangeText={null}
             placeholder={"Confirm Password (disabled)"}
-          />
-          <TouchableOpacity
-            style={styles.button}
-            onPress={saveAccountInformation}
-          >
-            <View>
-              <Text style={{ color: "#fff", fontSize: 15, fontWeight: "600" }}>
-                Submit
-              </Text>
-            </View>
-          </TouchableOpacity>
+          />*/}
           <Text>{error}</Text>
         </View>
       </View>
@@ -250,7 +259,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.BACKGROUND_COLOR,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    fontFamily: 'Roboto'
   },
   container:{
     flex: 1,
@@ -260,7 +270,8 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     borderColor: theme.CONTAINER_COLOR,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    fontFamily: 'Roboto'
   },
   button: {
     height: 35,
@@ -272,37 +283,45 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     paddingVertical: 10,
     paddingHorizontal: 15,
+    fontFamily: 'Roboto'
   },
   input: {
     height: 50,
-    width: 300
+    width: 300,
+    fontFamily: 'Roboto'
   },
   inputBox: {
-	flex: 1,
-    width: 300
+	  flex: 1,
+    width: 300,
+    fontFamily: 'Roboto'
   },
   header: {
     fontSize: 30,
     color: "#333",
     fontWeight: "600",
     marginBottom: 10,
+    fontFamily: 'Roboto'
   },
   headerMuted: {
     fontSize: 30,
     color: "#999",
     fontWeight: "600",
     marginBottom: 10,
+    fontFamily: 'Roboto'
   },
   text: {
     color: "#ffffff",
     fontWeight: "600",
+    fontFamily: 'Roboto'
   },
   textMuted: {
     color: "#f9f9f9",
+    fontFamily: 'Roboto'
   },
   inputMuted: {
     backgroundColor: "#f5f5f5",
     height: 50,
-    width: 300
+    width: 300,
+    fontFamily: 'Roboto'
   },
 });

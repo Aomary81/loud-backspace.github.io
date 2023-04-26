@@ -236,7 +236,7 @@ function DashBoardScreen() {
     return (
       <SafeAreaView style={styles.background}>
       <StatusBar style="auto" />
-        <View style={styles.container}>
+        <View style={[styles.container, {borderRadius: 20}]}>
           <ContentArea style={{display: 'flex', flexDirection: 'column'}}>
             <ContentAreaHeaderBar>
               <IconedTitle 
@@ -256,27 +256,26 @@ function DashBoardScreen() {
                     key={item._id}
                     onPress={() => handleListingPress(item)}
                     >
-                    <View style={{flexDirection: 'row', width: '100%', height: '67%', marginBottom: 4.4,}}>
+                    <View style={{flexDirection: 'row', width: '100%', height: '67%', marginBottom: 5,}}>
                       <View style={styles.images}>
-                      <Text>?</Text>
+                        <Text>?</Text>
                       </View>
                       <View style={{alignItems: 'flex-start'}}>
-                      <Text style={[styles.text, {fontWeight: 'bold'}]}>{`${item.city}, ${item.zip_code}`}</Text>
-                      <Text style={styles.text}>{item.street_name}</Text>
-                      <Text style={styles.text}>{item.rent}</Text>
+                      <Text style={[styles.text]}>{`${item.city}, ${item.zip_code}`}</Text>
+                      <Text style={[styles.text]}>{item.street_name}</Text>
+                      <Text style={[styles.text]}>${item.rent}/month</Text>
                       </View>
                     </View>
                     <Text 
                       style={[styles.text,
                       {fontSize: 12,
-                      paddingTop: 6
                       }]}>
                         Last updated: {
                               Math.floor((Date.now() - Date.parse(item.updatedAt)) / (1000*60*60*24))
                               } days ago
                     </Text>
                     </TouchableOpacity>))}
-                        </View> :
+                    </View> :
                   <View>
                     <Text style={styles.text}>Loading...</Text>
                   </View>
@@ -299,37 +298,36 @@ function DashBoardScreen() {
                     {!addCode ? <TouchableOpacity
                       onPress={() => getAddCode()}
                       style={[styles.ContentModule,{
-                        height: 100,
+                        minHeight: 100,
                         alignItems: 'center',
                         justifyContent: 'center'}]}>
-                        <View>
-                          <Ionicons
-                                        name={"add-circle-outline"}
-                                        size={25}
-                                        color={theme.TEXT_COLOR}
-                                      />
-                        </View>
-                        <Text style={[styles.text,{
-                          fontWeight: 'bold'
-                          }]}>
-                          Invite Members
-                        </Text>
+                            <Ionicons
+                              name={"add-circle-outline"}
+                              size={35}
+                              color={theme.TEXT_COLOR}
+                            />
+                            <Text style={[styles.text,{fontWeight: 500, fontSize: 20, marginTop: 5}]}>
+                              Invite Members
+                            </Text>
                     </TouchableOpacity> :
                     <View
                       style={[styles.ContentModule,{
-                        height: 100,
+                        minHeight: 100,
                         alignItems: 'center',
                         justifyContent: 'center'}]}>
-                      <Text style={[styles.text,{
-                        fontWeight: 'bold'
+                      <Text style={[styles.text, {fontSize: 22, letterSpacing: 1.5}, {
                         }]}>
                         {addCode.toUpperCase().slice(0,2)}-
                         {addCode.toUpperCase().slice(2,4)}-
                         {addCode.toUpperCase().slice(4,6)}-
                         {addCode.toUpperCase().slice(6,8)}
                       </Text>
+                      <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 3}}>
+                        <Ionicons name={"time-outline"} size={15} color={theme.TEXT_COLOR} style={{marginTop: 2}} />
+                        <Text> Code valid for 24 hours</Text>
+                      </View>
                     </View>}
-                          </View> :
+                  </View> :
                   <View style={[styles.tile ,{
                     alignItems: 'center',
                     width: "100%"}]}>
@@ -418,6 +416,7 @@ function DashBoardScreen() {
                         >
                           <View
                             style={{
+                              display: 'flex',
                               flexDirection: "row",
                               width: "100%",
                               height: "67%",
@@ -426,29 +425,28 @@ function DashBoardScreen() {
                           >
                             <View
                               style={{
-                                alignItems: "flex-start",
+                                display: 'flex',
                                 flexDirection: "column",
+                                flexWrap: 'wrap',
+                                flexShrink: 1
                               }}
                             >
                               <Text
-                                style={[styles.text, { fontWeight: "bold" }]}
+                                style={[styles.text]}
                               >{monthNames[new Date(item.dueDate).getMonth()]}
-                                {', '}
-                                {new Date(item.dueDate).getDay()}
                                 {' '}
+                                {new Date(item.dueDate).getDay()}
+                                {', '}
                                 {new Date(item.dueDate).getFullYear()}
                                 </Text>
-                              <Text style={[styles.text, { fontWeight: "bold" }]}>
+                              <Text style={[styles.text]}>
                                 {`${item.title}`}{" "}
                               </Text>
-                              <Text style={[styles.text, { fontWeight: "bold" }]}>
+                              <Text style={[styles.text, {fontSize: 12}]}>
                                 {`${item.description}`}
                               </Text>
                             </View>
                           </View>
-                          <Text
-                            style={[styles.text, { fontSize: 12, paddingTop: 6 }]}
-                          ></Text>
                         </TouchableOpacity>
                       ))}
                     </View>
@@ -475,15 +473,28 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     flex: 1,
     alignItems: "center",
+    fontFamily: 'Roboto',
+  },
+  header: {
+    fontSize: 22,
+    fontFamily: 'Roboto',
+    marginBottom: 3,
+    fontWeight: 'bold'
+  },
+  containerText: {
+    fontSize: 18,
+    fontFamily: 'Roboto',
+    marginBottom: 3,
   },
   text: {
     color: theme.TEXT_COLOR,
-    fontSize: 15,
+    fontFamily: 'Roboto',
   },
   tile: {
     width: "100%",
     height: 450,
     top: 10,
+    fontFamily: 'Roboto',
   },
   Box: {
     flex: 1,
@@ -493,12 +504,15 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     backgroundColor: theme.CONTAINER_COLOR,
     marginTop: 10,
+    fontFamily: 'Roboto',
   },
   background: {
     flex: 1,
     backgroundColor: theme.BACKGROUND_COLOR,
     alignItems: "center",
     justifyContent: "center",
+    fontFamily: 'Roboto',
+    transition: 10
   },
   container: {
     flex: 1,
@@ -509,27 +523,20 @@ const styles = StyleSheet.create({
     borderColor: theme.CONTAINER_COLOR,
     alignItems: "center",
     justifyContent: "center",
-  },
-  container: {
-    flex: 1,
-    width: "100%",
-    backgroundColor: theme.CONTAINER_COLOR,
-    borderRadius: 10,
-    borderWidth: 5,
-    borderColor: theme.CONTAINER_COLOR,
-    alignItems: "center",
-    justifyContent: "center",
+    fontFamily: 'Roboto',
   },
   ContentModule: {
     flexBasis: "95%",
-    marginHorizontal: 4.4,
-    marginVertical: 4.4,
+    marginHorizontal: 5,
+    marginVertical: 5,
     alignItems: "flex-start",
     justifyContent: "flex-start",
-    aspectRatio: 2.3,
+    minHeight: 100,
+    //aspectRatio: 2.3,
     backgroundColor: theme.CONTENT_MODULE_COLOR,
     borderRadius: 10,
-    padding: 8.8,
+    padding: 12,
+    fontFamily: 'Roboto',
   },
   button: {
     height: 20,
@@ -539,29 +546,33 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 5,
+    fontFamily: 'Roboto',
   },
   title: {
     fontSize: 25,
-    fontWeight: "bold",
     color: theme.INPUT_TEXT_COLOR,
+    fontFamily: 'Roboto',
   },
   topBar: {
     flexDirection: "row",
     marginTop: 15,
     alignItems: "center",
+    fontFamily: 'Roboto',
   },
   images: {
     backgroundColor: "white",
     height: "100%",
     aspectRatio: 1,
     borderRadius: 5,
-    marginRight: 4.4,
+    marginRight: 5,
     alignItems: "center",
     justifyContent: "center",
+    padding: 30
   },
   TextInput: {
     height: 40,
     width: 200,
     borderColor: "black",
+    fontFamily: 'Roboto',
   },
 });

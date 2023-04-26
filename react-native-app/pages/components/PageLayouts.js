@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
-
 //Menu bar content space
 const topBarHeight = 50;
 const contentSpaceHeight = (Dimensions.get('window').height - topBarHeight);
@@ -8,8 +7,6 @@ const contentSpaceHeight = (Dimensions.get('window').height - topBarHeight);
 const colorPrimary = '#ffffff';
 const colorSecondary = '#ffffff';
 const colorTertiary = '#000000';
-
-
 
 const PageLayouts = StyleSheet.create({
 	
@@ -122,7 +119,7 @@ const PageLayouts = StyleSheet.create({
 	pageContainer: {
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: 'white'
+		backgroundColor: 'white',
 	},
 
 	descriptionContainer: {

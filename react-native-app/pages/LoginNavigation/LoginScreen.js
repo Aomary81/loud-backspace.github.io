@@ -7,6 +7,7 @@ import * as SecureStore from 'expo-secure-store';
 
 import InputField from '../components/V2Components/InputField'
 import theme from '../../styles/theme.style'
+import { isSearchBarAvailableForCurrentPlatform } from 'react-native-screens';
 
 const isWeb = Platform.OS === "web";
 
@@ -79,7 +80,7 @@ function LoginScreen({navigation}) {
           <Text style={styles.errorText}>{error}</Text>
         </View>
         <View style={styles.card}>
-          <Text style={styles.header}>Sign In</Text>
+          <Text style={styles.header}>Login</Text>
           <StatusBar style="auto" />
           <InputField
             style={styles.input}
@@ -99,15 +100,11 @@ function LoginScreen({navigation}) {
             secureTextEntry={true}
           />
           <View style={{display: 'flex', flexDirection: 'column', marginTop: 5, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
-            <TouchableOpacity style={styles.button}
-              onPress={handleLogin}
-            >
+            <TouchableOpacity style={styles.button} onPress={handleLogin}>
               <Text style={styles.text}>Sign In</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('AccountCreation')}
-            >
-              <Text style={{color: '#222', fontSize: 15, marginTop: 5, fontWeight: '600'}}>Create Account</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('AccountCreation')}>
+              <Text style={{color: '#222', fontSize: 15, marginTop: 5, fontFamily: 'Inter'}}>Create Account</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -121,12 +118,17 @@ function LoginScreen({navigation}) {
       flex: 1,
       backgroundColor: theme.CONTAINER_COLOR,
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      fontFamily: 'Roboto'
+    },
+    font: {
+      fontFamily: 'Inter'
     },
     input:{
       height: 50,
       width: 300,
-      color: theme.TEXT_COLOR
+      color: theme.TEXT_COLOR,
+      fontFamily: 'Inter'
     },
     button: {
       height: 35,
@@ -137,17 +139,18 @@ function LoginScreen({navigation}) {
       alignItems: 'center',
       marginBottom: 5,
       paddingVertical: 10,
-      paddingHorizontal: 15
+      paddingHorizontal: 15,
+      fontFamily: 'Inter'
     },
     text: {
       color: '#ffffff',
-      fontWeight: '600'
+      fontFamily: 'Inter'
     },
     header: {
       fontSize: 30,
       color: '#111111',
-      fontWeight: '600',
-      marginBottom: 15
+      marginBottom: 15,
+      fontFamily: 'Lato'
     },
     card: {
       alignItems: 'center',
@@ -155,12 +158,15 @@ function LoginScreen({navigation}) {
       backgroundColor: theme.CONTENT_MODULE_COLOR,
       borderRadius: 8,
       paddingVertical: 25,
-      paddingHorizontal: 35
+      paddingHorizontal: 35,
+      fontFamily: 'Inter'
     },
     error: {
-      height: 20
+      height: 20,
+      fontFamily: 'Inter'
     },
     errorText: {
-      color: 'red'
+      color: 'red',
+      fontFamily: 'Inter'
     }
   });

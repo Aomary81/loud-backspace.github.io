@@ -18,7 +18,7 @@ export default function TileView(props){
                     alignContent: 'flex-start',
 					width: props.width,
                     height: props.height,
-                    borderRadius: 10,
+                    borderRadius: 12,
                     backgroundColor: '#F3F3F3',
                     margin: 10
 				}, 

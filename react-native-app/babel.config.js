@@ -3,7 +3,6 @@ module.exports = function(api) {
 	return {
 		presets: ['babel-preset-expo'],
 		plugins: [
-			'./node_modules/react-native-reanimated/plugin',
 			[
 				"module-resolver",
 				{
@@ -15,6 +14,6 @@ module.exports = function(api) {
 					//Experimentation has found that aliases do not work well for destination directories
 				}
 			],
-		]
+		],
 	};
 };

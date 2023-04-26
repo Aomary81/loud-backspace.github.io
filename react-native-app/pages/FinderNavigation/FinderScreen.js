@@ -330,17 +330,16 @@ export default function FinderScreen({ navigation }) {
                 borderBottomRightRadius: fiterVisible ? 0 : 10
               }]}
               onPress={() => toggleFilterVisible()}>
-              { !shrinkFB && <Text style={{fontWeight: 'bold'}}>Filter</Text>}
+              { !shrinkFB && 
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Ionicons name={"funnel-outline"} size={15} color={theme.TEXT_COLOR} />
+                <Text style={{fontWeight: 'bold', marginLeft: 5}}>Filter</Text>
+              </View>
+              }
             </TouchableOpacity>
 				  </ContentAreaHeaderBar>
-          <View style={{alignSelf: 'flex-start', flexDirection: 'row'}}>
-            <Text style={{fontWeight: 'bold', fontSize: 20}}>Search results({numResults})</Text>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => navigation.navigate("My Listings")}
-            >
-              <Text>View my listings</Text>
-            </TouchableOpacity>
+          <View style={{marginLeft: 8, alignSelf: 'flex-start', flexDirection: 'row'}}>
+            <Text style={{fontSize: 20}}>Search results ({numResults})</Text>
           </View>
           <ScrollView style={{height: '80%', width: '100%'}}>
           <View style={styles.Box}>
@@ -361,9 +360,9 @@ export default function FinderScreen({ navigation }) {
                     <Text>?</Text>
                   </View>
                   <View style={{alignItems: 'flex-start'}}>
-                    <Text style={[styles.text, {fontWeight: 'bold'}]}>{`${item.city}, ${item.zip_code}`}</Text>
-                    <Text style={styles.text}>{item.street_name}</Text>
-                    <Text style={styles.text}>{item.rent}</Text>
+                    <Text style={[styles.text]}>{`${item.city}, ${item.zip_code}`}</Text>
+                    <Text style={[styles.text]}>{item.street_name}</Text>
+                    <Text style={styles.text}>${item.rent}/month</Text>
                   </View>
                 </View>
                 <Text style={[ styles.text,{fontSize: 12}]}>
@@ -411,11 +410,25 @@ export default function FinderScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    fontSize: 22,
+    fontFamily: 'Roboto',
+    marginBottom: 3,
+    fontWeight: 'bold',
+    fontFamily: 'Roboto',
+  },
+  containerText: {
+    fontSize: 18,
+    fontFamily: 'Roboto',
+    marginBottom: 3,
+    fontFamily: 'Roboto',
+  },
   background: {
     flex: 1,
     backgroundColor: theme.BACKGROUND_COLOR,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    fontFamily: 'Roboto',
   },
   container:{
     flex: 1,
@@ -425,7 +438,8 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     borderColor: theme.CONTAINER_COLOR,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    fontFamily: 'Roboto',
   },
   input: {
     marginBottom: 10,
@@ -438,7 +452,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginLeft: 5,
-    marginTop: 3
+    marginTop: 3,
+    fontFamily: 'Roboto',
   },
   TextInput: {
     height: 40,
@@ -446,17 +461,19 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     fontSize: 15,
     color: theme.INPUT_TEXT_COLOR,
-    marginLeft: 5
+    marginLeft: 5,
+    fontFamily: 'Roboto',
   },
   ContentModule: {
-    marginHorizontal: 4.4,
-    marginVertical: 4.4,
+    marginHorizontal: 5,
+    marginVertical: 5,
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    aspectRatio: 2.3,
+    //aspectRatio: 2.3,
     backgroundColor: theme.CONTENT_MODULE_COLOR,
     borderRadius: 10,
-    padding: 8.8
+    padding: 10,
+    fontFamily: 'Roboto',
   },
   Box: {
     flex: 1,
@@ -467,7 +484,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 600,
     backgroundColor: theme.CONTAINER_COLOR,
-    marginTop: 10
+    marginTop: 10,
+    fontFamily: 'Roboto',
   },
   createListingButton: {
     height: 40,
@@ -476,6 +494,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
+    fontFamily: 'Roboto',
   },
   filterButton: {
     height: 40,
@@ -485,6 +504,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginLeft: 'auto',
+    fontFamily: 'Roboto',
   },
   images: {
     backgroundColor: theme.TEXT_COLOR,
@@ -493,11 +513,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginRight: 4.4,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    fontFamily: 'Roboto',
   },
   text: {
 		color: theme.TEXT_COLOR,
-		fontSize: 15
+		fontSize: 15,
+    fontFamily: 'Roboto',
 	},
   popupImages: {
     backgroundColor: theme.TEXT_COLOR,
@@ -506,13 +528,14 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 2
+    margin: 2,
+    fontFamily: 'Roboto',
   },
   filterText: {
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 18,
     paddingBottom: 5,
-    paddingLeft: 5
+    paddingLeft: 5,
+    fontFamily: 'Roboto',
   },
   filterCircle: {
     height: 18,
@@ -520,6 +543,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+    fontFamily: 'Roboto',
+  },
 });

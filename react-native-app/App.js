@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createTopButtonNavigator } from "./TopButtonNavigator";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useFonts } from 'expo-font';
 import {
   Platform,
   useWindowDimensions,
@@ -28,6 +29,12 @@ const TopButton = createTopButtonNavigator();
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const [loaded] = useFonts({
+    Roboto: require('./assets/fonts/Roboto-Regular.ttf'),
+    Inter: require('./assets/fonts/Inter-Regular.otf'),
+    Raleway: require('./assets/fonts/Raleway-Regular.ttf'),
+    Lato: require('./assets/fonts/Lato-Regular.ttf'),
+  });
   //Login state and token
   const [loginChecked, setLoginChecked] = useState(false);
   const [isLoggedIn, setLoginState] = useState(false);
@@ -128,7 +135,6 @@ export default function App() {
             <Tab.Navigator
               screenOptions={{
                 headerShown: false,
-                tabBarActiveTintColor: "dodgerblue",
                 tabBarInactiveTintColor: "#888",
                 tabBarStyle: {
                   backgroundColor: "white",
@@ -170,8 +176,8 @@ export default function App() {
                     <Ionicons
                       name={
                         focused
-                          ? "chatbubble-ellipses"
-                          : "chatbubble-ellipses-outline"
+                          ? "md-flask"
+                          : "md-flask-outline"
                       }
                       size={size}
                       color={color}
@@ -216,8 +222,8 @@ export default function App() {
                 options={{
                   buttonIcon: ({ focused, size }) => (
                     <Ionicons
-                      name="md-home-outline"
-                      size={25}
+                      name={focused ? "md-home" : "md-home-outline"}
+                      size={22}
                       color={focused ? "#333" : "#888"}
                     />
                   ),
@@ -231,13 +237,13 @@ export default function App() {
                 options={{
                   buttonIcon: ({ focused, size }) => (
                     <Ionicons
-                      name="md-search-outline"
-                      size={25}
+                      name={focused ? "md-search-circle" : "md-search-circle-outline"}
+                      size={30}
                       color={focused ? "#333" : "#888"}
                     />
                   ),
-                  onColor: '#AFD2FF',
-                  offColor: '#DCEAFE'
+                  onColor: '#AED1FF',
+                  offColor: '#DBEAFE'
                 }}
               />
               <TopButton.Screen
@@ -246,7 +252,7 @@ export default function App() {
                 options={{
                   buttonIcon: ({ focused, size }) => (
                     <Ionicons
-                      name="md-search-outline"
+                      name={focused ? "md-flask" : "md-flask-outline"}
                       size={25}
                       color={focused ? "#333" : "#888"}
                     />
@@ -261,7 +267,7 @@ export default function App() {
                 options={{
                   buttonIcon: ({ focused, size }) => (
                     <Ionicons
-                      name="md-calendar-outline"
+                      name={focused ? "md-calendar" : "md-calendar-outline"}
                       size={25}
                       color={focused ? "#333" : "#888"}
                     />
@@ -276,7 +282,7 @@ export default function App() {
                 options={{
                   buttonIcon: ({ focused, size }) => (
                     <Ionicons
-                      name="md-person-outline"
+                      name={focused ? "md-person-circle" : "md-person-circle-outline"}
                       size={25}
                       color={focused ? "#333" : "#888"}
                     />
