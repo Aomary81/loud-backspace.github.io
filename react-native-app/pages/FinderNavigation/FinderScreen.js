@@ -194,7 +194,7 @@ export default function FinderScreen({ navigation }) {
         style={{
           position: 'absolute',
           right: 0,
-          top: isLandscape ? 50 : 180,
+          top: isLandscape ? 50 : 129,
           width: 215,
           backgroundColor: '#D9D9D9',
           zIndex: 1,
@@ -328,6 +328,11 @@ export default function FinderScreen({ navigation }) {
                 }]}
               onPress={() => navigation.navigate("ListingCreation")}>
               { !shrinkCLB && <Text style={{fontWeight: 'bold'}}>Create Listing</Text>}
+              { shrinkCLB && <Ionicons
+                  name={"pencil-outline"}
+                  size={25}
+                  color={'grey'}
+                />}
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.filterButton, 
@@ -336,7 +341,12 @@ export default function FinderScreen({ navigation }) {
                 borderBottomRightRadius: fiterVisible ? 0 : 10
               }]}
               onPress={() => toggleFilterVisible()}>
-              { !shrinkFB && <Text style={{fontWeight: 'bold'}}>Filter</Text>}
+                { !shrinkFB && <Text style={{fontWeight: 'bold'}}>Filter</Text>}
+                { shrinkFB && <Ionicons
+                  name={"funnel-outline"}
+                  size={25}
+                  color={'grey'}
+                />}
             </TouchableOpacity>
 				  </ContentAreaHeaderBar>}
           {!isLandscape &&
@@ -370,7 +380,7 @@ export default function FinderScreen({ navigation }) {
                       {flex: 1,
                       marginLeft: 5,
                       borderBottomLeftRadius: fiterVisible ? 0 : 10,
-                      borderBottomRightRadius: fiterVisible ? 0 : 10
+                      borderBottomRightRadius: fiterVisible  ? 0 : 10
                     }]}
                     onPress={() => toggleFilterVisible()}>
                     <Text style={{fontWeight: 'bold'}}>Filter</Text>
