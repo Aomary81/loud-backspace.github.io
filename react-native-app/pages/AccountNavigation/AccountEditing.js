@@ -1,5 +1,5 @@
 import React, { useState, useEffect  } from "react";
-import { View, Button, Text, StyleSheet, SafeAreaView, StatusBar, Platform} from "react-native";
+import { View, Button, Text, StyleSheet, Platform} from "react-native";
 import theme from '../../styles/theme.style'
 
 import { useContext } from "react";
@@ -8,6 +8,8 @@ import InputField from "../components/V2Components/InputField";
 import { TouchableOpacity } from "react-native";
 import * as SecureStore from 'expo-secure-store';
 import Ionicons from "react-native-vector-icons/Ionicons";
+import ScreenLayout from "../components/V2Components/ScreenLayout";
+import InputArea from "../components/V2Components/InputArea";
 
 const AccountInformation = () => {
   const { signIn, setToken } = useContext(AuthContext).authContext;
@@ -248,7 +250,35 @@ const AccountInformation = () => {
           <Text>{error}</Text>
         </View>
       </View>
-    </SafeAreaView>
+
+      {/* Login Credentials Container */}
+      <View style={{ flexDirection: "column" }}>
+        <Text style={styles.headerMuted}>Change Password</Text>
+        <InputField
+          style={styles.inputMuted}
+          value={""}
+          //onChangeText={null}
+          placeholder="Password (disabled)"
+        />
+        <InputField
+          style={styles.inputMuted}
+          value={""}
+          //onChangeText={null}
+          placeholder={"Confirm Password (disabled)"}
+        />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={saveAccountInformation}
+        >
+          <View>
+            <Text style={{ color: "#fff", fontSize: 15, fontWeight: "600" }}>
+              Submit
+            </Text>
+          </View>
+        </TouchableOpacity>
+        <Text>{error}</Text>
+      </View>
+    </ScreenLayout>
   );
 };
 

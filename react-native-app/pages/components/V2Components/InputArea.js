@@ -11,16 +11,24 @@ onChangeText works the same as textInput. style is used for sizing and placement
 
 const InputArea = (
     { 
-        style, 
+        style,
         value, 
-        placeholder,
         onChangeText, 
+        placeholder, 
+        rounded,
         keyboardType,
-        fontSize,
-        borderColor
+        onFocus,
+        borderColor,
+        secureTextEntry
 
     }) => {
     const [isFocused, setIsFocused] = useState(false);
+    const handleFocus = () => {
+        onFocus ? onFocus() : null;
+    }
+
+    let height = style.height ? style.height : 50;
+
     return (
         <TouchableOpacity 
             activeOpacity={1}
@@ -31,12 +39,13 @@ const InputArea = (
                         flexDirection: 'row',
                         alignItems: 'center',
                         backgroundColor: theme.INPUT_COLOR,
-                        borderRadius: 10,
+                        borderRadius: !rounded ? 8 : 50,
                         borderColor: borderColor || (isFocused ? 'dodgerblue' : 'transparent'),
                         borderWidth: 2,
                         paddingHorizontal: 3,
                         color: theme.TEXT_COLOR,
-                        padding: 5
+                        padding: 5,
+                        marginBottom: 10
                     }, 
                     style
                 )
@@ -44,28 +53,27 @@ const InputArea = (
             <TextInput
                 style={
                     {
-                        height: '90%', 
                         width: '100%',
-                        flexGrow: 1,
-                        flexShrink: 1,
-                        marginLeft: '1%',
-                        marginRight: '1%',
+                        height: '100%',
                         outlineStyle: 'none',
                         fontSize: fontSize,
                         color: theme.TEXT_COLOR,
                         paddingHorizontal: 5,
-                        paddingVertical: 0
+                        paddingVertical: 0,
+                        fontSize: style.fontSize || 20,
+                        margin: 5,
+                        color: style.color,
                     }
                 }
-                multiline={true}
                 value={value}
                 onChangeText={onChangeText}
                 placeholder={placeholder}
                 placeholderTextColor={'grey'}
-                onFocus={() => setIsFocused(true)}
+                onFocus={() => { setIsFocused(true), handleFocus()}}
                 onBlur={() => setIsFocused(false)}
                 keyboardType={keyboardType}
-                textAlignVertical={'top'}
+                secureTextEntry={secureTextEntry}
+                multiline={true}
             />
         </TouchableOpacity>
     );

@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { Text, View , Image, useWindowDimensions, Appearance } from 'react-native';
+import { Text, View , Image, useWindowDimensions, Appearance} from 'react-native';
 import {
   useNavigationBuilder,
   TabRouter,
   TabActions,
   createNavigatorFactory
 } from '@react-navigation/native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {TouchableOpacity } from 'react-native-gesture-handler';
 import theme from './styles/theme.style'
 
 function TopButtonNavigator({
@@ -34,16 +34,17 @@ const { state, navigation, descriptors, NavigationContent } =
     <NavigationContent>
       <View style={{
         backgroundColor: backgroundColor,
-        height: 120,
-        paddingBottom: 10,
-        borderBottomColor: backgroundColor
-      }}>
-        <View style={{width: '79%',
-          height: '50%',
+        height: (width > 900 ? 120 : 83),
+        borderBottomWidth: 10,
+        borderBottomColor: 'transparent'
+        }}>
+        <View style={{width: (width > 900 ? '79%' : '100%'),
+          height: (width > 900 ? '50%' : '25%'),
           flexDirection: 'column-reverse',
           alignItems: 'flex-start',
           alignSelf: 'center',
-          backgroundColor: backgroundColor
+          backgroundColor: backgroundColor,
+          paddingHorizontal: (width > 500 ? (width > 900 ? 0 : 25) : 0)
           }}>
           <Image
             style={{height: '80%', aspectRatio: 6800/1308, resizeMode: 'stretch'}}
@@ -52,8 +53,9 @@ const { state, navigation, descriptors, NavigationContent } =
         </View>
         <View style={[{
           flexDirection: 'row',
-          width: '80%',
-          height: '50%',
+          width: (width > 900 ? '79%' : '100%'),
+          paddingHorizontal: (width > 500 ? (width > 900 ? 0 : 25) : 0),
+          height: (width > 900 ? '50%' : '75%'),
           alignSelf: 'center',
           marginBottom: 10,
           marginTop: 5,
@@ -89,7 +91,8 @@ const { state, navigation, descriptors, NavigationContent } =
                 backgroundColor: state.index == i ?
                  descriptors[route.key].options.onColor :
                  descriptors[route.key].options.offColor,
-                margin: 5,
+                marginVertical: 5,
+                marginRight: 10,
                 borderRadius: 10,
                 paddingHorizontal: 10,
                 paddingVertical: 5
@@ -108,9 +111,9 @@ const { state, navigation, descriptors, NavigationContent } =
       </View>
       <View style={
         [{
-            flex: 1, 
+            flexGrow: 1, 
             alignItems: 'center',
-            backgroundColor: backgroundColor
+            backgroundColor: backgroundColor,
           }, contentStyle
         ]}>
         {state.routes.map((route, i) => {
@@ -120,9 +123,8 @@ const { state, navigation, descriptors, NavigationContent } =
               style={
                 { 
                   display: i === state.index ? 'flex' : 'none',
-                  flex: 1,  
-                  width: '79%',
-                  backgroundColor: backgroundColor
+                  width: '100%',
+                  flexGrow: 1
                 }
               }
             >
