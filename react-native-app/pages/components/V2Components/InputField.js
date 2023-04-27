@@ -30,7 +30,8 @@ const InputField = (
         onFocus,
         borderColor,
         secureTextEntry,
-        onSubmitEditing
+        onSubmitEditing,
+        multiline=false
 
     }) => {
     const [isFocused, setIsFocused] = useState(false);
@@ -84,7 +85,7 @@ const InputField = (
                         outlineStyle: 'none',
                         fontSize: style.fontSize || 20,
                         paddingHorizontal: height*0.25,
-                        color: style.color
+                        color: style.color,
                     }
                 }
                 value={value}
@@ -96,6 +97,7 @@ const InputField = (
                 keyboardType={keyboardType}
                 secureTextEntry={secureTextEntry}
                 onSubmitEditing={onSubmitEditing}
+                multiline={multiline}
             />
             {endButton && <TouchableOpacity
                 disabled={endDisabled ? 0.7 : 1}

@@ -1,36 +1,48 @@
-import { StatusBar } from "expo-status-bar";
 import {
   View,
   StyleSheet,
-  Modal,
   Button,
   Text,
   TouchableOpacity,
-  SafeAreaView,
+  useWindowDimensions,
+  Platform,
+  ScrollView
 } from "react-native";
-import { useState, useContext } from "react";
+import { useState, useContext, useCallback} from "react";
 import { Calendar } from "react-native-calendars";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import theme from "../../styles/theme.style";
 import InputField from "../components/V2Components/InputField";
 import { AuthContext } from "../../context";
+import ScreenLayout from "../components/V2Components/ScreenLayout";
+import { useFocusEffect } from "@react-navigation/native";
 
-function CalendarScreen({ navigation }) {
-  const [modalVisible, setModalVisible] = useState(false);
+const isWeb = Platform.OS === 'web'
+
+function CalendarScreen() {
   const [currentMonth, setMonth] = useState(
     parseInt(new Date().toISOString().slice(5, 7))
   );
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [dueDate, setDueDate] = useState("");
+  const [dueDate, setDueDate] = useState(new Date().toISOString().slice(0,10));
   const [success, setSuccess] = useState(false);
   const { myIp } = useContext(AuthContext).ip;
   const { token } = useContext(AuthContext);
+  const [reminders, setReminders] = useState([]);
+  const [selectedDay, setSelectedDay] = useState(new Date().toISOString().slice(0,10));
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+  const [selectedTab, setSelectedTab] = useState('reminders');
+
+  const {width} = useWindowDimensions();
+  const isLandscape = width > 700
 
   const handleDayPress = (date) => {
+    setSelectedDay(date.dateString)
     setDueDate(date.dateString);
-    setModalVisible(true);
-    console.log(date.dateString);
   };
   const ReminderCreation = async () => {
     try {
@@ -62,56 +74,76 @@ function CalendarScreen({ navigation }) {
     setDescription("");
   };
 
-  const renderDay = (date, now) => {
-    const isCurrentMonth = date.month === currentMonth;
+  useFocusEffect(
+    useCallback(() => {
+      const getReminders = async () => {
+        try {
+          const res = await fetch(
+            "http://" + myIp + ":3000/reminders/my_reminders_day",
+            {
+              method: "POST",
+              credentials: "include",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                token: token,
+                selectedDay: selectedDay
+              }),
+              https: false,
+            }
+          );
+          const data = await res.json();
+          if (res.status == 200) {
+            setReminders(data.reminders);
+          } else {
+            console.log("Error occured getting reminders");
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getReminders();
+    }, [selectedDay, success])
+  );
 
-    return (
-      <TouchableOpacity
-        onPress={() => handleDayPress(date)}
-        opacity={isCurrentMonth ? 1 : 0}
-        style={{
-          dayTextColor: "white",
-          backgroundColor:
-            date.dateString === now
-              ? "dodgerblue"
-              : isCurrentMonth
-              ? theme.CONTENT_MODULE_COLOR
-              : "white",
-          height: 50,
-          width: 50,
-          borderRadius: 5,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+  const renderDay = (date, now) => {
+  const isCurrentMonth = date.month === currentMonth;
+
+  return (
+    <TouchableOpacity
+      onPress={() => handleDayPress(date)}
+      opacity={isCurrentMonth ? 1 : 0}
+      style={{
+        backgroundColor:
+          date.dateString === now
+            ? '#AFD2FF'
+            : isCurrentMonth
+            ? theme.CONTENT_MODULE_COLOR
+            : "white",
+        width: '80%',
+        aspectRatio: 1.2,
+        borderRadius: 5,
+        borderWidth: 2,
+        borderColor: date.dateString === selectedDay ? '#AFD2FF' : theme.CONTENT_MODULE_COLOR,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
       >
-        <Text>{date.day}</Text>
+        <Text style={{color: isCurrentMonth ? theme.TEXT_COLOR : 'black'}}>{date.day}</Text>
       </TouchableOpacity>
     );
   };
-  if (success) {
-    return (
-      <SafeAreaView style={styles.background}>
-        <StatusBar />
-        <View style={styles.container}>
-          <Text style={{ color: "dodgerblue", paddingBottom: 10 }}>
-            Your Reminder was created successfully!
-          </Text>
-          <Button
-            onPress={() => {
-              setSuccess(false);
-              navigation.goBack();
-              setModalVisible(false);
-            }}
-            title="OK"
-          />
-        </View>
-      </SafeAreaView>
-    );
-  }
+  
   return (
-    <SafeAreaView style={styles.background}>
-      <View style={styles.container}>
-        <View style={{ flex: 2 }}>
+    <ScreenLayout>
+      <View style={{
+        flexGrow: 1,
+        flexShrink: 0,
+        flexDirection: isLandscape ? 'row' : 'column',
+        width: '100%',
+      }}>
+        <View style={{ width: isLandscape ? '66%' : '100%'}}>
           <Calendar
             style={styles.calendar}
             onDayPress={handleDayPress}
@@ -128,134 +160,213 @@ function CalendarScreen({ navigation }) {
               renderDay(date, new Date().toISOString().slice(0, 10))
             }
             theme={{
+              monthTextColor: theme.TEXT_COLOR,
               calendarBackground: theme.CONTAINER_COLOR,
             }}
             current={new Date().toISOString().slice(0, 10)}
             monthFormat={"MMMM yyyy"}
             monthOnly={true}
-
-            //onMonthChange={(month) => console.log(month)}
           />
         </View>
-        <View style={{ flex: 1, flexDirection: "column", gap: 5}}>
-          <InputField
-            placeholder={"Date Format: YYYY-MM-DD"}
-            value={dueDate}
-            onChangeText={setDueDate}
-            style={styles.TextInput}
-          />
-          <InputField
-            placeholder={"Title"}
-            value={title}
-            onChangeText={setTitle}
-            style={styles.TextInput}
-          />
-          <InputField
-            placeholder={"Description"}
-            value={description}
-            onChangeText={setDescription}
-            style={styles.TextInput}
-          />
-          <View
-            style={{
-              flexDirection: "row",
-              gap: 25,
-              paddingHorizontal: 50,
-            }}
+        {!isLandscape && <View style={{
+          height: 15,
+          width: '100%',
+          flexDirection: 'row',
+          marginBottom: 10}}
           >
-            <Button
-              style={styles.button}
-              title="Save"
-              onPress={ReminderCreation}
+          <TouchableOpacity
+            onPress={() => {
+              setSelectedTab('reminders');
+              setSuccess(false);
+              setDescription('');
+              setTitle('');
+            }}
+            style={{
+              flex: 1,
+              backgroundColor: (selectedTab === 'reminders') ? '#AFD2FF' : '#DCEAFE',
+              borderRadius: 5,
+              marginLeft: 15,
+              marginRight: 5
+            }}
+          />
+          <TouchableOpacity
+            onPress={() => setSelectedTab('create')}
+            style={{
+              flex: 1,
+              backgroundColor: (selectedTab === 'create') ? '#AFD2FF' : '#DCEAFE',
+              borderRadius: 5,
+              marginRight: 15,
+              marginLeft: 5
+            }}
+          />
+        </View>}
+        <View style={{
+          flex: 1,
+          flexGrow: 1,
+          flexDirection: "column",
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          }}>
+          {((selectedTab === 'create') || isLandscape) && <View style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+            height: '100%',
+            display: success ? 'none' : 'flex'
+            }}>
+            <InputField
+              placeholder={"Date Format: YYYY-MM-DD"}
+              value={dueDate}
+              onChangeText={setDueDate}
+              style={styles.TextInput}
             />
-            <Button style={styles.button} title="Clear" onPress={clearInputs} />
-          </View>
-        </View>
-        <Modal visible={modalVisible}>
-          <SafeAreaView style={styles.background}>
-            <View style={styles.modal}>
-              <InputField
-                placeholder={"Title"}
-                value={title}
-                onChangeText={setTitle}
-                style={styles.TextInput}
+            <InputField
+              placeholder={"Title"}
+              value={title}
+              onChangeText={setTitle}
+              style={styles.TextInput}
+            />
+            <InputField
+              placeholder={"Description"}
+              value={description}
+              onChangeText={setDescription}
+              style={styles.TextInput}
+            />
+            {!isWeb && <View
+              style={{
+                flexDirection: "row",
+                
+              }}
+            >
+              <Button
+                
+                title="Save"
+                onPress={ReminderCreation}
               />
-              <InputField
-                placeholder={"Description"}
-                value={description}
-                onChangeText={setDescription}
-                style={styles.TextInput}
-              />
-              <View
+              <Button title="Clear" onPress={clearInputs} />
+            </View>}
+            {isWeb && <View
+              style={{
+                flexDirection: "row",
+                paddingHorizontal: 50,
+              }}
+            >
+              <TouchableOpacity
+                onPress={ReminderCreation}
                 style={{
-                  flexDirection: "row",
-                  gap: 25,
-                  paddingHorizontal: 50,
+                  flex: 1,
+                  backgroundColor: '#AFD2FF',
+                  borderRadius: 5,
+                  marginRight: 5,
+                  width: 90,
+                  height: 30,
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 }}
               >
-                <Button
-                  style={styles.button}
-                  title="Save"
-                  onPress={ReminderCreation}
-                />
-                <Button
-                  style={styles.button}
-                  title="Clear"
-                  onPress={clearInputs}
-                />
-                <Button
-                  style={styles.button}
-                  title="Cancel"
-                  onPress={() => setModalVisible(false)}
-                />
-              </View>
-            </View>
-          </SafeAreaView>
-        </Modal>
+                <Text style={{fontWeight: 'bold'}}>Save</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={clearInputs}
+                style={{
+                  flex: 1,
+                  backgroundColor: '#FFAAAA',
+                  borderRadius: 5,
+                  marginLeft: 5,
+                  width: 90,
+                  height: 30,
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <Text style={{fontWeight: 'bold'}}>Clear</Text>
+              </TouchableOpacity>
+            </View>}
+          </View>}
+          <View style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+            display: success ? 'flex' : 'none'
+          }}>
+            <Text style={{ color: "dodgerblue", paddingBottom: 10 }}>
+              Your Reminder was created successfully!
+            </Text>
+          <Button
+            onPress={() => {
+              setSuccess(false);
+              setDescription('');
+              setTitle('');
+            }}
+            title="OK"
+          />
+          </View>
+          {((selectedTab === 'reminders') || isLandscape) && <View style={{
+            flex: 1,
+            width: '100%',
+            }}>
+              <ScrollView style={styles.tile}>
+              {reminders ? (
+                <View style={styles.Box}>
+                  {reminders.map((item) => (
+                    <TouchableOpacity
+                      style={styles.ContentModule}
+                      key={item._id}
+                    >
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          marginBottom: 4.4,
+                          width: isWeb ? '100%' : undefined,
+                        }}
+                      >
+                        <View
+                          style={{
+                            alignItems: "flex-start",
+                            flexDirection: "column",
+                            width: isWeb ? '100%' : undefined,
+                          }}
+                        >
+                          <Text
+                            style={[styles.text, { fontWeight: "bold" }]}
+                          >{monthNames[parseInt(item.dueDate.slice(5,7))-1]}
+                            {', '}
+                            {item.dueDate.slice(8,10)}
+                            {' '}
+                            {item.dueDate.slice(0,4)}
+                            </Text>
+                          <Text style={[styles.text, { fontWeight: "bold" }]}>
+                            {`${item.title}`}{" "}
+                          </Text>
+                          <Text style={[styles.text, { fontWeight: "bold" }]}>
+                            {`${item.description}`}
+                          </Text>
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              ) : (
+                <View>
+                  <Text style={styles.text}>Loading...</Text>
+                </View>
+              )}
+            </ScrollView>
+          </View>}
+        </View>
       </View>
-    </SafeAreaView>
+    </ScreenLayout>
   );
 }
 
 export default CalendarScreen;
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    backgroundColor: theme.BACKGROUND_COLOR,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  container: {
-    flex: 1,
-    flexDirection: "row",
-    width: "100%",
-    backgroundColor: theme.CONTAINER_COLOR,
-    borderRadius: 10,
-    borderWidth: 5,
-    gap: 25,
-    borderColor: theme.CONTAINER_COLOR,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   button: {
-    flex: 1,
-    height: "100%",
-    width: 100,
-    backgroundColor: "dodgerblue",
-    borderRadius: 50,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-  },
-  inputArea: {
-    height: 120,
-    width: 300,
-    fontSize: 16,
-    alignItems: "center",
-    justifyContent: "center",
+    
   },
   modal: {
     flex: 1,
@@ -268,17 +379,34 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   calendar: {
-    flex: 1,
-    aspectRatio: 1.5,
-    width: "100%",
     borderRadius: 10,
     borderWidth: 5,
     borderColor: theme.CONTAINER_COLOR,
+
   },
   TextInput: {
     height: 40,
     width: 220,
     marginBottom: 10,
+    fontSize: 15,
+    color: theme.TEXT_COLOR,
+  },
+  ContentModule: {
+    flexBasis: isWeb ? undefined : "100%",
+    marginHorizontal: 10,
+    marginBottom: 8.8,
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    backgroundColor: theme.CONTENT_MODULE_COLOR,
+    borderRadius: 10,
+    padding: 8.8,
+  },
+  tile: {
+    width: "100%",
+    height: 400,
+  },
+  text: {
+    color: theme.TEXT_COLOR,
     fontSize: 15,
   },
 });
