@@ -278,7 +278,7 @@ const AccountInformation = () => {
         </TouchableOpacity>
         <Text>{error}</Text>
       </View>
-    </ScreenLayout>
+    </SafeAreaView>
   );
 };
 
