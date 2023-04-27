@@ -12,6 +12,8 @@ import theme from '../../styles/theme.style'
 import InputField from '../components/V2Components/InputField'
 import InputArea from '../components/V2Components/InputArea'
 
+import ScreenLayout from "../components/V2Components/ScreenLayout";
+
 const ListingCreation = ({ navigation }) => {
   const { myIp } = useContext(AuthContext).ip;
   const { token } = useContext(AuthContext);
@@ -24,6 +26,9 @@ const ListingCreation = ({ navigation }) => {
   const [rent, setRent] = useState("");
   const [tags, setTags] = useState("");
   const [bio, setBio] = useState("");
+  const [bed, setBed] = useState("");
+  const [bath, setBath] = useState("");
+  const [contact, setContact] = useState("");
   const [sucess, setSucess] = useState(false);
 
   const SubmitListing = async () => {
@@ -45,6 +50,9 @@ const ListingCreation = ({ navigation }) => {
           rent: rent,
           tags: tags,
           bio: bio,
+          contact: contact,
+          bed: bed,
+          bath: bath,
           token: token,
         }),
         https: false, // Set the https option to true
@@ -68,97 +76,112 @@ const ListingCreation = ({ navigation }) => {
     setRent("");
     setTags("");
     setBio("");
+    setContact("");
+    setBath("");
+    setBed("");
   };
 
   if(sucess){
     return (
-      <SafeAreaView style={styles.background}>
-        <StatusBar/>
-        <View style={styles.container}>
-          <Text style={{ color: "dodgerblue", paddingBottom: 10 }}>
-            Your listing was created successfully!
-          </Text>
-          <Button onPress={() => {setSucess(false); navigation.goBack()}} title="OK" />
-        </View>
-      </SafeAreaView>
+      <ScreenLayout>
+        <Text style={{ color: "dodgerblue", paddingBottom: 10 }}>
+          Your listing was created successfully!
+        </Text>
+        <Button onPress={() => {setSucess(false); navigation.goBack()}} title="OK" />
+      </ScreenLayout>
     );
   }
 
   return (
-    <SafeAreaView style={styles.background}>
-      <StatusBar style="auto" />
-      <View style={styles.container}>
-        <InputField
-          placeholder="Street Number"
-          value={streetNumber}
-          onChangeText={setStreetNumber}
-          style={styles.TextInput}
-        />
-        <InputField
-          placeholder="Street Name"
-          value={streetName}
-          onChangeText={setStreetName}
-          style={styles.TextInput}
-        />
-        <InputField
-          placeholder="Apartment Number"
-          value={apartmentNumber}
-          onChangeText={setApartmentNumber}
-          style={styles.TextInput}
-        />
-        <InputField
-          placeholder="City"
-          value={city}
-          onChangeText={setCity}
-          style={styles.TextInput}
-        />
-        <InputField
-          placeholder="State"
-          value={state}
-          onChangeText={setState}
-          style={styles.TextInput}
-        />
-        <InputField
-          placeholder="Zip Code"
-          value={zipCode}
-          onChangeText={setZipCode}
-          style={styles.TextInput}
-        />
-        <InputField
-          placeholder="Rent"
-          value={rent}
-          onChangeText={setRent}
-          style={styles.TextInput}
-        />
-        <InputField
-          placeholder="Tags (comma-separated)"
-          value={tags}
-          onChangeText={setTags}
-          style={styles.TextInput}
-        />
-        <InputArea
-          multiline={true}
-          numberOfLines={10}
-          placeholder="Bio"
-          value={bio}
-          onChangeText={setBio}
-          style={{
-            height: 120,
-            width: 600
-          }}
-        />
-        <View style={{ height: 10 }} />
-        <View
-          style={{
-            flexDirection: "row",
-          }}
-        >
-          <Button title="Clear" onPress={clearInputs} />
-          <View style={{ height: 40, width: 40 }} />
-          <Button onPress={SubmitListing} title="Submit" />
-        </View>
+    <ScreenLayout>
+      <InputField
+        placeholder="Street Number"
+        value={streetNumber}
+        onChangeText={setStreetNumber}
+        style={styles.TextInput}
+      />
+      <InputField
+        placeholder="Street Name"
+        value={streetName}
+        onChangeText={setStreetName}
+        style={styles.TextInput}
+      />
+      <InputField
+        placeholder="Apartment Number"
+        value={apartmentNumber}
+        onChangeText={setApartmentNumber}
+        style={styles.TextInput}
+      />
+      <InputField
+        placeholder="City"
+        value={city}
+        onChangeText={setCity}
+        style={styles.TextInput}
+      />
+      <InputField
+        placeholder="State"
+        value={state}
+        onChangeText={setState}
+        style={styles.TextInput}
+      />
+      <InputField
+        placeholder="Zip Code"
+        value={zipCode}
+        onChangeText={setZipCode}
+        style={styles.TextInput}
+      />
+      <InputField
+        placeholder="Rent"
+        value={rent}
+        onChangeText={setRent}
+        style={styles.TextInput}
+      />
+      <InputField
+        placeholder="Bedrooms"
+        value={bed}
+        onChangeText={setBed}
+        style={styles.TextInput}
+      />
+      <InputField
+        placeholder="Bathrooms"
+        value={bath}
+        onChangeText={setBath}
+        style={styles.TextInput}
+      />
+      <InputField
+        placeholder="Contact info"
+        value={contact}
+        onChangeText={setContact}
+        style={styles.TextInput}
+      />
+      <InputField
+        placeholder="Tags (comma-separated)"
+        value={tags}
+        onChangeText={setTags}
+        style={styles.TextInput}
+      />
+      <InputArea
+        multiline={true}
+        numberOfLines={10}
+        placeholder="Bio"
+        value={bio}
+        onChangeText={setBio}
+        style={{
+          height: 120,
+          width: 600
+        }}
+      />
+      <View style={{ height: 10 }} />
+      <View
+        style={{
+          flexDirection: "row",
+        }}
+      >
+        <Button title="Clear" onPress={clearInputs} />
+        <View style={{ height: 40, width: 40 }} />
+        <Button onPress={SubmitListing} title="Submit" />
       </View>
-    </SafeAreaView>
+    </ScreenLayout>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect  } from "react";
-import { View, Button, Text, StyleSheet, SafeAreaView, StatusBar, Platform} from "react-native";
+import { View, Button, Text, StyleSheet, Platform} from "react-native";
 import theme from '../../styles/theme.style'
 
 import { useContext } from "react";
@@ -7,6 +7,8 @@ import { AuthContext } from "../../context";
 import InputField from "../components/V2Components/InputField";
 import { TouchableOpacity } from "react-native";
 import * as SecureStore from 'expo-secure-store';
+import ScreenLayout from "../components/V2Components/ScreenLayout";
+import InputArea from "../components/V2Components/InputArea";
 
 const AccountInformation = () => {
   const { signIn, setToken } = useContext(AuthContext).authContext;
@@ -137,131 +139,100 @@ const AccountInformation = () => {
   };
   if (success) {
     return (
-      <SafeAreaView style={styles.background}>
-        <StatusBar/>
-        <View style={styles.container}>
-          <Text style={{ color: "limegreen" }}>
-			  {"Your changes were saved successfully!"}
-          </Text>
-          <Button onPress={() => setSuccess(false)} title="OK" />
-        </View>
-      </SafeAreaView>
+      <ScreenLayout>
+        <Text style={{ color: "limegreen" }}>
+          {"Your changes were saved successfully!"}
+        </Text>
+        <Button onPress={() => setSuccess(false)} title="OK" />
+      </ScreenLayout>
     );
   }
 
   return (
-    <SafeAreaView style={styles.background}>
-      <View style={styles.container}>
-        <TouchableOpacity
-            onPress={handleLogout}
-            style={{
-              backgroundColor: '#fc1c03',
-              borderRadius: 5,
-              height: 20,
-              width: 60,
-              alignItems: 'center',
-              justifyContent: 'center',
-              position: 'absolute',
-              top: 5,
-              right: 5
-              }}>
-            <View><Text>Logout</Text></View>
-        </TouchableOpacity>
-        {/* Personal Details Container */}
-        <View style={{ flexDirection: "column" }}>
-          <Text style={styles.header}>Personal Details</Text>
-          <InputField
-            style={styles.input}
-            value={firstName}
-            onChangeText={setFirstName}
-            placeholder="First Name"
-          />
-          <InputField
-            style={styles.input}
-            value={lastName}
-            onChangeText={setLastName}
-            placeholder="Last Name"
-          />
-          <InputField
-            style={styles.input}
-            value={email}
-            onChangeText={setEmail}
-            placeholder="Email" />
-          <InputField
-            style={styles.input}
-            value={zipCode}
-            onChangeText={zipCode}
-            placeholder="ZIP Code"
-          />
-          {
-            /*
-            <InputField
-            style={styles.input}
-            value={null}
-            onChangeText={null}
-            placeholder="Date of Birth"
-            />
-            //*/
-          }
-          <InputField
+    <ScreenLayout>
+      <TouchableOpacity
+          onPress={handleLogout}
+          style={{
+            backgroundColor: '#fc1c03',
+            borderRadius: 5,
+            height: 20,
+            width: 60,
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'absolute',
+            top: 5,
+            right: 5
+            }}>
+          <View><Text>Logout</Text></View>
+      </TouchableOpacity>
+      {/* Personal Details Container */}
+      <View style={{ flexDirection: "column" }}>
+        <Text style={styles.header}>Personal Details</Text>
+        <InputField
+          style={styles.input}
+          value={firstName}
+          onChangeText={setFirstName}
+          placeholder="First Name"
+        />
+        <InputField
+          style={styles.input}
+          value={lastName}
+          onChangeText={setLastName}
+          placeholder="Last Name"
+        />
+        <InputField
+          style={styles.input}
+          value={email}
+          onChangeText={setEmail}
+          placeholder="Email" />
+        <InputField
+          style={styles.input}
+          value={zipCode}
+          onChangeText={zipCode}
+          placeholder="ZIP Code"
+        />
+        <InputArea
           style = {styles.inputBox}
           value = {desc}
           onChangeText={setDescription}
           placeholder="Type some stuff about yourself here..."
-          />
-        </View>
-
-        {/* Login Credentials Container */}
-        <View style={{ flexDirection: "column" }}>
-          <Text style={styles.headerMuted}>Change Password</Text>
-          <InputField
-            style={styles.inputMuted}
-            value={""}
-            //onChangeText={null}
-            placeholder="Password (disabled)"
-          />
-          <InputField
-            style={styles.inputMuted}
-            value={""}
-            //onChangeText={null}
-            placeholder={"Confirm Password (disabled)"}
-          />
-          <TouchableOpacity
-            style={styles.button}
-            onPress={saveAccountInformation}
-          >
-            <View>
-              <Text style={{ color: "#fff", fontSize: 15, fontWeight: "600" }}>
-                Submit
-              </Text>
-            </View>
-          </TouchableOpacity>
-          <Text>{error}</Text>
-        </View>
+        />
       </View>
-    </SafeAreaView>
+
+      {/* Login Credentials Container */}
+      <View style={{ flexDirection: "column" }}>
+        <Text style={styles.headerMuted}>Change Password</Text>
+        <InputField
+          style={styles.inputMuted}
+          value={""}
+          //onChangeText={null}
+          placeholder="Password (disabled)"
+        />
+        <InputField
+          style={styles.inputMuted}
+          value={""}
+          //onChangeText={null}
+          placeholder={"Confirm Password (disabled)"}
+        />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={saveAccountInformation}
+        >
+          <View>
+            <Text style={{ color: "#fff", fontSize: 15, fontWeight: "600" }}>
+              Submit
+            </Text>
+          </View>
+        </TouchableOpacity>
+        <Text>{error}</Text>
+      </View>
+    </ScreenLayout>
   );
 };
 
 export default AccountInformation;
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    backgroundColor: theme.BACKGROUND_COLOR,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  container:{
-    flex: 1,
-    width: '100%',
-    backgroundColor: theme.CONTAINER_COLOR,
-    borderRadius: 10,
-    borderWidth: 5,
-    borderColor: theme.CONTAINER_COLOR,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
   button: {
     height: 35,
     width: "100%",
@@ -275,15 +246,17 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 50,
-    width: 300
+    width: 300,
+    color: theme.TEXT_COLOR
   },
   inputBox: {
-	flex: 1,
-    width: 300
+    width: 300,
+    height: 150,
+    color: theme.TEXT_COLOR
   },
   header: {
     fontSize: 30,
-    color: "#333",
+    color: theme.TEXT_COLOR,
     fontWeight: "600",
     marginBottom: 10,
   },

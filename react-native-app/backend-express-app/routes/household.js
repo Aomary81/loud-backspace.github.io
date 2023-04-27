@@ -5,6 +5,7 @@ const { v4: uuidv4 } = require("uuid");
 const User = require("../models/user.model");
 const Household = require("../models/mongodb_schemas/Household");
 const AddCode = require("../models/mongodb_schemas/HouseholdCodes");
+const Reminder = require("../models/mongodb_schemas/reminderSchema");
 const { updateOne } = require("../models/listing.model");
 
 router.post("/create", async (req, res) => {
@@ -38,7 +39,7 @@ router.post("/create", async (req, res) => {
       const household = await User.findById(user.id)
         .select("household")
         .populate("household");
-      return res.status(200).json({ household: household.household.name });
+      return res.status(200).json({ household: household.household._id });
     } catch (error) {
       console.log(error);
       // If adding household to user that is creating it fails, delete houshold since its not connected
@@ -158,10 +159,50 @@ router.post("/get-household", async (req, res) => {
       );
       return res
         .status(200)
-        .json({ household: household.household.name, members: members });
+        .json({ name: household.household.name, members: members, household: household.household._id });
     } catch (error) {
       console.log(error);
       return res.status(502).json({ message: "Database error" });
+    }
+  } catch (error) {
+    // If the token is invalid or has expired, return a 401 Unauthorized response
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+});
+
+router.post("/leave", async (req, res) => {
+  const token = req.cookies.token || req.body.token;
+  try {
+    // Verify the token and extract the user ID
+    const decodedToken = jwt.verify(token, "thisIsSecret");
+    const userId = decodedToken.userId;
+
+    // Check if user exists in the database using the user ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    
+    try {
+      const household = await User.findById(user.id)
+        .select("household")
+        .populate("household");
+
+      if(household.household.members.length < 2){
+        household.household.reminders.forEach(async rem_id => {
+          await Reminder.findByIdAndDelete(rem_id);
+        });
+        await Household.findByIdAndDelete(household.household._id);
+      }
+
+      await Household.findByIdAndUpdate(household.household._id, { $pull: { members: userId }})
+
+      await User.findByIdAndUpdate(userId, {household: null})
+
+      return res.status(200).json({ message: 'Success' });
+    } catch (error) {
+      console.log(error)
+      return res.status(400).json({ message: "Failed" });
     }
   } catch (error) {
     // If the token is invalid or has expired, return a 401 Unauthorized response

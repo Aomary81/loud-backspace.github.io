@@ -16,6 +16,9 @@ router.post("/add", async (req, res) => {
     rent,
     tags,
     bio,
+    contact,
+    bed,
+    bath
   } = req.body;
   // Check if user is logged in
   if (!token) {
@@ -48,8 +51,9 @@ router.post("/add", async (req, res) => {
       rent,
       tags,
       bio,
-      contact:
-        user.email /**To Do update front end to let user input preferred contact info*/,
+      contact,
+      bed,
+      bath
     });
     try {
       await newListing.save();
@@ -71,6 +75,7 @@ router.post("/add", async (req, res) => {
     //const listing = await Listing.findOne({email: email});
   } catch (error) {
     // If the token is invalid or has expired, return a 401 Unauthorized response
+    console.log(error)
     return res.status(401).json({ message: "Unauthorized" });
   }
 });
@@ -134,6 +139,9 @@ router.post("/edit", (req, res) => {
       rent,
       tags,
       bio,
+      contact,
+      bed,
+      bath
     } = req.body);
 
     Listing.findByIdAndUpdate(
@@ -198,6 +206,7 @@ router.post("/delete", async (req, res) => {
     if (!deletedListing) {
       return res.status(404).json({ message: "Listing not found" });
     }
+    return res.status(200).json({ message: 'Success' });
   } catch (err) {
     // If the token is invalid or has expired, return a 401 Unauthorized response
     console.error(err);

@@ -3,13 +3,11 @@ import {
   Text,
   View,
   TouchableOpacity,
-  StatusBar,
   ScrollView,
   Platform,
   useWindowDimensions
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { SafeAreaView } from "react-navigation";
 import React, { useState, useContext } from "react";
 import InputField from "../components/V2Components/InputField";
 import { AuthContext } from "../../context";
@@ -19,6 +17,7 @@ import ContentArea from '../components/V2Components/ContentAreaV2';
 import ContentAreaHeaderBar from '../components/V2Components/ContentAreaHeaderBar';
 import ListingPopup from "../components/V2Components/ListingPopup";
 import { useFocusEffect } from "@react-navigation/native";
+import ScreenLayout from "../components/V2Components/ScreenLayout";
 
 export default function FinderScreen({ navigation }) {
   const isWeb = Platform.OS === "web";
@@ -169,25 +168,33 @@ export default function FinderScreen({ navigation }) {
   const incrementPage = async () => {
     let temp = pageNum + 1;
     setPageNum(temp);
+    if(isWeb) window.scrollTo(0,0)
   };
   const decrimentPage = async () => {
     let temp = pageNum - 1;
     setPageNum(temp);
+    if(isWeb) window.scrollTo(0,0)
   };
+
+  const isLandscape = width > 700
 
   let shrinkFB = width < 1360;
   let shrinkCLB = width < 1135;
   let hideIntro = width < 899;
 
+  if(popupVisible && !isWeb){
+    return (
+      <ListingPopup listing={selectedItem} hidePopup={setPopupVisible} />
+    );
+  }
+
   return (
-    <SafeAreaView style={styles.background}>
-      <StatusBar style="auto" />
-      <View style={styles.container}>
+    <ScreenLayout>
       {fiterVisible && <View
         style={{
           position: 'absolute',
           right: 0,
-          top: 50,
+          top: isLandscape ? 50 : 180,
           width: 215,
           backgroundColor: '#D9D9D9',
           zIndex: 1,
@@ -292,8 +299,7 @@ export default function FinderScreen({ navigation }) {
           </Text>
         </View>
       </View>}
-			<ContentArea>
-				<ContentAreaHeaderBar style={{justifyContent: 'flex-end'}}>
+				{isLandscape && <ContentAreaHeaderBar style={{justifyContent: 'flex-end'}}>
           <IconedTitle 
 						  img="https://cdn-icons-png.flaticon.com/512/673/673035.png"
 						  title={hideIntro ? '' : "Roommate Finder"}
@@ -332,101 +338,134 @@ export default function FinderScreen({ navigation }) {
               onPress={() => toggleFilterVisible()}>
               { !shrinkFB && <Text style={{fontWeight: 'bold'}}>Filter</Text>}
             </TouchableOpacity>
-				  </ContentAreaHeaderBar>
-          <View style={{alignSelf: 'flex-start', flexDirection: 'row'}}>
-            <Text style={{fontWeight: 'bold', fontSize: 20}}>Search results({numResults})</Text>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => navigation.navigate("My Listings")}
-            >
-              <Text>View my listings</Text>
-            </TouchableOpacity>
-          </View>
-          <ScrollView style={{height: '80%', width: '100%'}}>
-          <View style={styles.Box}>
-            {data.map((item) => (
-              <TouchableOpacity
-                style={[styles.ContentModule, {
-                  flexBasis: width > 1200 ?
-                    '24.1%' :
-                    ( width > 1100 ? '32.2%' :
-                    (width > 750 ? '48.5%' :
-                    '98%'))
-                }]}
-                key={item._id}
-                onPress={() => handlePress(item)}
-              >
-                <View style={{flexDirection: 'row', width: '100%', height: '67%', marginBottom: 4.4,}}>
-                  <View style={styles.images}>
-                    <Text>?</Text>
-                  </View>
-                  <View style={{alignItems: 'flex-start'}}>
-                    <Text style={[styles.text, {fontWeight: 'bold'}]}>{`${item.city}, ${item.zip_code}`}</Text>
-                    <Text style={styles.text}>{item.street_name}</Text>
-                    <Text style={styles.text}>{item.rent}</Text>
-                  </View>
+				  </ContentAreaHeaderBar>}
+          {!isLandscape &&
+              <View style={{width: '100%', marginVertical: 10}}>
+                <Text style={{fontSize: 25, fontWeight: 'bold'}}>Roommate Finder</Text>
+                <TouchableOpacity
+                  style={[styles.createListingButton, {
+                      width: '100%',
+                      marginVertical: 5
+                    }]}
+                  onPress={() => navigation.navigate("ListingCreation")}>
+                  <Text style={{fontWeight: 'bold'}}>Create New Listing</Text>
+                </TouchableOpacity>
+                <View style={{flexDirection: 'row'}}>
+                  <InputField
+                    style={styles.TextInput}
+                    placeholder="Search By Zipcode"
+                    value={zipCode}
+                    onChangeText={getZipCode}
+                    onSubmitEditing={SearchListings}
+                    startDisabled={true}
+                    rounded
+                    startButton={<Ionicons
+                      name={"search"}
+                      size={25}
+                      color={'grey'}
+                    />}
+                  />
+                  <TouchableOpacity
+                    style={[styles.filterButton, 
+                      {flex: 1,
+                      marginLeft: 5,
+                      borderBottomLeftRadius: fiterVisible ? 0 : 10,
+                      borderBottomRightRadius: fiterVisible ? 0 : 10
+                    }]}
+                    onPress={() => toggleFilterVisible()}>
+                    <Text style={{fontWeight: 'bold'}}>Filter</Text>
+                  </TouchableOpacity>
                 </View>
-                <Text style={[ styles.text,{fontSize: 12}]}>
-                  Last updated: {
-            			Math.floor((Date.now() - Date.parse(item.updatedAt)) / (1000*60*60*24))
-          				} days ago
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </ScrollView>
-        <View style={{
-          height: 35,
-          width: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-          alignSelf: 'flex-end',
-          }}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              {(pageNum > 1) && <TouchableOpacity onPress={() => decrimentPage()}>
-                <Ionicons
-                  name={'chevron-back-outline'}
-                  size={25}
-                  color={theme.TEXT_COLOR}
-                />
-              </TouchableOpacity>}
-              {(numResults > 0) && <Text
-                style={[styles.text, {fontSize: 16, paddingHorizontal: 4}]}>
-                {(pageNum*16 > numResults) ? (pageNum-1)*16 + numResults % 16 : pageNum*16} of {numResults}
-              </Text>}
-              {(numResults > pageNum*16) && <TouchableOpacity onPress={() => incrementPage()}>
-                <Ionicons
-                  name={'chevron-forward-outline'}
-                  size={25}
-                  color={theme.TEXT_COLOR}
-                />
-              </TouchableOpacity>}
+              </View>}
+            <View style={{alignSelf: 'flex-start'}}>
+              <Text style={{fontWeight: 'bold', fontSize: 20}}>Search results({numResults})</Text>
+              {/* {<TouchableOpacity
+                style={styles.button}
+                onPress={() => navigation.navigate("My Listings")}
+              >
+                <Text>View my listings</Text>
+              </TouchableOpacity>} */}
             </View>
-          </View>
-			  </ContentArea>
-		  </View>
-    {popupVisible && <ListingPopup listing={selectedItem} hidePopup={setPopupVisible}/>}
-    </SafeAreaView>
+            <ScrollView style={{height: isWeb ? '90%' : '70%', width: '100%'}}>
+              <View style={styles.Box}>
+                {data.map((item) => (
+                  <TouchableOpacity
+                    style={[styles.ContentModule, { 
+                      flexBasis: width > 1200 ?
+                        '24.1%' :
+                        ( width > 1100 ? '32.2%' :
+                        (width > 750 ? '48.5%' :
+                        '98%')),
+                        height: isWeb ? undefined : 120
+                    }]}
+                    key={item._id}
+                    onPress={() => handlePress(item)}
+                  >
+                    <View style={{width: '100%'}}>
+                      <View style={{flexDirection: 'row', width: '100%', height: '67%', marginBottom: 4.4,}}>
+                        <View style={styles.images}>
+                        <Ionicons
+                          name={'image-outline'}
+                          size={25}
+                          color={theme.TEXT_COLOR}
+                        />
+                        </View>
+                        <View style={{alignItems: 'flex-start', width: '70%'}}>
+                        <Text style={[styles.text, {fontWeight: 'bold', width: '100%'}]}>{`${item.city}, ${item.zip_code}`}</Text>
+                        <Text style={[styles.text,{width: '100%'}]}>{`${item.bed} Bed, ${item.bath} Bath`}</Text>
+                        <Text style={[styles.text,{width: '100%'}]}>{'$'+item.rent+'/month'}</Text>
+                        </View>
+                      </View>
+                      <Text 
+                        style={[styles.text,
+                        {fontSize: 12,
+                        paddingTop: 6
+                        }]}>
+                          Last updated: {
+                            Math.floor((Date.now() - Date.parse(item.updatedAt)) / (1000*60*60*24))
+                            } days ago
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </ScrollView>
+            <View style={{
+              height: 35,
+              width: '100%',
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'flex-end',
+              }}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                {(pageNum > 1) && <TouchableOpacity onPress={() => decrimentPage()}>
+                  <Ionicons
+                    name={'chevron-back-outline'}
+                    size={25}
+                    color={theme.TEXT_COLOR}
+                  />
+                </TouchableOpacity>}
+                {(numResults > 0) && <Text
+                  style={[styles.text, {fontSize: 16, paddingHorizontal: 4}]}>
+                  {(pageNum*16 > numResults) ? (pageNum-1)*16 + numResults % 16 : pageNum*16} of {numResults}
+                </Text>}
+                {(numResults > pageNum*16) && <TouchableOpacity onPress={() => incrementPage()}>
+                  <Ionicons
+                    name={'chevron-forward-outline'}
+                    size={25}
+                    color={theme.TEXT_COLOR}
+                  />
+                </TouchableOpacity>}
+              </View>
+            </View>
+        {popupVisible && isWeb &&(
+          <ListingPopup listing={selectedItem} hidePopup={setPopupVisible} />
+        )}
+    </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    backgroundColor: theme.BACKGROUND_COLOR,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  container:{
-    flex: 1,
-    width: '100%',
-    backgroundColor: theme.CONTAINER_COLOR,
-    borderRadius: 10,
-    borderWidth: 5,
-    borderColor: theme.CONTAINER_COLOR,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
   input: {
     marginBottom: 10,
   },
@@ -446,14 +485,12 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     fontSize: 15,
     color: theme.INPUT_TEXT_COLOR,
-    marginLeft: 5
   },
   ContentModule: {
     marginHorizontal: 4.4,
     marginVertical: 4.4,
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    aspectRatio: 2.3,
     backgroundColor: theme.CONTENT_MODULE_COLOR,
     borderRadius: 10,
     padding: 8.8
@@ -465,7 +502,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     flexWrap: "wrap",
     width: '100%',
-    height: 600,
     backgroundColor: theme.CONTAINER_COLOR,
     marginTop: 10
   },
@@ -487,27 +523,18 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
   },
   images: {
-    backgroundColor: theme.TEXT_COLOR,
-    height: '100%',
+    backgroundColor: "#D9D9D9",
+    height: 60,
     aspectRatio: 1,
     borderRadius: 5,
     marginRight: 4.4,
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center",
   },
   text: {
 		color: theme.TEXT_COLOR,
 		fontSize: 15
 	},
-  popupImages: {
-    backgroundColor: theme.TEXT_COLOR,
-    width: '100%',
-    aspectRatio: 1,
-    borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 2
-  },
   filterText: {
     fontWeight: 'bold',
     fontSize: 16,
