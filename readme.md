@@ -81,11 +81,14 @@ npm install expo expo-cli react-native
 npx expo install react-dom react-native-web @expi/webpack-config
 ```
 
-Refer to the package.json to install the appropriate dependencies
-Then run the command
+Refer to the package.json to install the appropriate dependencies, then open a terminal and `cd` into `react-native-app` and run the following:
 
 ```
 npx expo start --web
+```
+Then, open a separate parallel terminal and `cd` into `backend-express-app` and run the following:
+```
+node server.js
 ```
 
 ## Powered By
@@ -118,7 +121,7 @@ npx expo start --web
 
 ## Project Development
 
-## Project TODO
+### Project TODO
 
 - [x] Prototype UI Layout - Base UI
 - [x] Build MVP
@@ -162,12 +165,6 @@ npx expo start --web
 - [ ] Run a test deployment with existing code base pre-final deployment
 - [ ] Final deployment
 
-## Low Priority Tasks
-
-- [x] Roommate finder roommate application UI layout setup
-- [x] Roommate finder roommate application API setup
-- [x] Integrate roommate application API with roommate application UI
-
 ## Project Timeline
 
 <details>
@@ -200,9 +197,9 @@ npx expo start --web
   
 </details>
 
-### Testing
-
-All testing was done as functional testing during development at this time. More to come.
+## Testing & Deployment <b>(TODO)</b>
+- Testing Section with links or descriptions of how to test
+- Instructions to include how to download, setup to run/deploy 
 
 <!--
 ### Pull Requests & Contribution Guidelines
