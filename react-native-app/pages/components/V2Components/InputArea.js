@@ -35,6 +35,8 @@ const InputArea = (
                         borderColor: borderColor || (isFocused ? 'dodgerblue' : 'transparent'),
                         borderWidth: 2,
                         paddingHorizontal: 3,
+                        color: theme.TEXT_COLOR,
+                        padding: 5
                     }, 
                     style
                 )
@@ -49,7 +51,10 @@ const InputArea = (
                         marginLeft: '1%',
                         marginRight: '1%',
                         outlineStyle: 'none',
-                        fontSize: fontSize
+                        fontSize: fontSize,
+                        color: theme.TEXT_COLOR,
+                        paddingHorizontal: 5,
+                        paddingVertical: 0
                     }
                 }
                 multiline={true}

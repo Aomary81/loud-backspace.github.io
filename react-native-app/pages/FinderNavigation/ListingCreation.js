@@ -11,6 +11,7 @@ import { AuthContext } from "../../context";
 import theme from '../../styles/theme.style'
 import InputField from '../components/V2Components/InputField'
 import InputArea from '../components/V2Components/InputArea'
+import { TouchableOpacity } from 'react-native';
 
 const ListingCreation = ({ navigation }) => {
   const { myIp } = useContext(AuthContext).ip;
@@ -75,10 +76,19 @@ const ListingCreation = ({ navigation }) => {
       <SafeAreaView style={styles.background}>
         <StatusBar/>
         <View style={styles.container}>
-          <Text style={{ color: "dodgerblue", paddingBottom: 10 }}>
+          <Text style={{ color: theme.TEXT_COLOR, marginBottom: 10, fontFamily: 'Roboto', fontSize: 18 }}>
             Your listing was created successfully!
           </Text>
-          <Button onPress={() => {setSucess(false); navigation.goBack()}} title="OK" />
+          <TouchableOpacity style={{
+                          height: 40,
+                          width: 200,
+                          backgroundColor: 'dodgerblue',
+                          borderRadius: 50,
+                          alignItems: 'center',
+                          justifyContent: 'center'}}
+                          onPress={() => {setSucess(false); navigation.goBack()}}>
+                          <Text style={[styles.text, {color: 'white', fontFamily: 'Inter'}]}>Return</Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     );
@@ -88,6 +98,7 @@ const ListingCreation = ({ navigation }) => {
     <SafeAreaView style={styles.background}>
       <StatusBar style="auto" />
       <View style={styles.container}>
+        <Text style={[styles.header, {fontFamily: 'Roboto', fontSize: 25}]}>Create Listing</Text>
         <InputField
           placeholder="Street Number"
           value={streetNumber}
@@ -131,31 +142,29 @@ const ListingCreation = ({ navigation }) => {
           style={styles.TextInput}
         />
         <InputField
-          placeholder="Tags (comma-separated)"
+          placeholder="Tags"
           value={tags}
           onChangeText={setTags}
           style={styles.TextInput}
         />
         <InputArea
           multiline={true}
-          numberOfLines={10}
+          numberOfLines={8}
           placeholder="Bio"
           value={bio}
           onChangeText={setBio}
-          style={{
-            height: 120,
-            width: 600
-          }}
+          color={'white'}
+          style={{height: 120, width: 250, marginBottom: 10, color: theme.TEXT_COLOR}}
         />
-        <View style={{ height: 10 }} />
-        <View
-          style={{
-            flexDirection: "row",
-          }}
-        >
-          <Button title="Clear" onPress={clearInputs} />
-          <View style={{ height: 40, width: 40 }} />
-          <Button onPress={SubmitListing} title="Submit" />
+        <View style={{flexDirection: "column", width: '100%'}}>
+          <View style={{display: 'flex', flexDirection: 'column', marginTop: 5, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+            <TouchableOpacity style={styles.button} onPress={SubmitListing}>
+              <Text style={[styles.text, {color: 'white', fontFamily: 'Inter',}]}>Submit Listing</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={clearInputs}>
+              <Text style={{color: theme.TEXT_COLOR, fontSize: 15, marginTop: 5, fontFamily: 'Inter'}}>Clear</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </SafeAreaView>
@@ -165,11 +174,30 @@ const ListingCreation = ({ navigation }) => {
 export default ListingCreation;
 
 const styles = StyleSheet.create({
+  button: {
+    height: 35,
+    width: 250,
+    backgroundColor: 'dodgerblue',
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    fontFamily: 'Roboto',
+    color: 'white'
+  },
   background: {
     flex: 1,
     backgroundColor: theme.BACKGROUND_COLOR,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  header: {
+    fontSize: 22,
+    fontFamily: 'Roboto',
+    marginBottom: 10,
+    color: theme.TEXT_COLOR
   },
   container:{
     flex: 1,
@@ -182,10 +210,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   TextInput: {
-    height: 40,
-    width: 220,
+    height: 55,
+    width: 250,
     marginBottom: 10,
-    fontSize: 15,
     color: theme.INPUT_TEXT_COLOR
   },
 });

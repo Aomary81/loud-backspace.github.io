@@ -104,7 +104,7 @@ const PageLayouts = StyleSheet.create({
 	},
 
 	pageTitle: {
-		fontSize: 30,
+		fontSize: 25,
 		fontWeight: 'bold'
 	},
 

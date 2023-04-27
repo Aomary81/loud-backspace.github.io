@@ -112,7 +112,7 @@ const AccountCreation = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={{fontSize: 30, fontWeight: '600', marginBottom: 10}}>
+      <Text style={{fontSize: 25, fontWeight: '600', marginBottom: 10, color: theme.TEXT_COLOR, fontFamily: 'Roboto'}}>
         Create an Account
       </Text>
       <InputField
@@ -164,13 +164,13 @@ const AccountCreation = () => {
         style={styles.TextInput}
         placeholder="ZIP Code"
       />
-      {error && <Text>{error}</Text>}
+      {error && <Text style={{color: 'red', fontSize: 16, fontFamily: 'Inter'}}>{error}</Text>}
       <View style={{display: 'flex', flexDirection: 'column', marginTop: 5, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
         <TouchableOpacity style={styles.button} onPress={saveAccountInformation}>
-          <Text style={styles.text}>Create Account</Text>
+          <Text style={[styles.text, {color: '#fff', fontSize: 15, fontFamily: 'Inter'}]}>Create Account</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={clearInputs}>
-          <Text style={{color: '#222', fontSize: 15, marginTop: 5}}>Clear</Text>
+          <Text style={{color: theme.TEXT_COLOR, fontSize: 15, marginTop: 5, fontFamily: 'Inter'}}>Clear</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -190,13 +190,14 @@ const styles = StyleSheet.create({
   TextInput: {
     height: 55,
     width: 250,
+    color: theme.TEXT_COLOR
   },
   leftAlign: {
     display: 'flex'
   },
   button: {
-    height: 35,
-    width: '100%',
+    height: 40,
+    width: 250,
     backgroundColor: 'dodgerblue',
     borderRadius: 50,
     justifyContent: 'center',
@@ -206,7 +207,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15
   },
   text: {
-    color: '#ffffff',
-    fontWeight: '600'
+    color: theme.TEXT_COLOR,
   },
 });

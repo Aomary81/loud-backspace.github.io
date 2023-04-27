@@ -80,7 +80,7 @@ function LoginScreen({navigation}) {
           <Text style={styles.errorText}>{error}</Text>
         </View>
         <View style={styles.card}>
-          <Text style={styles.header}>Login</Text>
+          <Text style={[styles.header, {color:theme.TEXT_COLOR}]}>Login</Text>
           <StatusBar style="auto" />
           <InputField
             style={styles.input}
@@ -104,7 +104,7 @@ function LoginScreen({navigation}) {
               <Text style={styles.text}>Sign In</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('AccountCreation')}>
-              <Text style={{color: '#222', fontSize: 15, marginTop: 5, fontFamily: 'Inter'}}>Create Account</Text>
+              <Text style={{color: theme.TEXT_COLOR, fontSize: 15, marginTop: 5, fontFamily: 'Inter'}}>Create Account</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -128,7 +128,8 @@ function LoginScreen({navigation}) {
       height: 50,
       width: 300,
       color: theme.TEXT_COLOR,
-      fontFamily: 'Inter'
+      fontFamily: 'Inter',
+      backgroundColor: theme.CONTAINER_COLOR
     },
     button: {
       height: 35,

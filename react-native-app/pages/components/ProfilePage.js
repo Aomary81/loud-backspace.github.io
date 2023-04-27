@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   nameText:{
     top: 120,
-    fontSize: 30,
+    fontSize: 25,
     padding: Platform.OS === 'web' ? 120 : 0
   }
 });

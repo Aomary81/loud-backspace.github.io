@@ -296,14 +296,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto'
   },
   header: {
-    fontSize: 30,
+    fontSize: 25,
     color: "#333",
-    fontWeight: "600",
     marginBottom: 10,
-    fontFamily: 'Roboto'
+    fontFamily: 'Roboto',
+    color: theme.TEXT_COLOR
   },
   headerMuted: {
-    fontSize: 30,
+    fontSize:25,
     color: "#999",
     fontWeight: "600",
     marginBottom: 10,

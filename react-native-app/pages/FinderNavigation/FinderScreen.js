@@ -321,7 +321,12 @@ export default function FinderScreen({ navigation }) {
                   marginRight: 5
                 }]}
               onPress={() => navigation.navigate("ListingCreation")}>
-              { !shrinkCLB && <Text style={{fontWeight: 'bold'}}>Create Listing</Text>}
+              { !shrinkCLB && 
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Ionicons name={"add-circle-outline"} size={15} color={'white'} />
+                <Text style={{marginLeft: 5, fontFamily: 'Inter', color: '#fff'}}>Create Listing</Text>
+              </View>
+              }
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.filterButton, 
@@ -332,14 +337,14 @@ export default function FinderScreen({ navigation }) {
               onPress={() => toggleFilterVisible()}>
               { !shrinkFB && 
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Ionicons name={"funnel-outline"} size={15} color={theme.TEXT_COLOR} />
-                <Text style={{fontWeight: 'bold', marginLeft: 5}}>Filter</Text>
+                <Ionicons name={"funnel-outline"} size={15} color={'black'} />
+                <Text style={{marginLeft: 5, fontFamily: 'Inter'}}>Filter</Text>
               </View>
               }
             </TouchableOpacity>
 				  </ContentAreaHeaderBar>
           <View style={{marginLeft: 8, alignSelf: 'flex-start', flexDirection: 'row'}}>
-            <Text style={{fontSize: 20}}>Search results ({numResults})</Text>
+            <Text style={{fontSize: 20, color: theme.TEXT_COLOR}}>Search results ({numResults})</Text>
           </View>
           <ScrollView style={{height: '80%', width: '100%'}}>
           <View style={styles.Box}>
@@ -490,11 +495,12 @@ const styles = StyleSheet.create({
   createListingButton: {
     height: 40,
     width: 230,
-    backgroundColor: "#92EBFF",
+    backgroundColor: "dodgerblue",
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
     fontFamily: 'Roboto',
+    color: theme.TEXT_COLOR
   },
   filterButton: {
     height: 40,

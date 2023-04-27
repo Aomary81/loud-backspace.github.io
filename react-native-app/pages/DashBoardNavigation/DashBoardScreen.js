@@ -341,27 +341,29 @@ function DashBoardScreen() {
                       onPress={() => toggleCreatePressed()}>
                       <Text style={[styles.text,{
                         paddingVertical: 20,
-                        fontWeight: 'bold'
+                        fontWeight: 'bold',
+                        fontSize: 16,
+                        fontFamily: 'Roboto',
                       }]}>
                         Create Household
                       </Text>
-                      {createPressed && <View
-                      style={{height: 100, alignItems: 'center'}}>
+                      {createPressed && 
+                      <View style={{height: 100, alignItems: 'center'}}>
                         <InputField
                               value={householdName}
                               onChangeText={setHouseholdName}
                               style={styles.TextInput}
-                              placeholder="Household name"
-                            />
+                              placeholder="Household Name"
+                        />
                         <TouchableOpacity style={{
                           height: 40,
-                          width: 100,
+                          width: 200,
                           backgroundColor: 'dodgerblue',
-                          borderRadius: 10,
+                          borderRadius: 50,
                           alignItems: 'center',
                           justifyContent: 'center'}}
                           onPress={() => SubmitHousehold()}>
-                            <Text style={styles.text}>Create</Text>
+                            <Text style={[styles.text, {color: 'white', fontFamily: 'Inter'}]}>Create Household</Text>
                         </TouchableOpacity>
                       </View>}
                     </TouchableOpacity>
@@ -376,9 +378,11 @@ function DashBoardScreen() {
                       onPress={() => toggleAddPressed()}>
                       <Text style={[styles.text,{
                         paddingVertical: 20,
-                        fontWeight: 'bold'
+                        fontWeight: 'bold',
+                        fontSize: 16,
+                        fontFamily: 'Roboto'
                       }]}>
-                        Join household
+                        Join Household
                       </Text>
                       {addPressed && <View
                       style={{height: 100, alignItems: 'center'}}>
@@ -386,17 +390,17 @@ function DashBoardScreen() {
                               value={inputAddCode}
                               onChangeText={setInputAddCode}
                               style={styles.TextInput}
-                              placeholder="Add code"
+                              placeholder="Enter Code"
                             />
                         <TouchableOpacity style={{
                           height: 40,
-                          width: 100,
+                          width: 200,
                           backgroundColor: 'dodgerblue',
-                          borderRadius: 10,
+                          borderRadius: 50,
                           alignItems: 'center',
                           justifyContent: 'center'}}
                           onPress={() => joinHousehold()}>
-                            <Text style={styles.text}>Join</Text>
+                            <Text style={[styles.text, {color: 'white', fontFamily: 'Inter'}]}>Join Household</Text>
                         </TouchableOpacity>
                       </View>}
                     </TouchableOpacity>
@@ -540,12 +544,12 @@ const styles = StyleSheet.create({
   },
   button: {
     height: 20,
-    width: 120,
+    width: 220,
     backgroundColor: "dodgerblue",
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 5,
+    marginBottom: 25,
     fontFamily: 'Roboto',
   },
   title: {
@@ -555,7 +559,7 @@ const styles = StyleSheet.create({
   },
   topBar: {
     flexDirection: "row",
-    marginTop: 15,
+    marginTop: 25,
     alignItems: "center",
     fontFamily: 'Roboto',
   },
@@ -572,7 +576,8 @@ const styles = StyleSheet.create({
   TextInput: {
     height: 40,
     width: 200,
-    borderColor: "black",
     fontFamily: 'Roboto',
+    color: theme.TEXT_COLOR,
+    backgroundColor: theme.CONTAINER_COLOR
   },
 });
