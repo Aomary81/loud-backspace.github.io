@@ -22,7 +22,7 @@ const ScrollableTileView = ({ components, numColumns, style, onItemPress, horizo
 			(
 				{
                     alignContent: 'flex-start',
-                    borderRadius: 10,
+                    borderRadius: 12,
 					borderWidth: 5,
                     backgroundColor: '#F3F3F3',
 					borderColor: '#F3F3F3'

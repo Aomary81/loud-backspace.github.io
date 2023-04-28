@@ -133,6 +133,7 @@ function TopButtonNavigator({
                     fontWeight: "bold",
                     fontSize: 16,
                     paddingLeft: 4,
+                    fontFamily: 'Inter'
                   }}
                 >
                   {descriptors[route.key].options.title || route.name}

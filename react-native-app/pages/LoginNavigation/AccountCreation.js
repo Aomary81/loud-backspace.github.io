@@ -8,8 +8,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import * as SecureStore from "expo-secure-store";
-import theme from "../../styles/theme.style";
-import InputField from "../components/V2Components/InputField";
+import theme from '../../styles/theme.style'
+import InputField from '../components/V2Components/InputField'
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { AuthContext } from "../../context";
 
@@ -149,6 +150,9 @@ const AccountCreation = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={{fontSize: 25, fontWeight: '600', marginBottom: 10, color: theme.TEXT_COLOR, fontFamily: 'Roboto'}}>
+        Create an Account
+      </Text>
       <InputField
         value={firstName}
         onChangeText={setFirstName}
@@ -196,7 +200,7 @@ const AccountCreation = () => {
         value={zipCode}
         onChangeText={setZipCode}
         style={styles.TextInput}
-        placeholder="ZipCode"
+        placeholder="ZIP Code"
       />
       <View
         style={{
@@ -272,15 +276,20 @@ const AccountCreation = () => {
           </Text>
         </View>
       </View>
-      {error && <Text>{error}</Text>}
+      {error && <Text style={{color: 'red', fontSize: 16, fontFamily: 'Inter'}}>{error}</Text>}
       <View
         style={{
           flexDirection: "row",
         }}
       >
-        <Button title="Clear" onPress={clearInputs} />
-        <View style={{ height: 40, width: 40 }} />
-        <Button onPress={saveAccountInformation} title="Save" />
+      <View style={{display: 'flex', flexDirection: 'column', marginTop: 5, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+        <TouchableOpacity style={styles.button} onPress={saveAccountInformation}>
+          <Text style={[styles.text, {color: '#fff', fontSize: 15, fontFamily: 'Inter'}]}>Create Account</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={clearInputs}>
+          <Text style={{color: theme.TEXT_COLOR, fontSize: 15, marginTop: 5, fontFamily: 'Inter'}}>Clear</Text>
+        </TouchableOpacity>
+      </View>
       </View>
     </View>
   );
@@ -293,9 +302,29 @@ const styles = StyleSheet.create({
     backgroundColor: theme.CONTAINER_COLOR,
     alignItems: "center",
     justifyContent: "center",
+    textAlign: 'left',
+    fontFamily: 'Roboto'
   },
   TextInput: {
+    height: 55,
+    width: 250,
+    color: theme.TEXT_COLOR
+  },
+  leftAlign: {
+    display: 'flex'
+  },
+  button: {
     height: 40,
-    width: 200,
+    width: 250,
+    backgroundColor: 'dodgerblue',
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 15
+  },
+  text: {
+    color: theme.TEXT_COLOR,
   },
 });

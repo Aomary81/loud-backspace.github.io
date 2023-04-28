@@ -7,7 +7,8 @@ import * as SecureStore from 'expo-secure-store';
 
 import InputField from '../components/V2Components/InputField'
 import theme from '../../styles/theme.style'
-
+import { isSearchBarAvailableForCurrentPlatform } from 'react-native-screens';
+import {Image, Appearance, useWindowDimensions} from 'react-native';
 const isWeb = Platform.OS === "web";
 
 function LoginScreen({navigation}) {
@@ -24,6 +25,12 @@ function LoginScreen({navigation}) {
     setIncorrectPassword(false);
     setError('');
   }
+
+  const {height, width, aspectRatio} = useWindowDimensions();
+  const colorScheme = Appearance.getColorScheme();
+  const logo = colorScheme === 'dark' ?
+  require('../../assets/logo/logo_dark.png') :
+  require('../../assets/logo/logo_light.png');
 
   const handleLogin = async () => {
     try {
@@ -78,8 +85,13 @@ function LoginScreen({navigation}) {
         <View style={styles.error}>
           <Text style={styles.errorText}>{error}</Text>
         </View>
-        <View style={styles.card}>
-          <Text style={styles.header}>Sign In</Text>
+        <View style={[styles.card, {justifyContent: 'center', alignItems: 'center'}]}>
+          <View style={{ width: '100%', justifyContent: 'center', textAlign: 'left', alignItems: 'center'}}>
+          <Image
+            style={{height: 50, aspectRatio: 6800/1308, resizeMode: 'stretch', marginBottom: 15}}
+            source={logo}
+          />
+          </View>
           <StatusBar style="auto" />
           <InputField
             style={styles.input}
@@ -99,16 +111,15 @@ function LoginScreen({navigation}) {
             secureTextEntry={true}
           />
           <View style={{display: 'flex', flexDirection: 'column', marginTop: 5, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
-            <TouchableOpacity style={styles.button}
-              onPress={handleLogin}
-            >
-              <Text style={styles.text}>Sign In</Text>
+            <TouchableOpacity style={styles.button} onPress={handleLogin}>
+              <Text style={styles.text}>Log In</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('AccountCreation')}
-            >
-              <Text style={{color: '#222', fontSize: 15, marginTop: 5, fontWeight: '600'}}>Create Account</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Create Account')}>
+              <Text style={{color: theme.TEXT_COLOR, fontSize: 15, marginTop: 5, fontFamily: 'Inter'}}>Create Account</Text>
             </TouchableOpacity>
+          </View>
+          <View style={{width: '100%'}}>
+            <Text style={{color:theme.TEXT_COLOR, fontSize: 12, fontFamily: 'Inter', marginTop: 10, textAlign: 'left'}}>By continuing, you accept and agree to our <Text style={{color: 'dodgerblue'}}>Terms of {"\n"}Service</Text> and <Text style={{color: 'dodgerblue'}}>Privacy Policy.</Text></Text>
           </View>
         </View>
       </View>
@@ -121,12 +132,18 @@ function LoginScreen({navigation}) {
       flex: 1,
       backgroundColor: theme.CONTAINER_COLOR,
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      fontFamily: 'Roboto'
+    },
+    font: {
+      fontFamily: 'Inter'
     },
     input:{
       height: 50,
       width: 300,
-      color: theme.TEXT_COLOR
+      color: theme.TEXT_COLOR,
+      fontFamily: 'Inter',
+      backgroundColor: theme.CONTAINER_COLOR
     },
     button: {
       height: 35,
@@ -137,17 +154,18 @@ function LoginScreen({navigation}) {
       alignItems: 'center',
       marginBottom: 5,
       paddingVertical: 10,
-      paddingHorizontal: 15
+      paddingHorizontal: 15,
+      fontFamily: 'Inter'
     },
     text: {
       color: '#ffffff',
-      fontWeight: '600'
+      fontFamily: 'Inter'
     },
     header: {
       fontSize: 30,
       color: '#111111',
-      fontWeight: '600',
-      marginBottom: 15
+      marginBottom: 15,
+      fontFamily: 'Lato'
     },
     card: {
       alignItems: 'center',
@@ -155,12 +173,16 @@ function LoginScreen({navigation}) {
       backgroundColor: theme.CONTENT_MODULE_COLOR,
       borderRadius: 8,
       paddingVertical: 25,
-      paddingHorizontal: 35
+      paddingHorizontal: 35,
+      fontFamily: 'Inter',
+      height: 'auto'
     },
     error: {
-      height: 20
+      height: 20,
+      fontFamily: 'Inter'
     },
     errorText: {
-      color: 'red'
+      color: 'red',
+      fontFamily: 'Inter'
     }
   });

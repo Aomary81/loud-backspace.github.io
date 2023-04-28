@@ -12,7 +12,7 @@ function CalendarNavigation() {
             headerShown: false
         }}
     >
-        <Stack.Screen name="CalendarScreen" component={CalendarScreen} />
+        <Stack.Screen name="Calendar" component={CalendarScreen} />
     </Stack.Navigator>
   );
 }

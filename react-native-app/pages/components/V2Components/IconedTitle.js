@@ -34,10 +34,10 @@ export default function IconedTitle(props){
 			/>
 			}
 			<View style={{marginLeft: 15}}>
-				<Title style={{fontWeight: 'bold', fontSize: 21, margin: 0, color: theme.TEXT_COLOR}}>
+				<Title style={{fontWeight: 'bold', fontSize: 21, margin: 0, color: theme.TEXT_COLOR, fontFamily: 'Roboto'}}>
 				{props.title}
 				</Title>
-				<Text style={{color: theme.TEXT_COLOR}}>
+				<Text style={{color: theme.TEXT_COLOR, fontFamily: 'Roboto'}}>
 				{props.description}
 				</Text>
 			</View>

@@ -13,6 +13,7 @@ const InputArea = (
     { 
         style,
         value, 
+        fontSize,
         onChangeText, 
         placeholder, 
         rounded,
@@ -42,6 +43,9 @@ const InputArea = (
                         borderRadius: !rounded ? 8 : 50,
                         borderColor: borderColor || (isFocused ? 'dodgerblue' : 'transparent'),
                         borderWidth: 2,
+                        paddingHorizontal: 3,
+                        color: theme.TEXT_COLOR,
+                        padding: 5,
                         marginBottom: 10
                     }, 
                     style
@@ -53,6 +57,10 @@ const InputArea = (
                         width: '100%',
                         height: '100%',
                         outlineStyle: 'none',
+                        fontSize: fontSize,
+                        color: theme.TEXT_COLOR,
+                        paddingHorizontal: 5,
+                        paddingVertical: 0,
                         fontSize: style.fontSize || 20,
                         margin: 5,
                         color: style.color,

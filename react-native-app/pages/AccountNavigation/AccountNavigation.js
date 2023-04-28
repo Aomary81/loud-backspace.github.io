@@ -11,7 +11,7 @@ function AccountNavigation() {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="AccountEditing" component={AccountCreation} />
+      <Stack.Screen name="Account" component={AccountCreation} />
     </Stack.Navigator>
   );
 }

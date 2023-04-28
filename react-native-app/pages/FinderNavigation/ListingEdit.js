@@ -4,7 +4,8 @@ import {
   Button,
   StyleSheet,
   SafeAreaView,
-  StatusBar
+  StatusBar,
+  Text
 } from "react-native";
 import { AuthContext } from "../../context";
 import theme from '../../styles/theme.style'
@@ -172,6 +173,5 @@ const styles = StyleSheet.create({
     height: 40,
     width: 220,
     marginBottom: 10,
-    fontSize: 15
   },
 });

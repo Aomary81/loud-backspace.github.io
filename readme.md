@@ -1,10 +1,10 @@
 # Synopsis
 
-![Rezidenc Logo](/readme_assets/logos/rezidenc-logo-dark.png)
+![Rezidenc Logo](/readme_assets/rezidenc-light.png)
 
-#### A Team Loud Backspace Project
+## A Team Loud Backspace Project
 
-Living with roommates can be a headache, especially when coordinating things like reminders, calendars, documents, communications with the property owner/manager/operator and each other. Derek Steege seeks to address these issues by packaging a master solution to all these problems into a single app that makes living arrangements with others easier. To test the demand and desire for his idea, Derek Steege accepted help from Team Loud Backspace to build out a working prototype for such an app.
+Living with roommates can often feel like a never-ending juggling act, with coordination and communication being a constant challenge. But fear not, our client Derek Steege has set out to revolutionize shared living by creating a one-stop-shop app that addresses all these pain points. With features like a dedicated roommate finder, reminders, calendars, and an eagle-eye dashboard for streamlined monitoring of your listings and current roommates, our innovative app promises to make communal living a breeze. To gauge the interest and need for his game-changing idea, Derek has partnered with Team Loud Backspace to bring his vision to life with a working prototype. Stay tuned for a game-changing solution that will simplify shared living like never before!
 
 ## Supported Platforms
 
@@ -48,12 +48,19 @@ Living with roommates can be a headache, especially when coordinating things lik
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.1",
     "expo": "~46.0.16",
+    "expo-blur": "~11.2.0",
+    "expo-secure-store": "~11.3.0",
     "expo-status-bar": "~1.4.0",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-native": "0.69.6",
-    "react-native-paper": "^5.0.0-rc.9",
+    "react-native-calendars": "^1.1294.0",
+    "react-native-gesture-handler": "~2.5.0",
+    "react-native-input-style": "^1.0.2",
+    "react-native-paper": "^5.1.4",
     "react-native-reanimated": "^2.9.1",
+    "react-native-safe-area-context": "4.3.1",
+    "react-native-screens": "~3.15.0",
     "react-native-vector-icons": "^9.2.0",
     "react-native-web": "~0.18.7",
     "react-navigation": "^4.4.4",
@@ -74,11 +81,14 @@ npm install expo expo-cli react-native
 npx expo install react-dom react-native-web @expi/webpack-config
 ```
 
-Refer to the package.json to install the appropriate dependencies
-Then run the command
+Refer to the package.json to install the appropriate dependencies, then open a terminal and `cd` into `react-native-app` and run the following:
 
 ```
 npx expo start --web
+```
+Then, open a separate parallel terminal and `cd` into `backend-express-app` and run the following:
+```
+node server.js
 ```
 
 ## Powered By
@@ -111,7 +121,7 @@ npx expo start --web
 
 ## Project Development
 
-## Project TODO
+### Project TODO
 
 - [x] Prototype UI Layout - Base UI
 - [x] Build MVP
@@ -155,12 +165,6 @@ npx expo start --web
 - [ ] Run a test deployment with existing code base pre-final deployment
 - [ ] Final deployment
 
-## Low Priority Tasks
-
-- [x] Roommate finder roommate application UI layout setup
-- [x] Roommate finder roommate application API setup
-- [x] Integrate roommate application API with roommate application UI
-
 ## Project Timeline
 
 <details>
@@ -193,9 +197,9 @@ npx expo start --web
   
 </details>
 
-### Testing
-
-All testing was done as functional testing during development at this time. More to come.
+## Testing & Deployment <b>(TODO)</b>
+- Testing Section with links or descriptions of how to test
+- Instructions to include how to download, setup to run/deploy 
 
 <!--
 ### Pull Requests & Contribution Guidelines
