@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Button, Text, StyleSheet, Platform } from "react-native";
+import { View, Text, StyleSheet, Platform } from "react-native";
 import theme from "../../styles/theme.style";
 
 import { useContext } from "react";
@@ -10,7 +10,6 @@ import * as SecureStore from 'expo-secure-store';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import ScreenLayout from "../components/V2Components/ScreenLayout";
 import InputArea from "../components/V2Components/InputArea";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const AccountInformation = () => {
   const { signIn, setToken } = useContext(AuthContext).authContext;
@@ -184,8 +183,7 @@ const AccountInformation = () => {
   };
   if (success) {
     return (
-      <SafeAreaView style={styles.background}>
-        <StatusBar/>
+      <ScreenLayout>
         <View style={styles.container}>
           <Text style={{ color: "rgb(30, 144, 255)", fontSize: 20 }}>
             Your account was updated successfully.
@@ -198,7 +196,7 @@ const AccountInformation = () => {
             </View>
           </TouchableOpacity>
         </View>
-      </SafeAreaView>
+      </ScreenLayout>
     );
   }
 
@@ -226,8 +224,6 @@ const AccountInformation = () => {
           <Text style={{color: theme.TEXT_COLOR, fontSize: 18, fontFamily: 'Roboto', marginLeft: 8 }}>Sign Out</Text>
         </View>
       </TouchableOpacity>
-    <SafeAreaView style={styles.background}>
-      <View style={styles.container}>
 
         {/* Personal Details Container */}
         <View style={{ flexDirection: "column", fontFamily: 'Roboto' }}>
@@ -409,7 +405,6 @@ const AccountInformation = () => {
         </TouchableOpacity>
         <Text>{error}</Text>
         </View>*/}
-    </SafeAreaView>
     </ScreenLayout>
   );
 };
@@ -451,7 +446,7 @@ const styles = StyleSheet.create({
   inputBox: {
 	  flex: 1,
     width: 300,
-    fontFamily: 'Roboto'
+    fontFamily: 'Roboto',
     height: 150,
     color: theme.TEXT_COLOR,
   },

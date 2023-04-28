@@ -168,7 +168,7 @@ export default function App() {
                 }}
               />
 			  
-			  <Tab.Screen
+			  {/* <Tab.Screen
                 name="API Testing"
                 component={ChatNavigation}
                 options={{
@@ -184,7 +184,7 @@ export default function App() {
                     />
                   ),
                 }}
-              />
+              /> */}
 			  
 			  
               <Tab.Screen
@@ -246,7 +246,7 @@ export default function App() {
                   offColor: '#DBEAFE'
                 }}
               />
-              <TopButton.Screen
+              {/* <TopButton.Screen
                 name="API Testing"
                 component={ChatNavigation}
                 options={{
@@ -260,7 +260,7 @@ export default function App() {
                   onColor: '#AFD2FF',
                   offColor: '#DCEAFE'
                 }}
-              />
+              /> */}
               <TopButton.Screen
                 name="Calendar"
                 component={CalendarNavigation}

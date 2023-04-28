@@ -10,7 +10,6 @@ import {
 import * as SecureStore from "expo-secure-store";
 import theme from '../../styles/theme.style'
 import InputField from '../components/V2Components/InputField'
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { AuthContext } from "../../context";
 
