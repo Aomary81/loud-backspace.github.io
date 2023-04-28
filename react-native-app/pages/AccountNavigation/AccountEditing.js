@@ -1,6 +1,6 @@
-import React, { useState, useEffect  } from "react";
-import { View, Button, Text, StyleSheet, Platform} from "react-native";
-import theme from '../../styles/theme.style'
+import React, { useState, useEffect } from "react";
+import { View, Button, Text, StyleSheet, Platform } from "react-native";
+import theme from "../../styles/theme.style";
 
 import { useContext } from "react";
 import { AuthContext } from "../../context";
@@ -18,71 +18,82 @@ const AccountInformation = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [listing, setListing] = useState("");
   const [desc, setDescription] = useState("");
-  const [gender, setGender] = useState('');
+  const [gender, setGender] = useState("");
 
   const { myIp } = useContext(AuthContext).ip;
   const { token } = useContext(AuthContext);
 
   const [success, setSuccess] = useState(false);
-  const isWeb = Platform.OS === 'web';
+  const isWeb = Platform.OS === "web";
 
   useEffect(() => {
-	const userData = fetch("http://" + myIp + ":3000/get/user", {
-		method: "POST",
-		credentials: "include",
-		headers: {
-		  "Content-Type": "application/json",
-		},
-		body: JSON.stringify({
-		  token: token,
-		}),
-	})
-	.then(response => response.json())
-    .then(data => {
-		setFirstName(data.first_name);
-		setLastName(data.last_name);
-		setEmail(data.email);
-		setAddress(data.address);
-		setCity(data.city);
-		setState(data.state);
-		setZipCode(data.zip_code);
-		setDescription(data.desc);
-    setGender('male');
-	});
-	//console.log(userData);
+    const userData = fetch("http://" + myIp + ":3000/get/user", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        token: token,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setFirstName(data.first_name);
+        setLastName(data.last_name);
+        setEmail(data.email);
+        setAddress(data.address);
+        setCity(data.city);
+        setState(data.state);
+        setZipCode(data.zip_code);
+        setDescription(data.desc);
+        setGender(data.gender);
+        checkGender(data.gender);
+      });
+    //console.log(userData);
   }, []);
+  const checkGender = (gen) => {
+    if (gen === "male") {
+      setShowMale(true);
+    }
+    if (gen === "female") {
+      setShowFemale(true);
+    }
+    if (gen === "non-binary") {
+      setShowNonBinary(true);
+    }
+  };
 
   const handleLogout = () => {
-		if(!isWeb){
-		  setToken(null);
-		  deleteToken('userToken');
-		  signIn(false);
-		} else {
-		  fetch('http://'+myIp+':3000/auth/logout', {
-		  method: 'POST',
-		  credentials: "include",
-		  headers: {
-			'Content-Type': 'application/json'
-		  },
-		  https: false, // Set the https option to true
-		})
-		  .catch(error => {
-			console.error(error);
-		});
-		  setToken(null);
-		  signIn(false);
-		}
-	  }
-	  async function deleteToken(key) {
-		await SecureStore.deleteItemAsync(key);
-	  }
+    if (!isWeb) {
+      setToken(null);
+      deleteToken("userToken");
+      signIn(false);
+    } else {
+      fetch("http://" + myIp + ":3000/auth/logout", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        https: false, // Set the https option to true
+      }).catch((error) => {
+        console.error(error);
+      });
+      setToken(null);
+      signIn(false);
+    }
+  };
+  async function deleteToken(key) {
+    await SecureStore.deleteItemAsync(key);
+  }
 
   const saveAccountInformation = async () => {
     if (!email.includes("@")) {
@@ -104,29 +115,61 @@ const AccountInformation = () => {
           last_name: lastName,
           email: email,
           token: token,
-		      desc: desc,
-          gender: gender
+          desc: desc,
+          gender: gender,
         }),
       });
-	  
+
       const result = await response.json();
       if (response.status == 200) {
-        setError('');
+        setError("");
         setSuccess(true);
       } else {
-        setError('Validation Failed!')
+        setError("Validation Failed!");
       }
-	  
-	  
-	  
-	  //*/
-	  
+
+      //*/
     } catch (error) {
-      setError('An error has occured!');
+      setError("An error has occured!");
       console.log(error);
     }
   };
+  const [showMale, setShowMale] = useState(false);
+  const [showFemale, setShowFemale] = useState(false);
+  const [showNonBinary, setShowNonBinary] = useState(false);
 
+  const toggleShowMale = () => {
+    if (showMale) {
+      setShowMale(false);
+    } else {
+      setShowMale(true);
+      setShowFemale(false);
+      setShowNonBinary(false);
+      setGender("male");
+    }
+  };
+
+  const toggleShowFemale = () => {
+    if (showFemale) {
+      setShowFemale(false);
+    } else {
+      setShowFemale(true);
+      setShowMale(false);
+      setShowNonBinary(false);
+      setGender("female");
+    }
+  };
+
+  const toggleNonBinary = () => {
+    if (showNonBinary) {
+      setShowNonBinary(false);
+    } else {
+      setShowNonBinary(true);
+      setShowMale(false);
+      setShowFemale(false);
+      setGender("non-binary");
+    }
+  };
   const clearInputs = () => {
     setFirstName("");
     setLastName("");
@@ -260,6 +303,82 @@ const AccountInformation = () => {
             placeholder={"Confirm Password (disabled)"}
           />*/}
           <Text>{error}</Text>
+        <View
+          style={{
+            flexDirection: "column",
+            height: 60,
+            width: 200,
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "flex-start",
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                height: 16,
+                width: 16,
+                backgroundColor: showMale ? "black" : "white",
+                borderRadius: 16,
+                marginRight: 1,
+                borderWidth: 2,
+              }}
+              onPress={() => toggleShowMale()}
+            />
+            <Text style={{ color: theme.TEXT_COLOR, fontSize: 18 }}> Male</Text>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "flex-start",
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                height: 16,
+                width: 16,
+                backgroundColor: showFemale ? "black" : "white",
+                borderRadius: 16,
+                marginRight: 1,
+                borderWidth: 2,
+              }}
+              onPress={() => toggleShowFemale()}
+            />
+            <Text style={{ color: theme.TEXT_COLOR, fontSize: 18 }}>
+              {" "}
+              Female
+            </Text>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "flex-start",
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                height: 16,
+                width: 16,
+                backgroundColor: showNonBinary ? "black" : "white",
+                borderRadius: 16,
+                marginRight: 1,
+                borderWidth: 2,
+              }}
+              onPress={() => toggleNonBinary()}
+            />
+            <Text style={{ color: theme.TEXT_COLOR, fontSize: 18 }}>
+              {" "}
+              Non-Binary
+            </Text>
+          </View>
         </View>
       </View>
 
@@ -333,6 +452,8 @@ const styles = StyleSheet.create({
 	  flex: 1,
     width: 300,
     fontFamily: 'Roboto'
+    height: 150,
+    color: theme.TEXT_COLOR,
   },
   header: {
     fontSize: 25,
