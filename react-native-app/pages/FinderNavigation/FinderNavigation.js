@@ -14,10 +14,10 @@ function FinderNavigation() {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Roommate Finder" component={FinderScreen} />
-      <Stack.Screen name="Create Listing" component={ListingCreation} />
-      <Stack.Screen name="Edit Listing" component={ListingEdit} />
-      <Stack.Screen name="My Listings" component={UserListings} />
+      <Stack.Screen name="Roommate Finder Screen" component={FinderScreen} />
+      <Stack.Screen name="Create Listing Screen" component={ListingCreation} />
+      <Stack.Screen name="Edit Listing Screen" component={ListingEdit} />
+      <Stack.Screen name="My Listings Screen" component={UserListings} />
     </Stack.Navigator>
   );
 }

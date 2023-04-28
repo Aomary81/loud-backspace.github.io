@@ -226,7 +226,7 @@ const AccountInformation = () => {
       </TouchableOpacity>
 
         {/* Personal Details Container */}
-        <View style={{ flexDirection: "column", fontFamily: 'Roboto' }}>
+        <View style={{ flexDirection: "column", fontFamily: 'Roboto', marginTop: 20}}>
           <Text style={styles.header}>Account Details</Text>
           <InputField
             style={styles.input}

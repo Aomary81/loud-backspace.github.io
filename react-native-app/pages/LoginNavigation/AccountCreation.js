@@ -297,7 +297,7 @@ export default AccountCreation;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: theme.CONTAINER_COLOR,
     alignItems: "center",
     justifyContent: "center",

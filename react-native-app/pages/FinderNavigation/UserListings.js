@@ -58,7 +58,7 @@ export default function UserListings({navigation}){
                         <TouchableOpacity
                             style={styles.ContentModule}
                             key={item._id}
-                            onPress={() => navigation.replace("ListingEdit",{listing: item, prev: 'My Listings'})}
+                            onPress={() => navigation.replace("Edit Listing Screen",{listing: item, prev: 'My Listings Screen'})}
                         >
                             <Text style={styles.text}>{`${item.city}, ${item.zip_code}`}</Text>
                             <Text style={styles.text}>{item.street_name}</Text>

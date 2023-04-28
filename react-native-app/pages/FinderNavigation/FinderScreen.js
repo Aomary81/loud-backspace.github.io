@@ -327,7 +327,7 @@ export default function FinderScreen({ navigation }) {
                   width: shrinkCLB ? 40 : 230,
                   marginRight: 15
                 }]}
-              onPress={() => navigation.navigate("Create Listing")}>
+              onPress={() => navigation.navigate("Create Listing Screen")}>
               { !shrinkCLB && 
               <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                 <Ionicons
@@ -379,7 +379,7 @@ export default function FinderScreen({ navigation }) {
                       width: '100%',
                       marginVertical: 10
                     }]}
-                  onPress={() => navigation.navigate("Create Listing")}>
+                  onPress={() => navigation.navigate("Create Listing Screen")}>
                <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                 <Ionicons
                   name={"add-outline"}

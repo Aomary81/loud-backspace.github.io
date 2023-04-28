@@ -300,7 +300,7 @@ export default function App() {
               headerShown: false,
             }}
           >
-            <Stack.Screen name="Login" component={LoginNavigation} />
+            <Stack.Screen name="LoginNav" component={LoginNavigation} />
           </Stack.Navigator>
         )}
       </NavigationContainer>
