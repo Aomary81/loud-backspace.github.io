@@ -41,7 +41,7 @@ export default function App() {
   const [token, setUserToken] = useState(null);
   const ip = useMemo(() => {
     return {
-      myIp: "10.0.0.186",
+      myIp: "localhost",
     };
   }, []);
   const authContext = useMemo(() => {
@@ -289,7 +289,7 @@ export default function App() {
                   ),
                   onColor: '#FFAAAA',
                   offColor: '#FFDBDB',
-                  end: true
+                  //end: true
                 }}
               />
             </TopButton.Navigator>

@@ -13,6 +13,7 @@ const InputArea = (
     { 
         style,
         value, 
+        fontSize,
         onChangeText, 
         placeholder, 
         rounded,

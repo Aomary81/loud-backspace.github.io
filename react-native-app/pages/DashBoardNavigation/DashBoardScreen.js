@@ -447,7 +447,7 @@ function DashBoardScreen() {
             display: (isLandscape || currentTab === 'listings') ? 'flex' : 'none'
           }]}>
             <View style={{width: '100%'}}>
-              <Text style={styles.title}>Your Listings</Text>
+              <Text style={[styles.title, {fontFamily: 'Roboto', color: theme.TEXT_COLOR}]}>Your Listings</Text>
             </View>
             <ScrollView style={[styles.tile, {height: isWeb ? 450 : '100%'}]}>
               {myListings ? <View style={styles.Box}>
@@ -467,13 +467,13 @@ function DashBoardScreen() {
                         <Ionicons
                           name={'image-outline'}
                           size={25}
-                          color={theme.TEXT_COLOR}
+                          color={'black'}
                         />
                         </View>
-                        <View style={{alignItems: 'flex-start', width: '70%'}}>
-                        <Text style={[styles.text, {fontWeight: 'bold', width: '100%'}]}>{`${item.city}, ${item.zip_code}`}</Text>
-                        <Text style={[styles.text,{width: '100%'}]}>{`${item.bed} Bed, ${item.bath} Bath`}</Text>
-                        <Text style={[styles.text,{width: '100%'}]}>{'$'+item.rent+'/month'}</Text>
+                        <View style={{alignItems: 'flex-start', width: '70%', marginLeft: 5}}>
+                          <Text style={[styles.text, {fontWeight: 'bold', width: '100%', fontSize: '1rem'}]}>{`${item.city}, ${item.zip_code}`}</Text>
+                          <Text style={[styles.text,{width: '100%', fontSize: 16, marginTop: 2}]}>{`${item.bed} Bed, ${item.bath} Bath`}</Text>
+                          <Text style={[styles.text,{width: '100%', fontSize: 16, marginTop: 2}]}>{'$'+item.rent+'/month'}</Text>
                         </View>
                       </View>
                       <Text 
@@ -514,27 +514,13 @@ function DashBoardScreen() {
             display: (isLandscape || currentTab === 'roommates') ? 'flex' : 'none'
           }]}>
             <View style={{width: '100%', flexDirection: 'row'}}>
-              <Text style={[styles.title,{width: '80%'}]}
+              <Text style={[styles.title,{width: '80%', fontFamily: 'Roboto', color: theme.TEXT_COLOR}]}
                 numberOfLines={1}>{household ? householdName : 'Household'}
               </Text>
               {household && <View style={{width: '18%',
                 alignItems: 'flex-end',
                 justifyContent: 'center'}}>
-                <TouchableOpacity
-                  onPress={ isWeb ? () => setDelHouseholdPressed(true) : confirmHousehold}
-                  style={{backgroundColor: '#FFDBDB',
-                    borderRadius: 5,
-                    height: 30,
-                    width: 30,
-                    justifyContent: 'center',
-                    alignItems: 'center'}}
-                  >
-                    <Ionicons
-                        name="exit-outline"
-                        size={20}
-                        color={"#333"}
-                      />
-                </TouchableOpacity>
+
               </View>}
             </View>
               <ScrollView style={[styles.tile, {height: isWeb ? 450 : '100%'}]}>
@@ -553,34 +539,52 @@ function DashBoardScreen() {
                   style={[styles.ContentModule,{
                     height: 100,
                     alignItems: 'center',
-                    justifyContent: 'center'}]}>
-                    <View>
+                    justifyContent: 'center',
+                   }]}>
+                    <View style={{marginBottom: 5}}>
                       <Ionicons
                         name={"add-circle-outline"}
-                        size={25}
+                        size={30}
                         color={theme.TEXT_COLOR}
                       />
                     </View>
                     <Text style={[styles.text,{
-                      fontWeight: 'bold'
+                     
+                      fontSize: 20
                       }]}>
                       Invite Members
                     </Text>
-                </TouchableOpacity> :
+                    
+                </TouchableOpacity>
+                 :
                 <View
                   style={[styles.ContentModule,{
                     height: 100,
                     alignItems: 'center',
                     justifyContent: 'center'}]}>
                   <Text style={[styles.text,{
-                    fontWeight: 'bold'
+                    fontWeight: 'bold',
+                    fontSize: 20,
+                    fontFamily: 'Inter',
+                    letterSpacing: 1,
                     }]}>
                     {addCode.toUpperCase().slice(0,2)}-
                     {addCode.toUpperCase().slice(2,4)}-
                     {addCode.toUpperCase().slice(4,6)}-
                     {addCode.toUpperCase().slice(6,8)}
                   </Text>
-                </View>}
+                  <View style={{marginTop: 5, display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+                  <Ionicons
+                        name={"time-outline"}
+                        size={18}
+                        color={theme.TEXT_COLOR}
+                        style={{marginRight: 5}}
+                      />
+                      <Text style={{color: theme.TEXT_COLOR, fontFamily: 'Inter'}}>Code valid for 24 hours</Text>
+                  </View>
+                </View>
+                
+                }
                       </View> :
               <View style={[styles.tile ,{
                 alignItems: 'center',
@@ -591,31 +595,33 @@ function DashBoardScreen() {
                   width: '100%',
                   borderRadius: 10,
                   alignItems: 'center',
-                  justifyContent: 'center'}}
+                  justifyContent: 'center',
+                  paddingVertical: 15
+                }}
                   onPress={() => toggleCreatePressed()}>
                   <Text style={[styles.text,{
-                    paddingVertical: 20,
-                    fontWeight: 'bold'
+                    fontWeight: 'bold',
+                    fontSize: 18,
                   }]}>
                     Create Household
                   </Text>
                   {createPressed && <View
-                  style={{height: 100, alignItems: 'center'}}>
+                  style={{height: 100, alignItems: 'center', marginTop: 10}}>
                     <InputField
                           value={householdName}
                           onChangeText={setHouseholdName}
                           style={styles.TextInput}
-                          placeholder="Household name"
+                          placeholder="Household Name"
                         />
                     <TouchableOpacity style={{
                       height: 40,
-                      width: 100,
+                      width: 200,
                       backgroundColor: 'dodgerblue',
-                      borderRadius: 10,
+                      borderRadius: 50,
                       alignItems: 'center',
-                      justifyContent: 'center'}}
+                      justifyContent: 'center',}}
                       onPress={() => SubmitHousehold()}>
-                        <Text style={styles.text}>Create</Text>
+                        <Text style={[styles.text, {fontFamily: 'Inter'}]}>Create Household</Text>
                     </TouchableOpacity>
                   </View>}
                 </TouchableOpacity>
@@ -626,49 +632,76 @@ function DashBoardScreen() {
                   borderRadius: 10,
                   alignItems: 'center',
                   justifyContent: 'center',
-                  marginTop: 8.8}}
+                  marginTop: 10,
+                  paddingVertical: 15}}
                   onPress={() => toggleAddPressed()}>
                   <Text style={[styles.text,{
-                    paddingVertical: 20,
-                    fontWeight: 'bold'
+                    fontWeight: 'bold',
+                    fontSize: 18
                   }]}>
-                    Join household
+                    Join Household
                   </Text>
                   {addPressed && <View
-                  style={{height: 100, alignItems: 'center'}}>
+                  style={{height: 100, alignItems: 'center', marginTop: 10}}>
                     <InputField
                           value={inputAddCode}
                           onChangeText={setInputAddCode}
                           style={styles.TextInput}
-                          placeholder="Add code"
+                          placeholder="Enter Code"
                         />
                     <TouchableOpacity style={{
                       height: 40,
-                      width: 100,
+                      width: 200,
                       backgroundColor: 'dodgerblue',
-                      borderRadius: 10,
+                      borderRadius: 50,
                       alignItems: 'center',
                       justifyContent: 'center'}}
                       onPress={() => joinHousehold()}>
-                        <Text style={styles.text}>Join</Text>
+                        <Text style={[styles.text, {fontFamily: 'Inter'}]}>Join Household</Text>
                     </TouchableOpacity>
                   </View>}
                 </TouchableOpacity>
               </View>}
+              { household &&
+                <TouchableOpacity
+                    onPress={ isWeb ? () => setDelHouseholdPressed(true) : confirmHousehold}
+                    style={{backgroundColor: 'transparent',
+                      borderRadius: 10,
+                      borderColor: 'red',
+                      borderWidth: 2,
+                      borderStyle: 'solid',
+                      height: 40,
+                      width: '95%',
+                      justifyContent: 'center',
+                      alignSelf: 'center',
+                      marginTop: 5,
+                      alignItems: 'center'}}
+                    >
+                      <View style={{display: 'flex', flexDirection: 'row', paddingHorizontal: 8, alignItems: 'center'}}>
+                        <Ionicons
+                            name="exit-outline"
+                            size={20}
+                            color={"red"}
+                            style={{marginRight: 5}}
+                          />
+                          <Text style={{color: theme.TEXT_COLOR, fontFamily: 'Inter', fontSize: 14}}>Leave Household</Text>
+                      </View>
+                  </TouchableOpacity>
+                }
             </ScrollView>
           </View>
           <View style={[styles.rowItem,{
             display: (isLandscape || currentTab === 'reminders') ? 'flex' : 'none'
           }]}>
             <View style={{width: '100%'}}>
-              <Text style={styles.title}>Reminders</Text>
+              <Text style={[styles.title, {fontFamily: 'Roboto', color: theme.TEXT_COLOR}]}>Reminders</Text>
             </View>
             <ScrollView style={[styles.tile, {height: isWeb ? 450 : '100%'}]}>
               {myReminders ? (
                 <View style={styles.Box}>
                   {myReminders.map((item) => (
                     <TouchableOpacity
-                      style={styles.ContentModule}
+                      style={[styles.ContentModule, {paddingHorizontal: 15, paddingVertical: 10}]}
                       key={item._id}
                       //onPress={() => {setReminderPopPressed(true), setSelectedItem(item)}}
                       >
@@ -683,26 +716,27 @@ function DashBoardScreen() {
                             alignItems: "flex-start",
                             flexDirection: "column",
                             width: '100%',
+                            display: 'flex',
+                            flexWrap: 'wrap'
                           }}
                         >
+                          <Text style={[styles.text, {fontWeight: "bold",width: '100%', fontSize: 18}]}>
+                            {`${item.title}`}{" "}
+                          </Text>
                           <Text
-                            style={[styles.text, { fontWeight: "bold" }]}>
+                            style={[styles.text, {  fontFamily: 'Roboto', fontSize: 16, marginTop: 3}]}>
                           
-                          {' ' +monthNames[parseInt(item.dueDate.slice(5,7))-1]}
-                            {', '}
-                            {item.dueDate.slice(8,10)}
+                          {monthNames[parseInt(item.dueDate.slice(5,7))-1]}
                             {' '}
+                            {item.dueDate.slice(8,10)}
+                            {', '}
                             {item.dueDate.slice(0,4)}
                             </Text>
-                          <Text style={[styles.text, {fontWeight: "bold", width: '100%'}]}>
+                          <Text style={[styles.text, {width: '100%', marginTop: 3, fontSize: 14}]}>
                             
-                            {` ${item.title}`}{" "}
+                            {`${item.description}`}
                           </Text>
-                          
-                          <Text style={[styles.text, {width: '100%'}]}>
-                            
-                            {` ${item.description}`}
-                          </Text>
+
                         </View>
                         <TouchableOpacity
                           style={{
@@ -781,7 +815,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: theme.TEXT_COLOR,
-    fontFamily: 'Roboto',
+    fontFamily: 'Inter',
   },
   tile: {
     width: "100%",
@@ -794,9 +828,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignContent: "flex-start",
     alignItems: "flex-start",
+    justifyContent: 'center',
     flexWrap: "wrap",
     backgroundColor: theme.CONTAINER_COLOR,
-    marginTop: 10,
     fontFamily: 'Roboto',
   },
   background: {
@@ -845,6 +879,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: theme.INPUT_TEXT_COLOR,
     fontFamily: 'Roboto',
+    marginLeft: 10
   },
   topBar: {
     flexDirection: "row",

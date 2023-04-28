@@ -202,7 +202,8 @@ export default function FinderScreen({ navigation }) {
           borderBottomRightRadius: 10,
           borderTopLeftRadius: shrinkFB ? 10 : 0,
           borderWidth: 10,
-          borderColor: '#D9D9D9'
+          borderColor: '#D9D9D9',
+          marginRight: isLandscape ? 10 : 0
         }}>
         <View style={{ paddingBottom: 10}}>
           <View style={{flexDirection: 'row'}}>
@@ -324,10 +325,20 @@ export default function FinderScreen({ navigation }) {
             <TouchableOpacity
               style={[styles.createListingButton, {
                   width: shrinkCLB ? 40 : 230,
-                  marginRight: 5
+                  marginRight: 15
                 }]}
-              onPress={() => navigation.navigate("ListingCreation")}>
-              { !shrinkCLB && <Text style={{fontWeight: 'bold'}}>Create Listing</Text>}
+              onPress={() => navigation.navigate("Create Listing")}>
+              { !shrinkCLB && 
+              <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                <Ionicons
+                  name={"add-outline"}
+                  size={25}
+                  color={'white'}
+                  style={{marginRight: 5}}
+                />
+                <Text style={{fontFamily: 'Inter', color: 'white'}}>Create Listing</Text>
+              </View>
+              }
               { shrinkCLB && <Ionicons
                   name={"pencil-outline"}
                   size={25}
@@ -338,10 +349,21 @@ export default function FinderScreen({ navigation }) {
               style={[styles.filterButton, 
                 {width: shrinkFB ? 40 : 215,
                 borderBottomLeftRadius: fiterVisible ? 0 : 10,
-                borderBottomRightRadius: fiterVisible ? 0 : 10
+                borderBottomRightRadius: fiterVisible ? 0 : 10,
+                marginRight: 10
               }]}
               onPress={() => toggleFilterVisible()}>
-                { !shrinkFB && <Text style={{fontWeight: 'bold'}}>Filter</Text>}
+                { !shrinkFB && 
+                <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                <Ionicons
+                  name={"funnel-outline"}
+                  size={18}
+                  color={'black'}
+                  style={{marginRight: 10}}
+                />
+                <Text style={{fontFamily: 'Inter', color: 'black'}}>Filter</Text>
+                </View>
+                }
                 { shrinkFB && <Ionicons
                   name={"funnel-outline"}
                   size={25}
@@ -351,14 +373,22 @@ export default function FinderScreen({ navigation }) {
 				  </ContentAreaHeaderBar>}
           {!isLandscape &&
               <View style={{width: '100%', marginVertical: 10}}>
-                <Text style={{fontSize: 25, fontWeight: 'bold'}}>Roommate Finder</Text>
+                <Text style={{fontSize: 25, fontWeight: 'bold', color: theme.TEXT_COLOR}}>Roommate Finder</Text>
                 <TouchableOpacity
                   style={[styles.createListingButton, {
                       width: '100%',
-                      marginVertical: 5
+                      marginVertical: 10
                     }]}
-                  onPress={() => navigation.navigate("ListingCreation")}>
-                  <Text style={{fontWeight: 'bold'}}>Create New Listing</Text>
+                  onPress={() => navigation.navigate("Create Listing")}>
+               <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                <Ionicons
+                  name={"add-outline"}
+                  size={25}
+                  color={'white'}
+                  style={{marginRight: 5}}
+                />
+                <Text style={{fontFamily: 'Inter', color: 'white'}}>Create Listing</Text>
+              </View>
                 </TouchableOpacity>
                 <View style={{flexDirection: 'row'}}>
                   <InputField
@@ -387,8 +417,8 @@ export default function FinderScreen({ navigation }) {
                   </TouchableOpacity>
                 </View>
               </View>}
-            <View style={{alignSelf: 'flex-start'}}>
-              <Text style={{fontWeight: 'bold', fontSize: 20}}>Search results({numResults})</Text>
+            <View style={{alignSelf: 'flex-start', paddingLeft: 10, paddingTop: 10}}>
+              <Text style={{fontSize: 20, fontFamily: 'Roboto', color: theme.TEXT_COLOR}}>Search results ({numResults})</Text>
               {/* {<TouchableOpacity
                 style={styles.button}
                 onPress={() => navigation.navigate("My Listings")}

@@ -10,6 +10,7 @@ import * as SecureStore from 'expo-secure-store';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import ScreenLayout from "../components/V2Components/ScreenLayout";
 import InputArea from "../components/V2Components/InputArea";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const AccountInformation = () => {
   const { signIn, setToken } = useContext(AuthContext).authContext;
@@ -159,27 +160,32 @@ const AccountInformation = () => {
   }
 
   return (
+    <ScreenLayout>
+      <TouchableOpacity
+        onPress={handleLogout}
+        style={{
+          backgroundColor: 'transparent',
+          borderRadius: 8,
+          height: 40,
+          width: 150,
+          paddingHorizontal: 8,
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'absolute',
+          top: 8,
+          right: 8,
+          borderColor: 'red',
+          borderWidth: 2,
+          borderStyle: 'solid'
+          }}>
+        <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+          <Ionicons name={"log-out-outline"} size={24} color={'red'} />
+          <Text style={{color: theme.TEXT_COLOR, fontSize: 18, fontFamily: 'Roboto', marginLeft: 8 }}>Sign Out</Text>
+        </View>
+      </TouchableOpacity>
     <SafeAreaView style={styles.background}>
       <View style={styles.container}>
-        <TouchableOpacity
-            onPress={handleLogout}
-            style={{
-              backgroundColor: '#FEDBDB',
-              borderRadius: 5,
-              height: 50,
-              width: 150,
-              padding: 8,
-              alignItems: 'center',
-              justifyContent: 'center',
-              position: 'absolute',
-              top: 8,
-              right: 8
-              }}>
-            <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-              <Ionicons name={"log-out-outline"} size={24} color={'#FF4747'} />
-              <Text style={{color: '#28303F', fontSize: 18, fontFamily: 'Roboto', marginLeft: 8 }}>Sign Out</Text>
-            </View>
-        </TouchableOpacity>
+
         {/* Personal Details Container */}
         <View style={{ flexDirection: "column", fontFamily: 'Roboto' }}>
           <Text style={styles.header}>Account Details</Text>
@@ -216,11 +222,17 @@ const AccountInformation = () => {
             />
             //*/
           }
-          <InputField
-            style = {styles.input}
-            value = {desc}
-            onChangeText={setDescription}
+          <InputArea
+            multiline={true}
+            numberOfLines={10}
             placeholder="Bio"
+            value={desc}
+            onChangeText={setDescription}
+            style={{
+              height: 120,
+              width: '100%',
+              color: theme.TEXT_COLOR
+            }}
           />
           <TouchableOpacity style={[styles.button, {width: '100%'}]} onPress={saveAccountInformation}>
             <View>
@@ -251,7 +263,7 @@ const AccountInformation = () => {
         </View>
       </View>
 
-      {/* Login Credentials Container */}
+      {/* Login Credentials Container
       <View style={{ flexDirection: "column" }}>
         <Text style={styles.headerMuted}>Change Password</Text>
         <InputField
@@ -277,8 +289,9 @@ const AccountInformation = () => {
           </View>
         </TouchableOpacity>
         <Text>{error}</Text>
-      </View>
+        </View>*/}
     </SafeAreaView>
+    </ScreenLayout>
   );
 };
 
@@ -287,7 +300,6 @@ export default AccountInformation;
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: theme.BACKGROUND_COLOR,
     alignItems: 'center',
     justifyContent: 'center',
     fontFamily: 'Roboto'
@@ -295,10 +307,6 @@ const styles = StyleSheet.create({
   container:{
     flex: 1,
     width: '100%',
-    backgroundColor: theme.CONTAINER_COLOR,
-    borderRadius: 10,
-    borderWidth: 5,
-    borderColor: theme.CONTAINER_COLOR,
     alignItems: 'center',
     justifyContent: 'center',
     fontFamily: 'Roboto'
@@ -318,7 +326,8 @@ const styles = StyleSheet.create({
   input: {
     height: 50,
     width: 300,
-    fontFamily: 'Roboto'
+    fontFamily: 'Roboto',
+    color: theme.TEXT_COLOR
   },
   inputBox: {
 	  flex: 1,

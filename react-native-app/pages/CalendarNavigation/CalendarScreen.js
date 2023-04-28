@@ -292,17 +292,22 @@ function CalendarScreen() {
             width: '100%',
             display: success ? 'flex' : 'none'
           }}>
-            <Text style={{ color: "dodgerblue", paddingBottom: 10 }}>
-              Your Reminder was created successfully!
+            <Text style={{ color: 'deepskyblue', marginBottom: 10, fontFamily: 'Roboto', fontSize: 18 }}>
+              Your reminder was created successfully!
             </Text>
-          <Button
-            onPress={() => {
-              setSuccess(false);
-              setDescription('');
-              setTitle('');
-            }}
-            title="OK"
-          />
+          <TouchableOpacity 
+          onPress={() => {setSuccess(false); setDescription('');setTitle('');}}
+          style={{
+                  backgroundColor: 'dodgerblue',
+                  borderRadius: 50,
+                  marginLeft: 5,
+                  width: 200,
+                  height: 40,
+                  alignItems: 'center',
+                  justifyContent: 'center'
+            }}>
+              <Text style={{fontSize: 15, fontFamily: 'Inter', color: 'white'}}>Finish</Text>
+            </TouchableOpacity>
           </View>
           {((selectedTab === 'reminders') || isLandscape) && <View style={{
             flex: 1,

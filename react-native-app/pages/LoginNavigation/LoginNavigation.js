@@ -20,8 +20,8 @@ function LoginNavigation() {
             headerTintColor: Appearance.getColorScheme() === 'dark' ? '#B4B4B4' : 'black',
         }}
     >
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="AccountCreation" component={AccountCreation}/>
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Create Account" component={AccountCreation}/>
     </Stack.Navigator>
   );
 }

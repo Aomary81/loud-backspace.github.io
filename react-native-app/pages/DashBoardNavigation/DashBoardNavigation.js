@@ -13,7 +13,7 @@ function DashBoardNavigation() {
             headerShown: false
         }}
     >
-        <Stack.Screen name="DashBoardScreen" component={DashBoardScreen} />
+        <Stack.Screen name="Dashboard" component={DashBoardScreen} />
         <Stack.Screen name="ListingEdit" component={ListingEdit} />
     </Stack.Navigator>
   );
