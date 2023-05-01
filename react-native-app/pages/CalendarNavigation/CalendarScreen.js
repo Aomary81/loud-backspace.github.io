@@ -216,6 +216,7 @@ function CalendarScreen() {
             height: '100%',
             display: success ? 'none' : 'flex'
             }}>
+			<Text style={styles.textHead}>Create Reminder</Text>
             <InputField
               placeholder={"Date Format: YYYY-MM-DD"}
               value={dueDate}
@@ -312,7 +313,11 @@ function CalendarScreen() {
           {((selectedTab === 'reminders') || isLandscape) && <View style={{
             flex: 1,
             width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
             }}>
+			
+			  <Text style={styles.textHead}>Reminders</Text>
               <ScrollView style={styles.tile}>
               {reminders ? (
                 <View style={styles.Box}>
@@ -414,4 +419,8 @@ const styles = StyleSheet.create({
     color: theme.TEXT_COLOR,
     fontSize: 15,
   },
+  textHead: {
+	fontSize: 25,
+    height: 60,
+  }
 });
