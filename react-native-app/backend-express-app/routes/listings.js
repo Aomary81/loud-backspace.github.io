@@ -69,8 +69,17 @@ router.post("/add", async (req, res) => {
         return res.status(400).json({ message: "Failed" });
       }
     } catch (error) {
-      console.log(error.message);
-      return res.status(400).json({ message: "Failed" });
+		if(!error.path){
+			
+			const errorField = Object.keys(error.errors)[0];
+			
+			console.log('Error Database Failed Validation:', errorField);
+			return res.status(400).json({ message: errorField })
+		}
+		else{
+			console.log('Error Database Failed To Post:', error.path);
+			return res.status(400).json({ message: error.path })
+		}
     }
     //const listing = await Listing.findOne({email: email});
   } catch (error) {
