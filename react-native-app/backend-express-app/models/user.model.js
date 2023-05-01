@@ -25,10 +25,18 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   address: String,
+  desc: String,
   city: String,
   state: String,
-  zip_code: String,
-  desc: String,
+  zip_code: {
+	type: Number,
+	desc: String,
+	validate: {
+		validator: function(value) {
+			return value > 500 && value <= 99950;
+		},
+	}
+  },
   my_listings: [{
     type: mongoose.SchemaTypes.ObjectId,
     ref: Listing

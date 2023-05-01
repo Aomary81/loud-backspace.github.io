@@ -56,6 +56,7 @@ router.post('/user', (req, res) => {
 				household,
 				gender
 			};
+			//console.log("Safe data to return: " + JSON.stringify(safeData));
 			return res.status(200).json(safeData);
         }
 		  
