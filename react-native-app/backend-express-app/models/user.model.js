@@ -18,7 +18,12 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+	validate: {
+		validator: function(value){
+			return value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/i) != null;
+		},
+	}
   },
   gender: {
     type: String,
