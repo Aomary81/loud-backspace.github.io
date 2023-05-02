@@ -23,8 +23,9 @@ const AccountInformation = () => {
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [listing, setListing] = useState("");
-  const [desc, setDescription] = useState("");
+  const [description, setDescription] = useState("");
   const [gender, setGender] = useState("");
+  const [refresh, setRefresh] = useState(false);
 
   const { myIp } = useContext(AuthContext).ip;
   const { token } = useContext(AuthContext);
@@ -53,11 +54,13 @@ const AccountInformation = () => {
         setState(data.state);
         setZipCode(data.zip_code);
         setDescription(data.desc);
+		console.log("Current description: "+ description);
         setGender(data.gender);
         checkGender(data.gender);
       });
     //console.log(userData);
-  }, []);
+  }, [refresh]);
+  
   const checkGender = (gen) => {
     if (gen === "male") {
       setShowMale(true);
@@ -114,7 +117,8 @@ const AccountInformation = () => {
           last_name: lastName,
           email: email,
           token: token,
-          desc: desc,
+		  zip_code: zipCode,
+          desc: description,
           gender: gender,
         }),
       });
@@ -124,14 +128,16 @@ const AccountInformation = () => {
         setError("");
         setSuccess(true);
       } else {
-        setError("Validation Failed!");
+        setError("Validation Failed: Please fix your "+result.message);
+		console.log("Validation failed: " + JSON.stringify(await response));
       }
 
       //*/
     } catch (error) {
       setError("An error has occured!");
-      console.log(error);
+      console.log("An error has occured!\n"+error);
     }
+	setRefresh(!refresh);
   };
   const [showMale, setShowMale] = useState(false);
   const [showFemale, setShowFemale] = useState(false);
@@ -248,7 +254,7 @@ const AccountInformation = () => {
           <InputField
             style={styles.input}
             value={zipCode}
-            onChangeText={zipCode}
+            onChangeText={setZipCode}
             placeholder="ZIP Code"
           />
           {
@@ -265,7 +271,7 @@ const AccountInformation = () => {
             multiline={true}
             numberOfLines={10}
             placeholder="Bio"
-            value={desc}
+            value={""+description}
             onChangeText={setDescription}
             style={{
               height: 120,
@@ -298,7 +304,7 @@ const AccountInformation = () => {
             //onChangeText={null}
             placeholder={"Confirm Password (disabled)"}
           />*/}
-          <Text>{error}</Text>
+          <Text style={styles.errortext}>{error}</Text>
         <View
           style={{
             flexDirection: "column",
@@ -466,6 +472,13 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#ffffff",
+    fontWeight: "600",
+    fontFamily: 'Roboto'
+  },
+  
+  errortext: {
+    color: "#ff0000",
+	fontSize: 25,
     fontWeight: "600",
     fontFamily: 'Roboto'
   },

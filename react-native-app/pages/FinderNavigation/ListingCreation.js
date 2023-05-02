@@ -27,6 +27,7 @@ const ListingCreation = ({ navigation }) => {
   const [zipCode, setZipCode] = useState("");
   const [rent, setRent] = useState("");
   const [tags, setTags] = useState("");
+  const [error, setError] = useState("");
   const [bio, setBio] = useState("");
   const [bed, setBed] = useState("");
   const [bath, setBath] = useState("");
@@ -65,7 +66,11 @@ const ListingCreation = ({ navigation }) => {
       const result = await response.json();
       if (response.status == 200) {
         setSucess(true);
+		setError("");
       }
+	  else{  
+		setError("Please fix " + result.message);
+	  }
     } catch (error) {
       console.log(error.message);
     }
@@ -113,6 +118,7 @@ const ListingCreation = ({ navigation }) => {
     <ScreenLayout>
       <View style={{marginTop: 50, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
         <Text style={{color: theme.TEXT_COLOR, fontSize: 30, marginBottom: 8, fontFamily: 'Roboto'}}>Create New Listing</Text>
+        <Text style={{color: "#ff0000", fontSize: 15, marginBottom: 8, fontFamily: 'Roboto'}}>{error}</Text>
         {/* Column 1 (Street Number, Street Name, Apartment Number, City, State, ZIP) */}
         <View style={{display: 'flex', flexDirection: isLandscape ? 'column' : 'row', justifyContent: 'center'}}>
           <View style={{display: 'flex', flexDirection: 'column', marginRight: 10}}>
