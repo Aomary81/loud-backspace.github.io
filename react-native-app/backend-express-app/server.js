@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const https = require("https");
+const serverless = require("serverless-http");
 const fs = require("fs");
 const ip = "localhost";
 
@@ -13,6 +14,7 @@ require("dotenv").config();
 
 //Imports userRoutes from ./routes/users.js
 const usersRouter = require("./routes/users");
+
 //Imports authRouter from ./routes/auth.js
 const authRouter = require("./routes/auth");
 
@@ -25,6 +27,7 @@ const householdRouter = require("./routes/household");
 const reminderRouter = require("./routes/reminders");
 
 const app = express();
+const router = express.Router();
 const port = process.env.PORT || 3000;
 
 /*const httpsOptions = {
@@ -63,6 +66,18 @@ app.use("/reminders", reminderRouter);
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
+
+
+app.use("/.netlify/routes/users", usersRouter);
+app.use("/.netlify/routes/auth", authRouter);
+app.use("/.netlify/routes/update", updateRouter);
+app.use("/.netlify/routes/get", getUserRouter);
+app.use("/.netlify/routes/listings", listingsRouter);
+app.use("/.netlify/routes/household", householdRouter);
+app.use("/.netlify/routes/reminders", reminderRouter);
+
+app.use("/.netlify/routes/server", router);  // path must route to lambda
+module.exports.handler = serverless(app);
 
 /*https.createServer(options, app).listen(port, () => {
     console.log(`Server is running on port: ${port}`);

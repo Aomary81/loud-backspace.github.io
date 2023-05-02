@@ -7,6 +7,7 @@ const Household = require("../models/mongodb_schemas/Household");
 const AddCode = require("../models/mongodb_schemas/HouseholdCodes");
 const Reminder = require("../models/mongodb_schemas/reminderSchema");
 const { updateOne } = require("../models/listing.model");
+const serverless = require("serverless-http");
 
 router.post("/create", async (req, res) => {
   const token = req.cookies.token || req.body.token;
@@ -210,4 +211,4 @@ router.post("/leave", async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports.handler = serverless(router);

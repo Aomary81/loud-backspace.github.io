@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const User = require('../models/user.model');
+const serverless = require("serverless-http");
 
 const saltRounds = 10;
 
@@ -132,4 +133,4 @@ router.post('/logout', (req, res) => {
 
 router.patch('/')
 
-module.exports = router;
+module.exports.handler = serverless(router);

@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/user.model');
 const Listing = require('../models/listing.model');
+const serverless = require("serverless-http");
 
 router.patch('/user', async (req, res) => {
     const token = req.cookies.token || req.body.token;
@@ -50,4 +51,4 @@ router.patch('/user', async (req, res) => {
     }
 });
 
-module.exports = router;
+module.exports.handler = serverless(router);

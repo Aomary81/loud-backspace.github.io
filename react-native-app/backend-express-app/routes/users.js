@@ -1,5 +1,10 @@
 const router = require('express').Router();
 let User = require('../models/user.model');
+const serverless = require("serverless-http");
+
+router.get("/", (req, res) => {
+    res.json({'path':'App is running!'});
+  });
 
 router.route('/').get((req, res) => {
     User.find()
@@ -16,6 +21,4 @@ router.route('/add').post((req, res) => {
         .catch(err => res.status(400).json('Error: '+ err));
 });
 
-
-
-module.exports = router;
+module.exports.handler = serverless(router);

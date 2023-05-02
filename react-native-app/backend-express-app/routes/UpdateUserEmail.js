@@ -16,3 +16,5 @@ app.put('/users/:id/email', (req, res) => {
 
       }
   });
+
+  module.exports.handler = serverless(router);
