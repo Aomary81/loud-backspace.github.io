@@ -6,13 +6,12 @@ import { AuthContext } from "../../context";
 
 export default function UserListings({navigation}){
     const { token } = useContext(AuthContext);
-    const { myIp } = useContext(AuthContext).ip;
     const [myListings, setListings] = useState([]);
 
     useEffect(() => {
          const getListings = async () => {
             try {
-                const res = await fetch("http://" + myIp + ":3000/listings/my_listings", {
+                const res = await fetch(process.env.BACKEND_IP_PORT+"/listings/my_listings", {
                     method: "POST",
                     credentials: "include",
                     headers: {
@@ -21,7 +20,7 @@ export default function UserListings({navigation}){
                     body: JSON.stringify({
                         token: token,
                     }),
-                    https: false
+                    https: process.env.HTTP
                 });
                 const data = await res.json();
                 if(res.status == 200){

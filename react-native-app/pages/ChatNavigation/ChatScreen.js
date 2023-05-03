@@ -3,14 +3,12 @@ import { View, Text, StyleSheet, SafeAreaView} from 'react-native';
 import React, { useState, useEffect, useContext  } from "react";
 import { AuthContext } from "../../context";
 
-import theme from '../../styles/theme.style';
 import QueryTester from '../QueryTester';
 
 
 function ChatScreen() {
 	
 
-	const { myIp } = useContext(AuthContext).ip;
 	const { token } = useContext(AuthContext);
 
 	const [success, setSuccess] = useState(false);

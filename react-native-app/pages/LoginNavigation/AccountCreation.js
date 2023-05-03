@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import {
   View,
-  Button,
   Text,
   StyleSheet,
   Platform,
@@ -17,10 +16,9 @@ const isWeb = Platform.OS === "web";
 
 const AccountCreation = () => {
   const { signIn, setToken } = useContext(AuthContext).authContext;
-  const { myIp } = useContext(AuthContext).ip;
 
   const handleSignup = () => {
-    fetch("http://" + myIp + ":3000/auth/signup", {
+    fetch(process.env.BACKEND_IP_PORT+"/auth/signup", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -38,7 +36,7 @@ const AccountCreation = () => {
         gender: gender,
         isMobile: isWeb ? false : true,
       }),
-      https: false, // Set the https option to true
+      https: process.env.HTTP, // Set the https option to true
     })
       .then((response) => response.json())
       .then((data) => (data.token ? setUserState(data.token) : null))
@@ -53,6 +51,7 @@ const AccountCreation = () => {
       setToken(token);
       signIn(true);
     } else {
+      setToken(token);
       signIn(true);
     }
   };

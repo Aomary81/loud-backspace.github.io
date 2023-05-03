@@ -31,7 +31,6 @@ const isWeb = Platform.OS === "web";
 
 function DashBoardScreen() {
   const { token } = useContext(AuthContext);
-  const { myIp } = useContext(AuthContext).ip;
   const [myListings, setListings] = useState([]);
   const [selectedItem, setSelectedItem] = useState();
   const [household, setHousehold] = useState();
@@ -105,7 +104,7 @@ function DashBoardScreen() {
   const getListings = async () => {
     try {
       const res = await fetch(
-        "http://" + myIp + ":3000/listings/my_listings",
+        process.env.BACKEND_IP_PORT+"/listings/my_listings",
         {
           method: "POST",
           credentials: "include",
@@ -115,7 +114,7 @@ function DashBoardScreen() {
           body: JSON.stringify({
             token: token,
           }),
-          https: false,
+          https: process.env.HTTP,
         }
       );
       const data = await res.json();
@@ -138,7 +137,7 @@ function DashBoardScreen() {
   const getHousehold = async () => {
     try {
       const res = await fetch(
-        "http://" + myIp + ":3000/household/get-household",
+        process.env.BACKEND_IP_PORT+"/household/get-household",
         {
           method: "POST",
           credentials: "include",
@@ -148,7 +147,7 @@ function DashBoardScreen() {
           body: JSON.stringify({
             token: token,
           }),
-          https: false,
+          https: process.env.HTTP,
         }
       );
       const data = await res.json();
@@ -173,7 +172,7 @@ function DashBoardScreen() {
   const getReminders = async () => {
     try {
       const res = await fetch(
-        "http://" + myIp + ":3000/reminders/my_reminders",
+        process.env.BACKEND_IP_PORT+"/reminders/my_reminders",
         {
           method: "POST",
           credentials: "include",
@@ -183,7 +182,7 @@ function DashBoardScreen() {
           body: JSON.stringify({
             token: token,
           }),
-          https: false,
+          https: process.env.HTTP,
         }
       );
       const data = await res.json();
@@ -203,7 +202,7 @@ function DashBoardScreen() {
 	const SubmitHousehold = async () => {
 		try {
 		  const response = await fetch(
-        "http://" + myIp + ":3000/household/create",
+        process.env.BACKEND_IP_PORT+"/household/create",
         {
           method: "POST",
           credentials: "include",
@@ -215,7 +214,7 @@ function DashBoardScreen() {
             name: householdName,
             token: token,
           }),
-          https: false, // Set the https option to true
+          https: process.env.HTTP, // Set the https option to true
         }
       );
       const data = await response.json();
@@ -230,7 +229,7 @@ function DashBoardScreen() {
   const getAddCode = async () => {
   try {
     const response = await fetch(
-      "http://" + myIp + ":3000/household/invite",
+      process.env.BACKEND_IP_PORT+"/household/invite",
       {
         method: "POST",
         credentials: "include",
@@ -241,7 +240,7 @@ function DashBoardScreen() {
         body: JSON.stringify({
         token: token,
         }),
-        https: false, // Set the https option to true
+        https: process.env.HTTP, // Set the https option to true
       }
     );
     const data = await response.json();
@@ -255,7 +254,7 @@ function DashBoardScreen() {
 
 	const joinHousehold = async () => {
 		try {
-			const response = await fetch("http://" + myIp + ":3000/household/add", {
+			const response = await fetch(process.env.BACKEND_IP_PORT+"/household/add", {
 			  method: "POST",
 			  credentials: "include",
 			  headers: {
@@ -266,7 +265,7 @@ function DashBoardScreen() {
 				addCode: inputAddCode.replace(/-/g,'').toLowerCase(),
 				token: token,
 			  }),
-			  https: false, // Set the https option to true
+			  https: process.env.HTTP, // Set the https option to true
 			});
 			const data = await response.json();
 			if (response.status == 200) {
@@ -280,7 +279,7 @@ function DashBoardScreen() {
   const deleteListing = async (id) => {
     setDelListingPressed()
     try {
-      const response = await fetch("http://" + myIp + ":3000/listings/delete", {
+      const response = await fetch(process.env.BACKEND_IP_PORT+"/listings/delete", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -291,7 +290,7 @@ function DashBoardScreen() {
           listing_id: listingDel || id,
           token: token,
         }),
-        https: false, // Set the https option to true
+        https: process.env.HTTP, // Set the https option to true
       });
       if (response.status == 200) {
         getListings()
@@ -308,7 +307,7 @@ function DashBoardScreen() {
     setDelReminderPressed(false)
     try {
       const response = await fetch(
-        "http://" + myIp + ":3000/reminders/delete",
+        process.env.BACKEND_IP_PORT+"/reminders/delete",
         {
           method: "POST",
           credentials: "include",
@@ -319,7 +318,7 @@ function DashBoardScreen() {
             reminder_id: reminderDel || id,
             token: token,
           }),
-          https: false, // Set the https option to true
+          https: process.env.HTTP, // Set the https option to true
         }
       );
       if (response.status == 200) {
@@ -337,7 +336,7 @@ function DashBoardScreen() {
     setDelHouseholdPressed(false)
     try {
       const response = await fetch(
-        "http://" + myIp + ":3000/household/leave",
+        process.env.BACKEND_IP_PORT+"/household/leave",
         {
           method: "POST",
           credentials: "include",
@@ -347,13 +346,14 @@ function DashBoardScreen() {
           body: JSON.stringify({
             token: token,
           }),
-          https: false, // Set the https option to true
+          https: process.env.HTTP, // Set the https option to true
         }
       );
       if (response.status == 200) {
-        setHousehold(null)
-        setHouseholdName('')
-        setReminders([])
+        setHousehold(null);
+        setHouseholdName('');
+        setReminders([]);
+        setMembers([]);
       } else {
         console.log("Error occured leaving household");
       }

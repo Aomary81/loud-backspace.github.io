@@ -4,8 +4,7 @@ import {
   Button,
   StyleSheet,
   SafeAreaView,
-  StatusBar,
-  Text
+  StatusBar
 } from "react-native";
 import { AuthContext } from "../../context";
 import theme from '../../styles/theme.style'
@@ -14,7 +13,6 @@ import InputArea from '../components/V2Components/InputArea'
 
 const ListingEdit = ({ route, navigation }) => {
   const { listing, prev } = route.params;
-  const { myIp } = useContext(AuthContext).ip;
   const { token } = useContext(AuthContext);
   const [streetNumber, setStreetNumber] = useState(listing.street_number);
   const [streetName, setStreetName] = useState(listing.street_name);
@@ -28,7 +26,7 @@ const ListingEdit = ({ route, navigation }) => {
 
   const SubmitListing = async () => {
     try {
-      const response = await fetch("http://" + myIp + ":3000/listings/edit", {
+      const response = await fetch(process.env.BACKEND_IP_PORT+"/listings/edit", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -48,7 +46,7 @@ const ListingEdit = ({ route, navigation }) => {
           token: token,
           listing_id: listing._id
         }),
-        https: false, // Set the https option to true
+        https: process.env.HTTP, // Set the https option to true
       });
       const result = await response.json();
       if (response.status == 200) {

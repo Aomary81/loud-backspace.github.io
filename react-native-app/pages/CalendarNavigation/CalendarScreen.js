@@ -27,7 +27,6 @@ function CalendarScreen() {
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState(new Date().toISOString().slice(0,10));
   const [success, setSuccess] = useState(false);
-  const { myIp } = useContext(AuthContext).ip;
   const { token } = useContext(AuthContext);
   const [reminders, setReminders] = useState([]);
   const [selectedDay, setSelectedDay] = useState(new Date().toISOString().slice(0,10));
@@ -46,7 +45,7 @@ function CalendarScreen() {
   };
   const ReminderCreation = async () => {
     try {
-      const response = await fetch("http://" + myIp + ":3000/reminders/add", {
+      const response = await fetch(process.env.BACKEND_IP_PORT+"/reminders/add", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -58,7 +57,7 @@ function CalendarScreen() {
           dueDate: dueDate,
           token: token,
         }),
-        https: false,
+        https: process.env.HTTP,
       });
       const result = await response.json();
       if (response.status == 200) {
@@ -79,7 +78,7 @@ function CalendarScreen() {
       const getReminders = async () => {
         try {
           const res = await fetch(
-            "http://" + myIp + ":3000/reminders/my_reminders_day",
+            process.env.BACKEND_IP_PORT+"/reminders/my_reminders_day",
             {
               method: "POST",
               credentials: "include",
@@ -90,7 +89,7 @@ function CalendarScreen() {
                 token: token,
                 selectedDay: selectedDay
               }),
-              https: false,
+              https: process.env.HTTP,
             }
           );
           const data = await res.json();

@@ -7,13 +7,11 @@ import * as SecureStore from 'expo-secure-store';
 
 import InputField from '../components/V2Components/InputField'
 import theme from '../../styles/theme.style'
-import { isSearchBarAvailableForCurrentPlatform } from 'react-native-screens';
 import {Image, Appearance, useWindowDimensions} from 'react-native';
 const isWeb = Platform.OS === "web";
 
 function LoginScreen({navigation}) {
   const { signIn, setToken } = useContext(AuthContext).authContext;
-  const { myIp } = useContext(AuthContext).ip;
 
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
@@ -34,7 +32,7 @@ function LoginScreen({navigation}) {
 
   const handleLogin = async () => {
     try {
-      const res = await fetch('http://'+myIp+':3000/auth/login', {
+      const res = await fetch(process.env.BACKEND_IP_PORT+'/auth/login', {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -45,7 +43,7 @@ function LoginScreen({navigation}) {
         password: password,
         isMobile: isWeb ? false : true
       }),
-        https: false,
+        https: process.env.HTTP,
       });
       const data = await res.json();
       if(res.status == 200){
@@ -72,6 +70,7 @@ function LoginScreen({navigation}) {
       setToken(token);
       signIn(true);
     }else{
+      setToken(token);
       signIn(true);
     }
   };

@@ -13,7 +13,6 @@ import { AuthContext } from '../../context';
 const isWeb = Platform.OS === "web";
 function SomeComponent() {
     const { signIn, setToken } = useContext(AuthContext).authContext;
-    const { myIp } = useContext(AuthContext).ip;
     
     const handleLogout = () => {
         if(!isWeb){
@@ -21,13 +20,13 @@ function SomeComponent() {
             deleteToken('userToken');
             signIn(false);
         } else {
-            fetch('http://'+myIp+':3000/auth/logout', {
+            fetch(process.env.BACKEND_IP_PORT+'/auth/logout', {
             method: 'POST',
             credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
             },
-                https: false,
+                https: process.env.HTTP,
             })
             .catch(error => {
                 console.error(error);

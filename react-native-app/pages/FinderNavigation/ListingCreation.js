@@ -2,10 +2,7 @@ import React, { useState, useContext } from "react";
 import {
   View,
   Text,
-  Button,
   StyleSheet,
-  SafeAreaView,
-  StatusBar,
   useWindowDimensions,
 } from "react-native";
 import { AuthContext } from "../../context";
@@ -17,7 +14,6 @@ import { TouchableOpacity } from 'react-native';
 import ScreenLayout from "../components/V2Components/ScreenLayout";
 
 const ListingCreation = ({ navigation }) => {
-  const { myIp } = useContext(AuthContext).ip;
   const { token } = useContext(AuthContext);
   const [streetNumber, setStreetNumber] = useState("");
   const [streetName, setStreetName] = useState("");
@@ -39,7 +35,7 @@ const ListingCreation = ({ navigation }) => {
 
   const SubmitListing = async () => {
     try {
-      const response = await fetch("http://" + myIp + ":3000/listings/add", {
+      const response = await fetch(process.env.BACKEND_IP_PORT+"/listings/add", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -61,7 +57,7 @@ const ListingCreation = ({ navigation }) => {
           bath: bath,
           token: token,
         }),
-        https: false, // Set the https option to true
+        https: process.env.HTTP, // Set the https option to true
       });
       const result = await response.json();
       if (response.status == 200) {

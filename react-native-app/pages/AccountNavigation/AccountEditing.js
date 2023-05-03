@@ -27,14 +27,13 @@ const AccountInformation = () => {
   const [gender, setGender] = useState("");
   const [refresh, setRefresh] = useState(false);
 
-  const { myIp } = useContext(AuthContext).ip;
   const { token } = useContext(AuthContext);
 
   const [success, setSuccess] = useState(false);
   const isWeb = Platform.OS === "web";
 
   useEffect(() => {
-    const userData = fetch("http://" + myIp + ":3000/get/user", {
+    const userData = fetch(process.env.BACKEND_IP_PORT+"/get/user", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -43,6 +42,7 @@ const AccountInformation = () => {
       body: JSON.stringify({
         token: token,
       }),
+      https: process.env.HTTP,
     })
       .then((response) => response.json())
       .then((data) => {
@@ -79,13 +79,13 @@ const AccountInformation = () => {
       deleteToken("userToken");
       signIn(false);
     } else {
-      fetch("http://" + myIp + ":3000/auth/logout", {
+      fetch(process.env.BACKEND_IP_PORT+"/auth/logout", {
         method: "POST",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
-        https: false, // Set the https option to true
+        https: process.env.HTTP, // Set the https option to true
       }).catch((error) => {
         console.error(error);
       });
@@ -106,7 +106,7 @@ const AccountInformation = () => {
     // Add more validation checks
 
     try {
-      const response = await fetch("http://" + myIp + ":3000/update/user", {
+      const response = await fetch(process.env.BACKEND_IP_PORT+"/update/user", {
         method: "PATCH",
         credentials: "include",
         headers: {
@@ -117,10 +117,11 @@ const AccountInformation = () => {
           last_name: lastName,
           email: email,
           token: token,
-		  zip_code: zipCode,
+		      zip_code: zipCode,
           desc: description,
           gender: gender,
         }),
+        https: process.env.HTTP
       });
 
       const result = await response.json();
