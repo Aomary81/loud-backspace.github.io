@@ -1,4 +1,4 @@
-//const user = require("./models/user");
+const user = require("./models/user");
 
 const UpdateTags = () => {
   app.put("/users/:email", async (req, res) => {

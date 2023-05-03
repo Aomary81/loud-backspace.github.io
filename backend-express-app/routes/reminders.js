@@ -199,4 +199,4 @@ router.post("/delete", async (req, res) => {
   }
 });
 
-module.exports.handler = serverless(router);
+module.exports = router;

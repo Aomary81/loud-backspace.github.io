@@ -7,8 +7,6 @@ const Household = require("../models/mongodb_schemas/Household");
 const AddCode = require("../models/mongodb_schemas/HouseholdCodes");
 const Reminder = require("../models/mongodb_schemas/reminderSchema");
 const { updateOne } = require("../models/listing.model");
-const serverless = require("serverless-http");
-const app = express();
 
 router.post("/create", async (req, res) => {
   const token = req.cookies.token || req.body.token;
@@ -211,7 +209,5 @@ router.post("/leave", async (req, res) => {
     return res.status(401).json({ message: "Unauthorized" });
   }
 });
-app.use(express.json());
-app.use('/.netlify/functions/household', router);
 
-module.exports.handler = serverless(app);
+module.exports = router;

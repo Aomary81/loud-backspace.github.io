@@ -3,8 +3,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const User = require('../models/user.model');
-const serverless = require("serverless-http");
-const app = express();
 
 const saltRounds = 10;
 
@@ -134,7 +132,4 @@ router.post('/logout', (req, res) => {
 
 router.patch('/')
 
-app.use(express.json());
-app.use('/.netlify/functions/auth', router);
-
-module.exports.handler = serverless(app);
+module.exports = router;

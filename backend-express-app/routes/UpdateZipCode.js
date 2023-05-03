@@ -1,12 +1,12 @@
-//const user = require("./models/user");
+const user = require("./models/user");
 
-const UpdateTags = () => {
+const UpdateZipCode = () => {
   app.put("/users/:email", async (req, res) => {
     const { email } = req.params;
-    const { tags } = req.body;
+    const { zipCode } = req.body;
 
     try {
-      const updatedUser = await User.findOneAndUpdate({ email }, { tags });
+      const updatedUser = await User.findOneAndUpdate({ email }, { zipCode });
 
       res.json(updatedUser);
     } catch (error) {

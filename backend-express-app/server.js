@@ -4,30 +4,27 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const https = require("https");
-const serverless = require("serverless-http");
 const fs = require("fs");
-const ip = "0.0.0.0";
+const ip = "localhost";
 
 require("dotenv").config();
 
 // Route imports
 
 //Imports userRoutes from ./routes/users.js
-const usersRouter = require("./functions/users");
-
+const usersRouter = require("./routes/users");
 //Imports authRouter from ./routes/auth.js
-const authRouter = require("./functions/auth");
+const authRouter = require("./routes/auth");
 
-const updateRouter = require("./functions/updateUser");
+const updateRouter = require("./routes/updateUser");
 
-const getUserRouter = require("./functions/getUserData");
+const getUserRouter = require("./routes/getUserData");
 
-const listingsRouter = require("./functions/listings");
-const householdRouter = require("./functions/household");
-const reminderRouter = require("./functions/reminders");
+const listingsRouter = require("./routes/listings");
+const householdRouter = require("./routes/household");
+const reminderRouter = require("./routes/reminders");
 
 const app = express();
-const router = express.Router();
 const port = process.env.PORT || 3000;
 
 /*const httpsOptions = {
@@ -41,7 +38,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 var corsOptions = {
-  origin: ["http://localhost:19006", "http://" + ip + ":19006", "https://famous-melomakarona-5c9bc8.netlify.app"],
+  origin: ["http://localhost:19006", "http://" + ip + ":19006"],
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -53,7 +50,6 @@ const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
-
 
 //Routes
 app.use("/users", usersRouter);
@@ -67,10 +63,6 @@ app.use("/reminders", reminderRouter);
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
-
-
-//app.use("/.netlify/routes/server", router);  // path must route to lambda
-//module.exports.handler = serverless(app);
 
 /*https.createServer(options, app).listen(port, () => {
     console.log(`Server is running on port: ${port}`);

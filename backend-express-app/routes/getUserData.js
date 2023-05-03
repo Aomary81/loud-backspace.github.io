@@ -227,4 +227,4 @@ router.post('/roommates', (req, res) => {
 });
 
 
-module.exports.handler = serverless(router);
+module.exports = router;
