@@ -21,7 +21,7 @@ function SomeComponent() {
             deleteToken('userToken');
             signIn(false);
         } else {
-            fetch('http://'+myIp+':3000/auth/logout', {
+            fetch(process.env.BACKEND_IP_PORT+'/auth/logout', {
             method: 'POST',
             credentials: "include",
             headers: {

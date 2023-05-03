@@ -105,7 +105,7 @@ function DashBoardScreen() {
   const getListings = async () => {
     try {
       const res = await fetch(
-        "http://" + myIp + ":3000/listings/my_listings",
+        process.env.BACKEND_IP_PORT+"/listings/my_listings",
         {
           method: "POST",
           credentials: "include",
@@ -138,7 +138,7 @@ function DashBoardScreen() {
   const getHousehold = async () => {
     try {
       const res = await fetch(
-        "http://" + myIp + ":3000/household/get-household",
+        process.env.BACKEND_IP_PORT+"/household/get-household",
         {
           method: "POST",
           credentials: "include",
@@ -173,7 +173,7 @@ function DashBoardScreen() {
   const getReminders = async () => {
     try {
       const res = await fetch(
-        "http://" + myIp + ":3000/reminders/my_reminders",
+        process.env.BACKEND_IP_PORT+"/reminders/my_reminders",
         {
           method: "POST",
           credentials: "include",
@@ -203,7 +203,7 @@ function DashBoardScreen() {
 	const SubmitHousehold = async () => {
 		try {
 		  const response = await fetch(
-        "http://" + myIp + ":3000/household/create",
+        process.env.BACKEND_IP_PORT+"/household/create",
         {
           method: "POST",
           credentials: "include",
@@ -230,7 +230,7 @@ function DashBoardScreen() {
   const getAddCode = async () => {
   try {
     const response = await fetch(
-      "http://" + myIp + ":3000/household/invite",
+      process.env.BACKEND_IP_PORT+"/household/invite",
       {
         method: "POST",
         credentials: "include",
@@ -255,7 +255,7 @@ function DashBoardScreen() {
 
 	const joinHousehold = async () => {
 		try {
-			const response = await fetch("http://" + myIp + ":3000/household/add", {
+			const response = await fetch(process.env.BACKEND_IP_PORT+"/household/add", {
 			  method: "POST",
 			  credentials: "include",
 			  headers: {
@@ -280,7 +280,7 @@ function DashBoardScreen() {
   const deleteListing = async (id) => {
     setDelListingPressed()
     try {
-      const response = await fetch("http://" + myIp + ":3000/listings/delete", {
+      const response = await fetch(process.env.BACKEND_IP_PORT+"/listings/delete", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -308,7 +308,7 @@ function DashBoardScreen() {
     setDelReminderPressed(false)
     try {
       const response = await fetch(
-        "http://" + myIp + ":3000/reminders/delete",
+        process.env.BACKEND_IP_PORT+"/reminders/delete",
         {
           method: "POST",
           credentials: "include",
@@ -337,7 +337,7 @@ function DashBoardScreen() {
     setDelHouseholdPressed(false)
     try {
       const response = await fetch(
-        "http://" + myIp + ":3000/household/leave",
+        process.env.BACKEND_IP_PORT+"/household/leave",
         {
           method: "POST",
           credentials: "include",

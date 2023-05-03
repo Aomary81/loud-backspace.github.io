@@ -39,7 +39,7 @@ const ListingCreation = ({ navigation }) => {
 
   const SubmitListing = async () => {
     try {
-      const response = await fetch("http://" + myIp + ":3000/listings/add", {
+      const response = await fetch(process.env.BACKEND_IP_PORT+"/listings/add", {
         method: "POST",
         credentials: "include",
         headers: {

@@ -46,7 +46,7 @@ function CalendarScreen() {
   };
   const ReminderCreation = async () => {
     try {
-      const response = await fetch("http://" + myIp + ":3000/reminders/add", {
+      const response = await fetch(process.env.BACKEND_IP_PORT+"/reminders/add", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -79,7 +79,7 @@ function CalendarScreen() {
       const getReminders = async () => {
         try {
           const res = await fetch(
-            "http://" + myIp + ":3000/reminders/my_reminders_day",
+            process.env.BACKEND_IP_PORT+"/reminders/my_reminders_day",
             {
               method: "POST",
               credentials: "include",

@@ -130,7 +130,7 @@ export default function FinderScreen({ navigation }) {
 
   const SearchListings = async () => {
     try {
-      const response = await fetch("http://" + myIp + ":3000/listings/search", {
+      const response = await fetch(process.env.BACKEND_IP_PORT+"/listings/search", {
         method: "POST",
         credentials: "include",
         headers: {

@@ -12,7 +12,7 @@ export default function UserListings({navigation}){
     useEffect(() => {
          const getListings = async () => {
             try {
-                const res = await fetch("http://" + myIp + ":3000/listings/my_listings", {
+                const res = await fetch(process.env.BACKEND_IP_PORT+"/listings/my_listings", {
                     method: "POST",
                     credentials: "include",
                     headers: {

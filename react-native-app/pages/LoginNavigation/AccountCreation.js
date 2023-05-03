@@ -20,7 +20,7 @@ const AccountCreation = () => {
   const { myIp } = useContext(AuthContext).ip;
 
   const handleSignup = () => {
-    fetch("http://" + myIp + ":3000/auth/signup", {
+    fetch(process.env.BACKEND_IP_PORT+"/auth/signup", {
       method: "POST",
       credentials: "include",
       headers: {

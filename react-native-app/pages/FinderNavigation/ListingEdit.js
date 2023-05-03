@@ -28,7 +28,7 @@ const ListingEdit = ({ route, navigation }) => {
 
   const SubmitListing = async () => {
     try {
-      const response = await fetch("http://" + myIp + ":3000/listings/edit", {
+      const response = await fetch(process.env.BACKEND_IP_PORT+"/listings/edit", {
         method: "POST",
         credentials: "include",
         headers: {

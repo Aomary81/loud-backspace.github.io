@@ -14,7 +14,7 @@ function QueryTester(props) {
 	
 	
 	const endpoint = props.endpoint
-	const api_address = "http://" + myIp + ":3000"+endpoint
+	const api_address = process.env.BACKEND_IP_PORT+""+endpoint
 	
 	useEffect(() => { 
 		
