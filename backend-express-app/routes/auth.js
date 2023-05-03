@@ -36,8 +36,8 @@ router.post('/login', async (req, res) => {
     if(!isMobile){
       res.cookie('token', token, {
         httpOnly: true,
-        secure: false,
-        sameSite: 'none'
+        //secure: false,
+        sameSite: 'strict'
       }).json({ token });
     }
     // Send the token in the response body if the request is coming from a mobile app
@@ -122,8 +122,8 @@ router.post('/signup', async (req, res) => {
     if(!isMobile){
       res.cookie('token', token, {
         httpOnly: true,
-        secure: false,
-        sameSite: 'none'
+        //secure: false,
+        sameSite: 'strict'
       }).json({ token });
     }
     
