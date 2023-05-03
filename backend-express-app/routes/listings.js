@@ -27,7 +27,7 @@ router.post("/add", async (req, res) => {
 
   try {
     // Verify the token and extract the user ID
-    const decodedToken = jwt.verify(token, "thisIsSecret");
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
     const userId = decodedToken.userId;
 
     // Fetch the user from the database using the user ID
@@ -183,7 +183,7 @@ router.post("/my_listings", async (req, res) => {
   }
 
   try {
-    const decodedToken = jwt.verify(token, "thisIsSecret");
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
     const userId = decodedToken.userId;
 
     try {
@@ -210,7 +210,7 @@ router.post("/delete", async (req, res) => {
     return res.status(401).json({ message: "Unauthorized" });
   }
   try {
-    const decodedToken = jwt.verify(token, "thisIsSecret");
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
     const userId = decodedToken.userId;
 
     const deletedListing = await Listing.findByIdAndDelete(listing_id);

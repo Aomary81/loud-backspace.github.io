@@ -5,7 +5,6 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const https = require("https");
 const fs = require("fs");
-const ip = "localhost";
 
 require("dotenv").config();
 
@@ -38,7 +37,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 var corsOptions = {
-  origin: ["http://localhost:19006", "http://" + ip + ":19006"],
+  origin: process.env.IP.split(','),
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -59,6 +58,9 @@ app.use("/get", getUserRouter);
 app.use("/listings", listingsRouter);
 app.use("/household", householdRouter);
 app.use("/reminders", reminderRouter);
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);

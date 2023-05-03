@@ -13,7 +13,7 @@ router.post("/create", async (req, res) => {
   const { name } = req.body;
   try {
     // Verify the token and extract the user ID
-    const decodedToken = jwt.verify(token, "thisIsSecret");
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
     const userId = decodedToken.userId;
 
     // Check if user exists in the database using the user ID
@@ -58,7 +58,7 @@ router.post("/invite", async (req, res) => {
   const expirationDate = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours from now
   try {
     // Verify the token and extract the user ID
-    const decodedToken = jwt.verify(token, "thisIsSecret");
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
     const userId = decodedToken.userId;
 
     // Check if user exists in the database using the user ID
@@ -96,7 +96,7 @@ router.post("/add", async (req, res) => {
 
   try {
     // Verify the token and extract the user ID
-    const decodedToken = jwt.verify(token, "thisIsSecret");
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
     const userId = decodedToken.userId;
 
     // Check if user exists in the database using the user ID
@@ -141,7 +141,7 @@ router.post("/get-household", async (req, res) => {
   const token = req.cookies.token || req.body.token;
   try {
     // Verify the token and extract the user ID
-    const decodedToken = jwt.verify(token, "thisIsSecret");
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
     const userId = decodedToken.userId;
 
     // Check if user exists in the database using the user ID
@@ -174,7 +174,7 @@ router.post("/leave", async (req, res) => {
   const token = req.cookies.token || req.body.token;
   try {
     // Verify the token and extract the user ID
-    const decodedToken = jwt.verify(token, "thisIsSecret");
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
     const userId = decodedToken.userId;
 
     // Check if user exists in the database using the user ID

@@ -15,7 +15,7 @@ router.post('/user', (req, res) => {
   
     try {
       // Verify the token and extract the user ID
-      const decodedToken = jwt.verify(token, 'thisIsSecret');
+      const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
       const userId = decodedToken.userId;
 	  console.log("Attempting to get data for " + userId);
       const filter = userId;
@@ -79,7 +79,7 @@ router.post('/userByID/idInBody', (req, res) => {
   
     try {
       // Verify the token and extract the user ID
-      const decodedToken = jwt.verify(token, 'thisIsSecret');
+      const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
 	  const userID = req.params.userId;
 	  console.log("Attempting to get data for " + userID);
       const filter = req.params.userId;
@@ -145,7 +145,7 @@ router.post('/roommates', (req, res) => {
   
     try {
 		// Verify the token and extract the user ID
-		const decodedToken = jwt.verify(token, 'thisIsSecret');
+		const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
 		const userId = decodedToken.userId;
 		console.log("Attempting to get roommates for " + userId);
 		const filter = userId;

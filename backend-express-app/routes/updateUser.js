@@ -14,7 +14,7 @@ router.patch('/user', async (req, res) => {
   
     try {
       // Verify the token and extract the user ID
-      const decodedToken = jwt.verify(token, 'thisIsSecret');
+      const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
       const userId = decodedToken.userId;
 	  
       const update = {

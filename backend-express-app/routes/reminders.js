@@ -15,7 +15,7 @@ router.post("/add", async (req, res) => {
 
   try {
     // Verify the token and extract the user ID
-    const decodedToken = jwt.verify(token, "thisIsSecret");
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
     const userId = decodedToken.userId;
 
     // Fetch the user from the database using the user ID
@@ -95,7 +95,7 @@ router.post("/my_reminders", async (req, res) => {
     return res.status(401).json({ message: "Unauthorized" });
   }
   try {
-    const decodedToken = jwt.verify(token, "thisIsSecret");
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
     const userId = decodedToken.userId;
     try {
       // May ned to be reworked, unable to test
@@ -129,7 +129,7 @@ router.post("/my_reminders_day", async (req, res) => {
     return res.status(401).json({ message: "Unauthorized" });
   }
   try {
-    const decodedToken = jwt.verify(token, "thisIsSecret");
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
     const userId = decodedToken.userId;
     try {
       // May need to be reworked, unable to test
