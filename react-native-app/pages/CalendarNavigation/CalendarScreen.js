@@ -27,7 +27,6 @@ function CalendarScreen() {
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState(new Date().toISOString().slice(0,10));
   const [success, setSuccess] = useState(false);
-  const { myIp } = useContext(AuthContext).ip;
   const { token } = useContext(AuthContext);
   const [reminders, setReminders] = useState([]);
   const [selectedDay, setSelectedDay] = useState(new Date().toISOString().slice(0,10));
@@ -58,7 +57,7 @@ function CalendarScreen() {
           dueDate: dueDate,
           token: token,
         }),
-        https: false,
+        https: process.env.HTTP,
       });
       const result = await response.json();
       if (response.status == 200) {
@@ -90,7 +89,7 @@ function CalendarScreen() {
                 token: token,
                 selectedDay: selectedDay
               }),
-              https: false,
+              https: process.env.HTTP,
             }
           );
           const data = await res.json();

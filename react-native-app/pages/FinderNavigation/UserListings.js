@@ -6,7 +6,6 @@ import { AuthContext } from "../../context";
 
 export default function UserListings({navigation}){
     const { token } = useContext(AuthContext);
-    const { myIp } = useContext(AuthContext).ip;
     const [myListings, setListings] = useState([]);
 
     useEffect(() => {
@@ -21,7 +20,7 @@ export default function UserListings({navigation}){
                     body: JSON.stringify({
                         token: token,
                     }),
-                    https: false
+                    https: process.env.HTTP
                 });
                 const data = await res.json();
                 if(res.status == 200){

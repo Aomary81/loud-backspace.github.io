@@ -1,6 +1,5 @@
 //Importing third party libraries
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { View, useWindowDimensions } from 'react-native';
 
 import PageLayouts from '@PageLayouts';
 

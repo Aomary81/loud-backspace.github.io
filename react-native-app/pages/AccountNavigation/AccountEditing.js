@@ -27,7 +27,6 @@ const AccountInformation = () => {
   const [gender, setGender] = useState("");
   const [refresh, setRefresh] = useState(false);
 
-  const { myIp } = useContext(AuthContext).ip;
   const { token } = useContext(AuthContext);
 
   const [success, setSuccess] = useState(false);
@@ -43,6 +42,7 @@ const AccountInformation = () => {
       body: JSON.stringify({
         token: token,
       }),
+      https: process.env.HTTP,
     })
       .then((response) => response.json())
       .then((data) => {
@@ -85,7 +85,7 @@ const AccountInformation = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        https: false, // Set the https option to true
+        https: process.env.HTTP, // Set the https option to true
       }).catch((error) => {
         console.error(error);
       });
@@ -117,10 +117,11 @@ const AccountInformation = () => {
           last_name: lastName,
           email: email,
           token: token,
-		  zip_code: zipCode,
+		      zip_code: zipCode,
           desc: description,
           gender: gender,
         }),
+        https: process.env.HTTP
       });
 
       const result = await response.json();

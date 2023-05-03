@@ -17,9 +17,9 @@ import { AuthContext } from "./context";
 
 import DashBoardNavigation from "./pages/DashBoardNavigation/DashBoardNavigation";
 import FinderNavigation from "./pages/FinderNavigation/FinderNavigation";
-import ChatNavigation from "./pages/ChatNavigation/ChatNavigation";
+//import ChatNavigation from "./pages/ChatNavigation/ChatNavigation";
 import CalendarNavigation from "./pages/CalendarNavigation/CalendarNavigation";
-import RemindersNavigation from "./pages/RemindersNavigation/RemindersNavigation";
+//import RemindersNavigation from "./pages/RemindersNavigation/RemindersNavigation";
 import LoginNavigation from "./pages/LoginNavigation/LoginNavigation";
 import AccountNavigation from "./pages/AccountNavigation/AccountNavigation";
 
@@ -39,11 +39,7 @@ export default function App() {
   const [loginChecked, setLoginChecked] = useState(false);
   const [isLoggedIn, setLoginState] = useState(false);
   const [token, setUserToken] = useState(null);
-  const ip = useMemo(() => {
-    return {
-      myIp: "localhost",
-    };
-  }, []);
+  
   const authContext = useMemo(() => {
     return {
       signIn: (loggedIn) => {
@@ -58,7 +54,7 @@ export default function App() {
   async function retrieveUserSession() {
     let result = await SecureStore.getItemAsync("userToken");
     if (result) {
-      await fetch("http://" + ip.myIp + ":3000/auth/isLoggedIn", {
+      await fetch(process.env.BACKEND_IP_PORT+"/auth/isLoggedIn", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -67,7 +63,7 @@ export default function App() {
         body: JSON.stringify({
           token: result,
         }),
-        https: false, // Set the https option to true
+        https: process.env.HTTP, // Set the https option to true
       })
         .then((response) => response.json())
         .then((data) => (valid = data.isLoggedIn))
@@ -90,13 +86,13 @@ export default function App() {
 
   async function retrieveUserWebSession() {
     console.log("Retrieving Session");
-    await fetch("http://" + ip.myIp + ":3000/auth/isLoggedIn", {
+    await fetch(process.env.BACKEND_IP_PORT+"/auth/isLoggedIn", {
       method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
-      https: false, // Set the https option to true
+      https: process.env.HTTP, // Set the https option to true
     })
       .then((response) => response.json())
       .then((data) => setLoginState(data.isLoggedIn))
@@ -128,7 +124,7 @@ export default function App() {
   }
 
   return (
-    <AuthContext.Provider value={{ authContext, token, ip }}>
+    <AuthContext.Provider value={{ authContext, token}}>
       <NavigationContainer>
         {isLoggedIn ? (
           !isWeb ? (

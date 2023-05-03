@@ -8,12 +8,10 @@ import {
   useWindowDimensions
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import React, { useState, useContext } from "react";
+import React, { useState} from "react";
 import InputField from "../components/V2Components/InputField";
-import { AuthContext } from "../../context";
 import theme from '.././../styles/theme.style'
 import IconedTitle from "../components/V2Components/IconedTitle";
-import ContentArea from '../components/V2Components/ContentAreaV2';
 import ContentAreaHeaderBar from '../components/V2Components/ContentAreaHeaderBar';
 import ListingPopup from "../components/V2Components/ListingPopup";
 import { useFocusEffect } from "@react-navigation/native";
@@ -21,7 +19,6 @@ import ScreenLayout from "../components/V2Components/ScreenLayout";
 
 export default function FinderScreen({ navigation }) {
   const isWeb = Platform.OS === "web";
-  const { myIp } = useContext(AuthContext).ip;
   const [zipCode, getZipCode] = useState("");
   const [pageNum, setPageNum] = useState(1);
   const [data, setData] = useState([]);
@@ -144,7 +141,7 @@ export default function FinderScreen({ navigation }) {
           sort: sort
         }),
 
-        https: false, // Set the https option to true
+        https: process.env.HTTP, // Set the https option to true
       });
       const result = await response.json();
       if (response.status == 200) {

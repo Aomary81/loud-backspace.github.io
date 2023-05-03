@@ -1,7 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, useWindowDimensions, Image } from 'react-native';
-import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
-import PageLayouts from '@PageLayouts';
+import { Text, View, Image } from 'react-native';
+import { Title } from 'react-native-paper';
 import theme from '../../../styles/theme.style';
 
 /**

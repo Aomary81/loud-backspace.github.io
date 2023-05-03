@@ -1,4 +1,3 @@
-import React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 //Menu bar content space
 const topBarHeight = 50;
