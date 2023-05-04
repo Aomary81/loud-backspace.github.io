@@ -114,10 +114,6 @@ const AccountInformation = () => {
       setError("Must have email");
       return;
     }
-    if (password == null || password == "") {
-      setError("Must have password");
-      return;
-    }
     if(zipCode === ""){
       setError("Must have Zipcode");
       return;
