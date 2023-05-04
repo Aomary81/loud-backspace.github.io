@@ -92,6 +92,14 @@ const AccountCreation = () => {
       setError("Must have password");
       return;
     }
+    if(zipCode === ""){
+      setError("Must have Zipcode");
+      return;
+    }
+    if(isNaN(zipCode)){
+      setError("Zipcode must be a number");
+      return;
+    }
     handleSignup();
   };
 

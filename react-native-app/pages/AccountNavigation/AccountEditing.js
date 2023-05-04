@@ -102,8 +102,30 @@ const AccountInformation = () => {
       setError("Email is invalid");
       return;
     }
-
-    // Add more validation checks
+    if (firstName == null || firstName == "") {
+      setError("Must have first name");
+      return;
+    }
+    if (lastName == null || lastName == "") {
+      setError("Must have last name");
+      return;
+    }
+    if (email == null || email == "") {
+      setError("Must have email");
+      return;
+    }
+    if (password == null || password == "") {
+      setError("Must have password");
+      return;
+    }
+    if(zipCode === ""){
+      setError("Must have Zipcode");
+      return;
+    }
+    if(isNaN(zipCode)){
+      setError("Zipcode must be a number");
+      return;
+    }
 
     try {
       const response = await fetch(process.env.BACKEND_IP_PORT+"/update/user", {

@@ -20,7 +20,7 @@ router.patch('/user', async (req, res) => {
       const update = {
         first_name,
         last_name,
-		zip_code,
+		    zip_code,
         gender,
         email,
 		    desc
@@ -32,10 +32,10 @@ router.patch('/user', async (req, res) => {
           const result = await User.findById(userId).select('my_listings');
           const listings = result.my_listings;
           const listingUpdate = {
-            first_name,
-            last_name,
-            gender
-          } = update;
+            first_name: update.first_name,
+            last_name: update.last_name,
+            gender: update.gender
+          };
           await Listing.updateMany({_id: {$in: listings}}, listingUpdate, {runValidators: true});
         } catch (err) {
           console.log('Error:', err);
