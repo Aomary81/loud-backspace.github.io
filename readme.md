@@ -153,7 +153,7 @@ node server.js
 - [x] Integrate dashboard UI with existing API for other feature areas with regular refreshes
 - [x] Integrate household add code api with roommate finder UI
 - [x] Integrate roommate finder UI with roommate filter API
-- [ ] Run a test deployment with existing code base pre-final deployment
+- [x] Run a test deployment with existing code base pre-final deployment
 - [ ] Final deployment
 
 ## Project Timeline
@@ -185,8 +185,20 @@ node server.js
   <br>
   
   ![ERD](/readme_assets/Rezidenc_ERD.png)
+  ![End of Semester ERD](/readme_assets/Rezidenc--ERD--End_Of_Semester_Snap.png)
   
 </details>
+
+### Pull Requests & Contribution Guidelines
+
+## Pull Requests
+//Pending input from Peter/Andriy/Aaron on their approval process
+
+## Contribution Guidelines
+- Each member of the development team is to maintain their own access to the repository through github and request access if no access was found on their desired github account
+- Members are required to fetch/pull from the origin of the project and update their work branch with with the current state of the main branch prior to committing to the project to mitigate any merge conflicts that might occur
+- Members are all required to do development work in branches of the project origin and put in a pull request when submitting new work for evaluation
+  - Some individuals have opted to continuously update the same branch while others have opted to create a new branch for each milestone that they've set either approach is commendable
 
 ## Testing & Deployment
 ### Testing Locally
@@ -256,8 +268,18 @@ node server.js
 - Frontend
   - Update the `.env` file in `/react-native-app` with the backend IP address by assigning it to `BACKEND_IP_PORT`.
   - Update the `HTTP` variable to `true`.
+  - Select Add New Site
+  - Then select Import an existing project
   - Connect your [Netlify](https://www.netlify.com/) account to your GitHub account.
-  - *Ken to fill out rest*
+  - Pick this repository or a fork of this repository
+  - Set the owner of the site to your netlify team
+  - Select the branch that you seek to deploy from
+  - Set your base directory to the folder `react-native-app`
+  - Set your build command to `npm run webbuild`
+  - Sey your publish directory to `PortfolioWebsite/web-build`
+  - Then hit deploy, brew some tea, and watch your site get built on netlify
+  - *Any future commits will automatically be pulled and redeployed.*
+  
 - Backend
   - Assign the `IP` variable in the `.env` file located in `/backend-express-app` with your frontend IP address.
   - Connect your GitHub account to [Render](https://render.com).
@@ -279,8 +301,8 @@ node server.js
   - Done!
   - *Any future commits will automatically be pulled and redeployed.*
 
+
 <!--
-### Pull Requests & Contribution Guidelines
 -->
 
 ## Authors & Contributors
