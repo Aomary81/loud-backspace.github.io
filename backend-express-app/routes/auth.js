@@ -112,7 +112,8 @@ router.post('/signup', async (req, res) => {
       city,
       state,
       zip_code,
-      gender
+      gender,
+      desc: ''
     });
 
     await newUser.save();

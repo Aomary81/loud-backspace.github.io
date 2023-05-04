@@ -34,6 +34,14 @@ const ListingCreation = ({ navigation }) => {
   const {width} = useWindowDimensions();
 
   const SubmitListing = async () => {
+    if(zipCode === ""){
+      setError("Must have Zipcode");
+      return;
+    }
+    if(isNaN(zipCode)){
+      setError("Zipcode must be a number");
+      return;
+    }
     try {
       const response = await fetch(process.env.BACKEND_IP_PORT+"/listings/add", {
         method: "POST",
