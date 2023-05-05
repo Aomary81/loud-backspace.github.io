@@ -192,11 +192,11 @@ node server.js
 ### Pull Requests & Contribution Guidelines
 
 ## Pull Requests
-//Pending input from Peter/Andriy/Aaron on their approval process
+- Team members were required to review and merge pull requests that were not their own.
 
 ## Contribution Guidelines
 - Each member of the development team is to maintain their own access to the repository through github and request access if no access was found on their desired github account
-- Members are required to fetch/pull from the origin of the project and update their work branch with with the current state of the main branch prior to committing to the project to mitigate any merge conflicts that might occur
+- Members are required to fetch/pull from the origin of the project and update their work branch with the current state of the main branch prior to committing to the project to mitigate any merge conflicts that might occur
 - Members are all required to do development work in branches of the project origin and put in a pull request when submitting new work for evaluation
   - Some individuals have opted to continuously update the same branch while others have opted to create a new branch for each milestone that they've set either approach is commendable
 
