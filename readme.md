@@ -312,6 +312,5 @@ node server.js
 - Kenneth Munk - [Website](https://www.kenmunk.com) - [Email](mailto:contact.me@kenmunk.com)
 - Peter Abah - [Email](mailto:peterabah@csus.edu)
 - Andriy Storozhuk - [Email](mailto:astorozhuk@csus.edu)
-- Sahil Ram Jadhav - [Email](mailto:sahilramjadhav@csus.edu)
 - Ryan Farruggia - [Website](http://rjfar.com) - [Email](mailto:rjfarruggia@csus.edu)
 - Emanuel Tadeo - [Email](mailto:emanueltadeo@csus.edu)
